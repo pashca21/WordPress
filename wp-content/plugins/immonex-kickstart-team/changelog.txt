@@ -1,0 +1,98 @@
+== Changelog ==
+
+= 1.3.5 =
+* Release date: 2023-09-25
+* Added filter hook for modifying contact form mail recipients.
+* Disabled user edit form extensions for non-admin users.
+* Updated dependencies (improved WordPress 6.3/6.4 and PHP 8.2 compatibility).
+
+= 1.3.2 =
+* Release date: 2023-02-09
+* Fixed a post order bug.
+* Fixed an issue regarding custom contact form templates.
+* Updated dependencies.
+
+= 1.3.0 =
+* Release date: 2022-12-08
+* Added redirect option after contact form data submission.
+* Added options to enable/disable agency and agent archive and single views.
+* Added agent/agency data retrieval filter hooks.
+* Improved contact form anti-spam functionality (honeypot & time checks).
+* Improved WPML/Polylang compatibility in combination with other plugins that modify permalinks.
+* Fixed some minor bugs.
+
+= 1.2.9 =
+* Release date: 2022-09-22
+* Updated contact form data processing.
+* Added further variables for use in form mail templates (Twig 3).
+* Extended plugin option description and help texts.
+* Updated plugin framework and dependencies.
+
+= 1.2.7 =
+* Release date: 2022-06-28
+* Reworked salutation/gender options (contact forms, widget titles etc.).
+* Fixed display bug in HTML form mails.
+* Updated dependencies.
+
+= 1.2.5 =
+* Release date: 2022-04-06
+* Changed primary property ID source in OpenImmo-Feedback-XML attachments.
+* Added filter hook for modifying OpenImmo-Feedback-XML attachment parameters.
+* Added "Diverse" salutation option by default in extended contact forms.
+* Changed default display type of the contact meta boxes in property backend forms to closed.
+* Added default value check for messages in property-based contact forms.
+* Updated dependencies.
+
+= 1.2.0 =
+* Release date: 2021-10-15
+* Added (optional) extended contact forms.
+* Added option to add user-defined contact form fields per filter function.
+* Added option for sending HTML-formatted contact form mails.
+* Made contact form mail templates modifiable in the plugin options.
+* Added Twig 3 templating support for mail contents.
+* Fixed recursion bug and added fallback name on auto creating/updating agent/agency records.
+* Added missing checks if Kickstart core plugin is available (special cases).
+* Improved compatibility in Windows-based hosting environments.
+* Adjusted agency/agent-related property queries.
+* Fixed saving of user-related property agent IDs.
+* Fixed unintended automatic creation of unnamed contact persons.
+
+= 1.1.8 =
+* Release date: 2021-04-13
+* Added property status selection for widget display.
+* Fixed withdrawal info selection and privacy policy links in
+  multilingual environments.
+* Improved performance and stability.
+
+= 1.1.5 =
+* Release date: 2021-03-09
+* Added salutation determination for OpenImmo-Feedback attachments
+  utilizing genderize.io.
+* Added filter for modifying the OpenImmo-Feedback XML source code.
+* Made permalink base slugs for agency/agent post types changeable via plugin options.
+
+= 1.1.3 =
+* Release date: 2021-01-25
+* Added option for setting an alternative contact section headline.
+* Added filter for modifying the OpenImmo-Feedback attachment filename.
+* Fixed disabled contact form send button if no withdrawal page was selected.
+
+= 1.1.0 =
+* Release date: 2020-12-10
+* Optional receipt confirmation mails for inquiry/contact forms added.
+* OpenImmo-Feedback attachment type selection added.
+* Extended filter hooks for notification subject modifications.
+* Splitted up form consent texts (withdrawal/privacy).
+
+= 1.0.2 =
+* Release date: 2020-09-18
+* Contact form submission bug fixed.
+
+= 1.0.1 =
+* Release date: 2020-09-01
+* External libraries updated.
+* Plugin description and tags updated.
+
+= 1.0.0 =
+* Release date: 2020-08-20
+* Initial release.

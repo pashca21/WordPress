@@ -1,0 +1,1987 @@
+# Copyright (C) 2023 immonex Kickstart
+# This file is distributed under the same license as the immonex Kickstart package.
+msgid ""
+msgstr ""
+"Project-Id-Version: immonex Kickstart 1.8.0\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/immonex-kickstart\n"
+"POT-Creation-Date: 2023-09-22 06:16:58+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2023-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: includes/class-kickstart.php:233 includes/class-property.php:698
+msgid "Price on demand"
+msgstr ""
+
+#: includes/class-kickstart.php:237
+msgid "Currently there are no properties that match the search criteria."
+msgstr ""
+
+#: includes/class-kickstart.php:241
+msgid "The real property location may differ from the marker position."
+msgstr ""
+
+#: includes/class-kickstart.php:245
+msgid "The map roughly shows the location in which the property is located."
+msgstr ""
+
+#: includes/class-kickstart.php:249
+msgctxt "Custom Post Type Slug (plural only!)"
+msgid "properties"
+msgstr ""
+
+#: includes/class-kickstart.php:253
+msgctxt "Custom Taxonomy Slug"
+msgid "properties/location"
+msgstr ""
+
+#: includes/class-kickstart.php:257
+msgctxt "Custom Taxonomy Slug"
+msgid "properties/type-of-use"
+msgstr ""
+
+#: includes/class-kickstart.php:261
+msgctxt "Custom Taxonomy Slug"
+msgid "properties/type"
+msgstr ""
+
+#: includes/class-kickstart.php:265
+msgctxt "Custom Taxonomy Slug"
+msgid "properties/buy-rent"
+msgstr ""
+
+#: includes/class-kickstart.php:269
+msgctxt "Custom Taxonomy Slug"
+msgid "properties/feature"
+msgstr ""
+
+#: includes/class-kickstart.php:273
+msgctxt "Custom Taxonomy Slug"
+msgid "properties/label"
+msgstr ""
+
+#: includes/class-kickstart.php:277
+msgctxt "Custom Taxonomy Slug"
+msgid "properties/project"
+msgstr ""
+
+#: includes/class-kickstart.php:358 includes/class-kickstart.php:364
+msgid "none"
+msgstr ""
+
+#: includes/class-kickstart.php:365
+msgid "OpenLayers/OpenStreetMap Map with property location marker"
+msgstr ""
+
+#: includes/class-kickstart.php:366
+msgid "Google Map with property location marker"
+msgstr ""
+
+#: includes/class-kickstart.php:367
+msgid "Google Map showing the property's neighborhood"
+msgstr ""
+
+#: includes/class-kickstart.php:514
+msgid ""
+"An <strong>OpenImmo import solution</strong> that supports <strong>immonex "
+"Kickstart</strong> is required to provide the real estate offers to be "
+"embedded:"
+msgstr ""
+
+#. translators: %s = immonex.dev full URL
+#: includes/class-kickstart.php:516
+msgid ""
+"<strong>immonex OpenImmo2WP</strong> and suitable OpenImmo demo data are "
+"available <strong>free of charge for testing and development purposes</"
+"strong> at <a href=\"%s\" target=\"_blank\">immonex.dev</a>."
+msgstr ""
+
+#: includes/class-kickstart.php:588
+msgid "General"
+msgstr ""
+
+#: includes/class-kickstart.php:595
+msgid "Property Search"
+msgstr ""
+
+#: includes/class-kickstart.php:600
+msgid "Maps &amp; Distance Search"
+msgstr ""
+
+#: includes/class-kickstart.php:607
+msgid "Slugs"
+msgstr ""
+
+#: includes/class-kickstart.php:647 includes/class-kickstart.php:651
+msgid "none (use default template)"
+msgstr ""
+
+#: includes/class-kickstart.php:648 includes/class-kickstart.php:652
+msgid "none (use theme template)"
+msgstr ""
+
+#: includes/class-kickstart.php:661
+msgid "Design & Structure"
+msgstr ""
+
+#: includes/class-kickstart.php:666
+msgid "Measuring Units & Currency"
+msgstr ""
+
+#: includes/class-kickstart.php:671
+msgid "Reference Properties"
+msgstr ""
+
+#: includes/class-kickstart.php:676 includes/class-property.php:512
+#: includes/class-property.php:884
+msgid "Prices"
+msgstr ""
+
+#: includes/class-kickstart.php:686 includes/class-property-search.php:860
+msgid "Distance Search"
+msgstr ""
+
+#: includes/class-kickstart.php:687
+msgid ""
+"If enabled, the property search form includes a distance search feature."
+msgstr ""
+
+#: includes/class-kickstart.php:691
+msgid "Maps on Property List Pages"
+msgstr ""
+
+#. translators: %1$s = OpenStreetMap URL, %2$s = OpenLayers URL.
+#: includes/class-kickstart.php:694
+msgid ""
+"Maps on property list pages are rendered using <a href=\"%1$s\" "
+"target=\"_blank\">OpenStreetMap</a> and <a href=\"%2$s\" "
+"target=\"_blank\">OpenLayers</a>. Center and zoom level are usually "
+"determined automatically based on the property markers included. Initial "
+"values can be entered in the following fields."
+msgstr ""
+
+#: includes/class-kickstart.php:701
+msgid "Maps on Property Detail Pages"
+msgstr ""
+
+#: includes/class-kickstart.php:702
+msgid ""
+"This plugin currently supports two types of Maps on the property detail "
+"pages: A marker based one showing the property's (approximate) position "
+"(OpenStreetMap or Google Map) as well as a Google Embed API version for "
+"highlighting the respective district/neighborhood."
+msgstr ""
+
+#: includes/class-kickstart.php:709
+msgid ""
+"This plugin <strong>optionally</strong> uses the <strong>Google Maps "
+"JavaScript API (incl. Places library)</strong> as well as the <strong>Maps "
+"Embed API</strong> (maps, locality autocomplete). Please provide a valid API "
+"key in this case."
+msgstr ""
+
+#. translators: %1$s = Detail Maps Tab JS, %2$s = Overview Maps Tab JS.
+#: includes/class-kickstart.php:712
+msgid ""
+"<strong>Please note!</strong> <em>Google Maps</em> are currently only "
+"available in <a href=\"%1$s\">property detail pages</a>, overview maps in <a "
+"href=\"%2$s\">list views</a> are generally <em>OpenStreetMap-based</em>."
+msgstr ""
+
+#: includes/class-kickstart.php:720
+msgid "User Consent"
+msgstr ""
+
+#: includes/class-kickstart.php:721
+msgid ""
+"Here it can be determined for which external geospatial services the users "
+"have to give consent before these are being embedding in the website "
+"frontend. (Consent to one service applies to all geo services.)"
+msgstr ""
+
+#: includes/class-kickstart.php:725
+msgid "Post Type"
+msgstr ""
+
+#. translators: %1$s = Polylang Pro URL, %2$s = WPML URL
+#: includes/class-kickstart.php:728
+msgid ""
+"The following <strong>rewrite slugs</strong> are used for creating \"SEO "
+"friendly\" permalinks for property/agency/agent archive and detail pages, e."
+"g. <strong>domain.tld/properties/</strong> or <strong>domain.tld/properties/"
+"a-really-maniac-mansion/</strong>. In multilingual enviroments using <a "
+"href=\"%1$s\" target=\"_blank\">Polylang Pro</a> or <a href=\"%2$s\" "
+"target=\"_blank\">WPML</a>, these slugs can be translated with the "
+"corresponding <em>string translation</em> functionality."
+msgstr ""
+
+#: includes/class-kickstart.php:735
+msgid "Taxonomies"
+msgstr ""
+
+#: includes/class-kickstart.php:736
+msgid ""
+"Taxonomy archive pages have their own <strong>rewrite slugs</strong> that "
+"may contain slashes. In most cases a combination of the post type slug above "
+"and the taxonomy name makes the most sense, e.g. <strong>properties/type</"
+"strong> will make the permalink URLs look like <strong>domain.tld/properties/"
+"type/flats/</strong>. The following slugs should be entered in the "
+"<strong>main language</strong> of the website, too."
+msgstr ""
+
+#: includes/class-kickstart.php:758
+msgid "Skin"
+msgstr ""
+
+#: includes/class-kickstart.php:761
+msgid ""
+"A skin is a set of templates for all immonex Kickstart related pages and "
+"elements."
+msgstr ""
+
+#: includes/class-kickstart.php:768
+msgid "Property Overview"
+msgstr ""
+
+#: includes/class-kickstart.php:771
+msgid ""
+"Use the specified page as <strong>default</strong> property overview/list "
+"page (instead of the property post type archive)."
+msgstr ""
+
+#: includes/class-kickstart.php:778
+msgid "Properties per Page"
+msgstr ""
+
+#: includes/class-kickstart.php:781
+msgid ""
+"<strong>Default</strong> number of properties to display <strong>per page</"
+"strong> in list views"
+msgstr ""
+
+#: includes/class-kickstart.php:790
+msgid "Property Details Page"
+msgstr ""
+
+#: includes/class-kickstart.php:793
+msgid ""
+"Use the specified page as base for displaying the property details (instead "
+"of the default template)."
+msgstr ""
+
+#: includes/class-kickstart.php:800
+msgid "Apply wpautop"
+msgstr ""
+
+#: includes/class-kickstart.php:803
+msgid ""
+"Activate to add new lines and paragraphs in description texts on detail "
+"pages automatically (<em>wpautop</em>)."
+msgstr ""
+
+#: includes/class-kickstart.php:809
+msgid "Heading Base Level"
+msgstr ""
+
+#: includes/class-kickstart.php:812
+msgid ""
+"Level that immonex related headlines (e.g. on property list and detail "
+"pages) should start with."
+msgstr ""
+
+#: includes/class-kickstart.php:823
+msgid "Enable Ken Burns Effect"
+msgstr ""
+
+#: includes/class-kickstart.php:826
+msgid ""
+"Enable animations (\"Ken Burns Effect\") in the <strong>primary</strong> "
+"photo gallery of the property detail pages, if supported by the skin."
+msgstr ""
+
+#: includes/class-kickstart.php:832
+msgid "Area Measuring Unit"
+msgstr ""
+
+#: includes/class-kickstart.php:844
+msgid "Currency Code"
+msgstr ""
+
+#: includes/class-kickstart.php:856
+msgid "Currency Symbol"
+msgstr ""
+
+#: includes/class-kickstart.php:868
+msgid "Show Reference Prices"
+msgstr ""
+
+#: includes/class-kickstart.php:871
+msgid ""
+"Activate this option if the prices of reference properties should be "
+"displayed."
+msgstr ""
+
+#: includes/class-kickstart.php:877
+msgid "Reference Price Text"
+msgstr ""
+
+#: includes/class-kickstart.php:880
+msgid ""
+"This text is displayed if reference prices should <strong>not</strong> be "
+"published."
+msgstr ""
+
+#: includes/class-kickstart.php:886
+msgid "Show Contact Section"
+msgstr ""
+
+#. translators: %s = Kickstart Team URL (WP Plugin Repository)
+#: includes/class-kickstart.php:891
+msgid ""
+"Activate this option if the contact section (including agent information and "
+"form if the <a href=\"%s\" target=\"_blank\">Team Add-on</a> is installed) "
+"should be displayed on <strong>reference property detail pages</strong>."
+msgstr ""
+
+#: includes/class-kickstart.php:899
+msgid "Show Seller/Internal Commission"
+msgstr ""
+
+#: includes/class-kickstart.php:902
+msgid ""
+"Activate this option if the seller commission (inner commission) should be "
+"displayed on property detail pages."
+msgstr ""
+
+#: includes/class-kickstart.php:908
+msgid "Dynamic Update"
+msgstr ""
+
+#: includes/class-kickstart.php:911
+msgid ""
+"If activated, property lists and location maps on the same page are "
+"dynamically updated when the search parameters change."
+msgstr ""
+
+#: includes/class-kickstart.php:917
+msgid "No Results Message"
+msgstr ""
+
+#: includes/class-kickstart.php:920
+msgid "This message is displayed when a property search returns no results."
+msgstr ""
+
+#: includes/class-kickstart.php:927
+msgid "Autocompletion"
+msgstr ""
+
+#: includes/class-kickstart.php:930
+msgid ""
+"Select the autocomplete solution to use for the distance search in property "
+"search forms (none = disable distance search)."
+msgstr ""
+
+#: includes/class-kickstart.php:931
+msgid ""
+"For the <strong>Google Places</strong> based variant, providing an "
+"appropriate API key is required (see Google Maps API tab)."
+msgstr ""
+
+#: includes/class-kickstart.php:938
+msgid "Display in Lists/Archive"
+msgstr ""
+
+#: includes/class-kickstart.php:941
+msgid ""
+"If active, the property marker map will be shown in the <strong>default list "
+"(archive)</strong> pages."
+msgstr ""
+
+#: includes/class-kickstart.php:947
+msgid "Default Latitude"
+msgstr ""
+
+#: includes/class-kickstart.php:950
+msgid ""
+"Initial <strong>map center</strong> latitude (-90 to 90), e.g. 49.8587840."
+msgstr ""
+
+#: includes/class-kickstart.php:959
+msgid "Default Longitude"
+msgstr ""
+
+#: includes/class-kickstart.php:962
+msgid ""
+"Initial <strong>map center</strong> longitude (-180 to 180), e.g. 6.7854410."
+msgstr ""
+
+#: includes/class-kickstart.php:971 includes/class-kickstart.php:1003
+msgid "Default Zoom Level"
+msgstr ""
+
+#: includes/class-kickstart.php:974
+msgid "2 to 18"
+msgstr ""
+
+#: includes/class-kickstart.php:983
+msgid "Auto-Fit Map Bounds"
+msgstr ""
+
+#: includes/class-kickstart.php:986
+msgid ""
+"Automatically set map bounds and zoom level to include all property location "
+"markers."
+msgstr ""
+
+#: includes/class-kickstart.php:992
+msgid "Map Type"
+msgstr ""
+
+#: includes/class-kickstart.php:995
+msgid ""
+"Select the type of map to be displayed on property detail pages (none = "
+"disable map)."
+msgstr ""
+
+#: includes/class-kickstart.php:996
+msgid ""
+"For the <strong>Google Maps</strong> based variants, providing an "
+"appropriate API key is required (see Google Maps API section below)."
+msgstr ""
+
+#: includes/class-kickstart.php:1006
+msgid "8 to 18"
+msgstr ""
+
+#: includes/class-kickstart.php:1015
+msgid "Info Window Note"
+msgstr ""
+
+#: includes/class-kickstart.php:1018
+msgid ""
+"If stated, this note gets displayed within a map info window above the "
+"property location marker."
+msgstr ""
+
+#: includes/class-kickstart.php:1025
+msgid "Marker Map Note"
+msgstr ""
+
+#: includes/class-kickstart.php:1028
+msgid "This note gets displayed below <strong>marker based</strong> maps."
+msgstr ""
+
+#: includes/class-kickstart.php:1035
+msgid "Neighborhood Map Note"
+msgstr ""
+
+#: includes/class-kickstart.php:1038
+msgid ""
+"This note gets displayed below <strong>neighborhood based</strong> maps."
+msgstr ""
+
+#: includes/class-kickstart.php:1045
+msgid "Google Maps API Key"
+msgstr ""
+
+#. translators: %s = Google Developer Docs URL
+#: includes/class-kickstart.php:1050
+msgid ""
+"Provide an key suitable for using the Google APIs mentioned abobe. You can "
+"find information about getting and configuring such a key on the respective "
+"<a href=\"%s\" target=\"_blank\">Google Developers page</a>. <strong>(Maps "
+"JavaScript, Places and Embed APIs have to be activated for the related "
+"project!)</strong>"
+msgstr ""
+
+#: includes/class-kickstart.php:1058
+msgid "Embedded Maps"
+msgstr ""
+
+#: includes/class-kickstart.php:1061
+msgid ""
+"This consent applies to Google and OpenStreetMap based maps on property list "
+"and detail pages."
+msgstr ""
+
+#: includes/class-kickstart.php:1067
+msgid "Location Autocompletion"
+msgstr ""
+
+#: includes/class-kickstart.php:1070
+msgid ""
+"An external location autocompletion service is used in the property search "
+"form (radius/distance search)."
+msgstr ""
+
+#: includes/class-kickstart.php:1076 includes/class-wp-bootstrap.php:392
+msgid "Property"
+msgstr ""
+
+#: includes/class-kickstart.php:1079
+msgid ""
+"This should be a single term in its plural form and in the site's "
+"<strong>main language</strong> (usually <strong>properties</strong>). If "
+"empty, <em>inx_property</em> will be used as base slug."
+msgstr ""
+
+#: includes/class-kickstart.php:1085 includes/class-property-search.php:741
+msgid "Locality"
+msgstr ""
+
+#: includes/class-kickstart.php:1088
+msgid ""
+"<strong>properties/location</strong> by default, <em>inx_location</em> if "
+"empty"
+msgstr ""
+
+#: includes/class-kickstart.php:1094
+msgid "Type of Use"
+msgstr ""
+
+#: includes/class-kickstart.php:1097
+msgid ""
+"<strong>properties/type-of-use</strong> by default, <em>inx_type_of_use</em> "
+"if empty"
+msgstr ""
+
+#: includes/class-kickstart.php:1103 includes/class-property-search.php:707
+msgid "Property Type"
+msgstr ""
+
+#: includes/class-kickstart.php:1106
+msgid ""
+"<strong>properties/type</strong> by default, <em>inx_property_type</em> if "
+"empty"
+msgstr ""
+
+#: includes/class-kickstart.php:1112 includes/class-property-search.php:724
+msgid "Marketing Type"
+msgstr ""
+
+#: includes/class-kickstart.php:1115
+msgid ""
+"<strong>properties/buy-rent</strong> by default, <em>inx_marketing_type</em> "
+"if empty"
+msgstr ""
+
+#: includes/class-kickstart.php:1121
+msgid "Feature"
+msgstr ""
+
+#: includes/class-kickstart.php:1124
+msgid ""
+"<strong>properties/feature</strong> by default, <em>inx_feature</em> if empty"
+msgstr ""
+
+#: includes/class-kickstart.php:1130
+msgid "Label"
+msgstr ""
+
+#: includes/class-kickstart.php:1133
+msgid ""
+"<strong>properties/label</strong> by default, <em>inx_label</em> if empty"
+msgstr ""
+
+#: includes/class-kickstart.php:1139 includes/class-property-search.php:756
+msgid "Project"
+msgstr ""
+
+#: includes/class-kickstart.php:1142
+msgid ""
+"<strong>properties/project</strong> by default, <em>inx_project</em> if empty"
+msgstr ""
+
+#: includes/class-property-backend-form.php:75
+msgid "Extra Descriptions"
+msgstr ""
+
+#: includes/class-property-backend-form.php:85
+#: skins/default/property-list/list-item.php:60
+#: skins/default/single-property/head.php:93
+msgid "Location"
+msgstr ""
+
+#: includes/class-property-backend-form.php:95
+#: includes/class-property-search.php:899 includes/class-property.php:500
+#: includes/class-property.php:928
+msgid "Features"
+msgstr ""
+
+#: includes/class-property-backend-form.php:105 includes/class-property.php:942
+msgid "Miscellaneous"
+msgstr ""
+
+#: includes/class-property-backend-form.php:121
+msgid "Core Data"
+msgstr ""
+
+#: includes/class-property-backend-form.php:122
+msgid "Location/Geo"
+msgstr ""
+
+#: includes/class-property-backend-form.php:123
+#: includes/class-property-filters-sort.php:290
+msgid "Rooms"
+msgstr ""
+
+#: includes/class-property-backend-form.php:124 includes/class-property.php:889
+msgid "Areas"
+msgstr ""
+
+#: includes/class-property-backend-form.php:125
+msgid "Units/Grouping"
+msgstr ""
+
+#: includes/class-property-backend-form.php:145
+#: skins/default/single-property/head.php:25
+msgid "Property ID"
+msgstr ""
+
+#: includes/class-property-backend-form.php:152
+msgid "Translation ID"
+msgstr ""
+
+#: includes/class-property-backend-form.php:159
+msgid "For Sale"
+msgstr ""
+
+#: includes/class-property-backend-form.php:167
+msgid "Available"
+msgstr ""
+
+#: includes/class-property-backend-form.php:175
+msgid "Reserved"
+msgstr ""
+
+#: includes/class-property-backend-form.php:183
+msgid "Sold/Rented"
+msgstr ""
+
+#: includes/class-property-backend-form.php:191
+#: includes/class-wp-bootstrap.php:553
+msgid "Reference Property"
+msgstr ""
+
+#: includes/class-property-backend-form.php:199
+msgid "Featured"
+msgstr ""
+
+#: includes/class-property-backend-form.php:207
+msgid "Front Page Offer"
+msgstr ""
+
+#: includes/class-property-backend-form.php:215
+msgid "Demo Property"
+msgstr ""
+
+#: includes/class-property-backend-form.php:223
+msgid "Import Folder"
+msgstr ""
+
+#: includes/class-property-backend-form.php:230
+msgid "Build Year"
+msgstr ""
+
+#: includes/class-property-backend-form.php:240
+msgid "Price (primary)"
+msgstr ""
+
+#: includes/class-property-backend-form.php:250
+msgid "Price Time Unit"
+msgstr ""
+
+#: includes/class-property-backend-form.php:257
+msgid "Group ID"
+msgstr ""
+
+#: includes/class-property-backend-form.php:264
+msgid "Group Master Property"
+msgstr ""
+
+#: includes/class-property-backend-form.php:268
+msgid "no"
+msgstr ""
+
+#: includes/class-property-backend-form.php:270
+msgid "visible"
+msgstr ""
+
+#: includes/class-property-backend-form.php:271
+msgid "not visible"
+msgstr ""
+
+#: includes/class-property-backend-form.php:276
+msgid "Group Number"
+msgstr ""
+
+#: includes/class-property-backend-form.php:286
+msgid "Units (primary)"
+msgstr ""
+
+#: includes/class-property-backend-form.php:296
+msgid "Living Units"
+msgstr ""
+
+#: includes/class-property-backend-form.php:306
+msgid "Commercial Units"
+msgstr ""
+
+#: includes/class-property-backend-form.php:316
+msgid "Country Code"
+msgstr ""
+
+#. translators: %s = Wikipedia URL.
+#: includes/class-property-backend-form.php:319
+msgid "see <a href=\"%s\" target=\"_blank\">ISO-3166-1 ALPHA-3</a>"
+msgstr ""
+
+#: includes/class-property-backend-form.php:327
+msgid "Latitude"
+msgstr ""
+
+#: includes/class-property-backend-form.php:334
+msgid "Longitude"
+msgstr ""
+
+#: includes/class-property-backend-form.php:341
+msgid "Full Address"
+msgstr ""
+
+#: includes/class-property-backend-form.php:351
+msgid "Rooms (primary)"
+msgstr ""
+
+#: includes/class-property-backend-form.php:361
+msgid "Bedrooms"
+msgstr ""
+
+#: includes/class-property-backend-form.php:371
+msgid "Living Rooms/Bedrooms"
+msgstr ""
+
+#: includes/class-property-backend-form.php:381
+msgid "Bathrooms"
+msgstr ""
+
+#: includes/class-property-backend-form.php:391
+msgid "Total Rooms"
+msgstr ""
+
+#: includes/class-property-backend-form.php:401
+msgid "Area (primary)"
+msgstr ""
+
+#: includes/class-property-backend-form.php:412
+msgid "Living Area"
+msgstr ""
+
+#: includes/class-property-backend-form.php:423
+msgid "Plot"
+msgstr ""
+
+#: includes/class-property-backend-form.php:434
+msgid "Usable Area"
+msgstr ""
+
+#: includes/class-property-backend-form.php:445
+msgid "Total Area"
+msgstr ""
+
+#: includes/class-property-backend-form.php:456
+msgid "Basement"
+msgstr ""
+
+#: includes/class-property-backend-form.php:467
+msgid "Attic"
+msgstr ""
+
+#: includes/class-property-backend-form.php:478
+msgid "Garden"
+msgstr ""
+
+#: includes/class-property-backend-form.php:489
+msgid "Commercial Area"
+msgstr ""
+
+#: includes/class-property-backend-form.php:500
+msgid "Retail Area"
+msgstr ""
+
+#: includes/class-property-backend-form.php:511
+msgid "Office Area"
+msgstr ""
+
+#: includes/class-property-backend-form.php:522
+msgid "Other Area"
+msgstr ""
+
+#: includes/class-property-backend-form.php:541
+msgid "Images & Attachments"
+msgstr ""
+
+#: includes/class-property-backend-form.php:552
+msgid "Gallery Images"
+msgstr ""
+
+#: includes/class-property-backend-form.php:559 includes/class-property.php:933
+msgid "Floor Plans"
+msgstr ""
+
+#: includes/class-property-backend-form.php:566
+msgid "Document Attachments (PDF)"
+msgstr ""
+
+#: includes/class-property-backend-form.php:580 includes/class-property.php:496
+msgid "Details"
+msgstr ""
+
+#: includes/class-property-backend-form.php:595
+msgid "Detail {#}"
+msgstr ""
+
+#: includes/class-property-backend-form.php:596
+msgid "Add Detail"
+msgstr ""
+
+#: includes/class-property-backend-form.php:597
+msgid "Remove Detail"
+msgstr ""
+
+#: includes/class-property-backend-form.php:606
+msgid "Group"
+msgstr ""
+
+#: includes/class-property-backend-form.php:611
+msgid "Name"
+msgstr ""
+
+#: includes/class-property-backend-form.php:616
+msgid "Title"
+msgstr ""
+
+#: includes/class-property-backend-form.php:621
+msgid "Value"
+msgstr ""
+
+#: includes/class-property-filters-sort.php:214
+msgid "Distance"
+msgstr ""
+
+#: includes/class-property-filters-sort.php:227
+msgid "Newest"
+msgstr ""
+
+#: includes/class-property-filters-sort.php:240
+msgid "For Sale first"
+msgstr ""
+
+#: includes/class-property-filters-sort.php:245
+msgid "For Rent first"
+msgstr ""
+
+#: includes/class-property-filters-sort.php:260
+msgid "Available first"
+msgstr ""
+
+#: includes/class-property-filters-sort.php:272
+msgid "Price (low to high)"
+msgstr ""
+
+#: includes/class-property-filters-sort.php:278
+msgid "Price (high to low)"
+msgstr ""
+
+#: includes/class-property-filters-sort.php:284
+msgid "Area"
+msgstr ""
+
+#: includes/class-property-hooks.php:722
+msgid "Buyer's Commission"
+msgstr ""
+
+#: includes/class-property-hooks.php:722
+msgid "Tenant Commission"
+msgstr ""
+
+#: includes/class-property-list-hooks.php:145
+msgid "Successfully marketed properties"
+msgstr ""
+
+#: includes/class-property-list-hooks.php:147
+msgid "Our current property offers"
+msgstr ""
+
+#: includes/class-property-list-hooks.php:160
+msgid "Properties in"
+msgstr ""
+
+#: includes/class-property-list-hooks.php:162
+msgid "Properties with"
+msgstr ""
+
+#: includes/class-property-search.php:680
+msgid "Keyword or Property ID"
+msgstr ""
+
+#: includes/class-property-search.php:692
+msgid "Type Of Use"
+msgstr ""
+
+#: includes/class-property-search.php:694 includes/class-wp-bootstrap.php:112
+msgid "All Types Of Use"
+msgstr ""
+
+#: includes/class-property-search.php:710 includes/class-wp-bootstrap.php:138
+msgid "All Property Types"
+msgstr ""
+
+#: includes/class-property-search.php:727
+msgid "Sold / Rented"
+msgstr ""
+
+#: includes/class-property-search.php:728
+msgid "For Sale / For Rent"
+msgstr ""
+
+#: includes/class-property-search.php:743
+msgid "All Localities"
+msgstr ""
+
+#: includes/class-property-search.php:757 includes/class-wp-bootstrap.php:190
+msgid "All Projects"
+msgstr ""
+
+#: includes/class-property-search.php:773
+#: includes/class-property-search.php:791
+msgid "not specified"
+msgstr ""
+
+#: includes/class-property-search.php:777
+msgid "Min. Rooms"
+msgstr ""
+
+#: includes/class-property-search.php:795
+msgid "Min. Living Area"
+msgstr ""
+
+#: includes/class-property-search.php:809
+msgid "unlimited"
+msgstr ""
+
+#: includes/class-property-search.php:812
+msgid "Price Range"
+msgstr ""
+
+#: includes/class-property-search.php:824
+msgid "Show"
+msgstr ""
+
+#: includes/class-property-search.php:836
+msgid "Reset Search Form"
+msgstr ""
+
+#: includes/class-property-search.php:848
+msgid "Extended and Distance Search"
+msgstr ""
+
+#: includes/class-property-search.php:861
+msgid "Locality Name (Distance Search)"
+msgstr ""
+
+#: includes/class-property-search.php:862
+msgid "Type to search..."
+msgstr ""
+
+#: includes/class-property-search.php:863
+msgid "No matching localities found."
+msgstr ""
+
+#: includes/class-property-search.php:878
+msgid "Distance Search Radius"
+msgstr ""
+
+#: includes/class-property-search.php:886
+msgid "Radius (km)"
+msgstr ""
+
+#: includes/class-property-search.php:911
+msgid "Labels"
+msgstr ""
+
+#: includes/class-property.php:492
+msgid "The Property"
+msgstr ""
+
+#: includes/class-property.php:504
+msgid "Energy Pass"
+msgstr ""
+
+#: includes/class-property.php:508
+msgid "Location & Infrastructure"
+msgstr ""
+
+#: includes/class-property.php:516 includes/class-property.php:946
+msgid "Downloads & Links"
+msgstr ""
+
+#: includes/class-property.php:894
+msgid "Condition & Development"
+msgstr ""
+
+#: includes/class-property.php:959
+#: skins/default/single-property/contact-person.php:97
+msgid "Your contact person with us"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:84
+msgctxt "taxonomy general name"
+msgid "Locations"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:85
+msgctxt "taxonomy singular name"
+msgid "Location"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:86
+msgid "All Locations"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:87
+msgid "Edit Location"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:88
+msgid "View Location"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:89
+msgid "Update Location"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:90
+msgid "Add New Location"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:91
+msgid "New Location Name"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:92
+msgid "Parent Location"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:93
+msgid "Parent Location:"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:94
+msgid "Search Locations"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:95
+msgid "Popular Locations"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:96
+msgid "No Locations found."
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:110
+msgctxt "taxonomy general name"
+msgid "Types Of Use"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:111
+msgctxt "taxonomy singular name"
+msgid "Type Of Use"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:113
+msgid "Edit Type Of Use"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:114
+msgid "View Type Of Use"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:115
+msgid "Update Type Of Use"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:116
+msgid "Add New Type Of Use"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:117
+msgid "New Type Of Use Name"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:118
+msgid "Parent Type Of Use"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:119
+msgid "Parent Type Of Use:"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:120
+msgid "Search Types Of Use"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:121
+msgid "Popular Types Of Use"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:122
+msgid "No Types Of Use found."
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:136
+msgctxt "taxonomy general name"
+msgid "Property Types"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:137
+msgctxt "taxonomy singular name"
+msgid "Property Type"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:139
+msgid "Edit Property Type"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:140
+msgid "View Property Type"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:141
+msgid "Update Property Type"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:142
+msgid "Add New Property Type"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:143
+msgid "New Property Type Name"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:144
+msgid "Parent Property Type"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:145
+msgid "Parent Property Type:"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:146
+msgid "Search Property Types"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:147
+msgid "Popular Property Types"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:148
+msgid "No Property Types found."
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:162
+msgctxt "taxonomy general name"
+msgid "Marketing Types"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:163
+msgctxt "taxonomy singular name"
+msgid "Marketing Type"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:164
+msgid "All Marketing Types"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:165
+msgid "Edit Marketing Type"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:166
+msgid "View Marketing Type"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:167
+msgid "Update Marketing Type"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:168
+msgid "Add New Marketing Type"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:169
+msgid "New Marketing Type Name"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:170
+msgid "Parent Marketing Type"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:171
+msgid "Parent Marketing Type:"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:172
+msgid "Search Marketing Types"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:173
+msgid "Popular Marketing Types"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:174
+msgid "No Marketing Types found."
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:188
+msgctxt "taxonomy general name"
+msgid "Projects"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:189
+msgctxt "taxonomy singular name"
+msgid "Project"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:191
+msgid "Edit Project"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:192
+msgid "View Project"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:193
+msgid "Update Project"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:194
+msgid "Add New Project"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:195
+msgid "New Project"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:196
+msgid "Parent Project"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:197
+msgid "Parent Project:"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:198
+msgid "Search Project"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:199
+msgid "Popular Projects"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:200
+msgid "No Projects found."
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:214
+msgctxt "taxonomy general name"
+msgid "Features"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:215
+msgctxt "taxonomy singular name"
+msgid "Feature"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:216
+msgid "All Features"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:217
+msgid "Edit Feature"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:218
+msgid "View Feature"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:219
+msgid "Update Feature"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:220
+msgid "Add New Feature"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:221
+msgid "New Feature Name"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:222
+msgid "Parent Feature"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:223
+msgid "Parent Feature:"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:224
+msgid "Search Features"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:225
+msgid "Popular Features"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:226
+msgid "No Features found."
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:240
+msgctxt "taxonomy general name"
+msgid "Labels"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:241
+msgctxt "taxonomy singular name"
+msgid "Label"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:242
+msgid "All Labels"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:243
+msgid "Edit Label"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:244
+msgid "View Label"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:245
+msgid "Update Label"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:246
+msgid "Add New Label"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:247
+msgid "New Label Name"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:248
+msgid "Parent Label"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:249
+msgid "Parent Label:"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:250
+msgid "Search Labels"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:251
+msgid "Popular Labels"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:252
+msgid "No Labels found."
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:391
+msgid "Properties"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:393
+msgid "Add New Property"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:394
+msgid "Edit Property"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:395
+msgid "New Property"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:396
+msgid "View Property"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:397
+msgid "Search Properties"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:398
+msgid "No properties found"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:399
+msgid "No properties found in Trash"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:460
+msgid "Property Archive Page"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:462
+msgid "Widgets in this area will be shown on property archive pages."
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:473
+msgid "Property Detail Page"
+msgstr ""
+
+#: includes/class-wp-bootstrap.php:475
+msgid "Widgets in this area will be shown on property detail pages."
+msgstr ""
+
+#: includes/third_party/class-tgm-plugin-activation.php:334
+msgid "Install Required Plugins"
+msgstr ""
+
+#: includes/third_party/class-tgm-plugin-activation.php:335
+msgid "Install Plugins"
+msgstr ""
+
+#. translators: %s: plugin name.
+#: includes/third_party/class-tgm-plugin-activation.php:337
+msgid "Installing Plugin: %s"
+msgstr ""
+
+#. translators: %s: plugin name.
+#: includes/third_party/class-tgm-plugin-activation.php:339
+msgid "Updating Plugin: %s"
+msgstr ""
+
+#: includes/third_party/class-tgm-plugin-activation.php:340
+msgid "Something went wrong with the plugin API."
+msgstr ""
+
+#. translators: 1: plugin name(s).
+#: includes/third_party/class-tgm-plugin-activation.php:342
+msgid "This theme requires the following plugin: %1$s."
+msgid_plural "This theme requires the following plugins: %1$s."
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: 1: plugin name(s).
+#: includes/third_party/class-tgm-plugin-activation.php:344
+msgid "This theme recommends the following plugin: %1$s."
+msgid_plural "This theme recommends the following plugins: %1$s."
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: 1: plugin name(s).
+#: includes/third_party/class-tgm-plugin-activation.php:346
+msgid ""
+"The following plugin needs to be updated to its latest version to ensure "
+"maximum compatibility with this theme: %1$s."
+msgid_plural ""
+"The following plugins need to be updated to their latest version to ensure "
+"maximum compatibility with this theme: %1$s."
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: 1: plugin name(s).
+#: includes/third_party/class-tgm-plugin-activation.php:348
+msgid "There is an update available for: %1$s."
+msgid_plural "There are updates available for the following plugins: %1$s."
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: 1: plugin name(s).
+#: includes/third_party/class-tgm-plugin-activation.php:350
+msgid "The following required plugin is currently inactive: %1$s."
+msgid_plural "The following required plugins are currently inactive: %1$s."
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: 1: plugin name(s).
+#: includes/third_party/class-tgm-plugin-activation.php:352
+msgid "The following recommended plugin is currently inactive: %1$s."
+msgid_plural "The following recommended plugins are currently inactive: %1$s."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/third_party/class-tgm-plugin-activation.php:353
+msgid "Begin installing plugin"
+msgid_plural "Begin installing plugins"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/third_party/class-tgm-plugin-activation.php:354
+msgid "Begin updating plugin"
+msgid_plural "Begin updating plugins"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/third_party/class-tgm-plugin-activation.php:355
+msgid "Begin activating plugin"
+msgid_plural "Begin activating plugins"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/third_party/class-tgm-plugin-activation.php:356
+msgid "Return to Required Plugins Installer"
+msgstr ""
+
+#: includes/third_party/class-tgm-plugin-activation.php:357
+#: includes/third_party/class-tgm-plugin-activation.php:884
+#: includes/third_party/class-tgm-plugin-activation.php:2590
+#: includes/third_party/class-tgm-plugin-activation.php:3637
+msgid "Return to the Dashboard"
+msgstr ""
+
+#: includes/third_party/class-tgm-plugin-activation.php:358
+#: includes/third_party/class-tgm-plugin-activation.php:3216
+msgid "Plugin activated successfully."
+msgstr ""
+
+#: includes/third_party/class-tgm-plugin-activation.php:359
+#: includes/third_party/class-tgm-plugin-activation.php:3009
+msgid "The following plugin was activated successfully:"
+msgstr ""
+
+#. translators: 1: plugin name.
+#: includes/third_party/class-tgm-plugin-activation.php:361
+msgid "No action taken. Plugin %1$s was already active."
+msgstr ""
+
+#. translators: 1: plugin name.
+#: includes/third_party/class-tgm-plugin-activation.php:363
+msgid ""
+"Plugin not activated. A higher version of %s is needed for this theme. "
+"Please update the plugin."
+msgstr ""
+
+#. translators: 1: dashboard link.
+#: includes/third_party/class-tgm-plugin-activation.php:365
+msgid "All plugins installed and activated successfully. %1$s"
+msgstr ""
+
+#: includes/third_party/class-tgm-plugin-activation.php:366
+msgid "Dismiss this notice"
+msgstr ""
+
+#: includes/third_party/class-tgm-plugin-activation.php:367
+msgid ""
+"There are one or more required or recommended plugins to install, update or "
+"activate."
+msgstr ""
+
+#: includes/third_party/class-tgm-plugin-activation.php:368
+msgid "Please contact the administrator of this site for help."
+msgstr ""
+
+#: includes/third_party/class-tgm-plugin-activation.php:571
+msgid "This plugin needs to be updated to be compatible with your theme."
+msgstr ""
+
+#: includes/third_party/class-tgm-plugin-activation.php:572
+msgid "Update Required"
+msgstr ""
+
+#: includes/third_party/class-tgm-plugin-activation.php:689
+msgid "Set the parent_slug config variable instead."
+msgstr ""
+
+#: includes/third_party/class-tgm-plugin-activation.php:991
+msgid ""
+"The remote plugin package does not contain a folder with the desired slug "
+"and renaming did not work."
+msgstr ""
+
+#: includes/third_party/class-tgm-plugin-activation.php:991
+#: includes/third_party/class-tgm-plugin-activation.php:994
+msgid ""
+"Please contact the plugin provider and ask them to package their plugin "
+"according to the WordPress guidelines."
+msgstr ""
+
+#: includes/third_party/class-tgm-plugin-activation.php:994
+msgid ""
+"The remote plugin package consists of more than one file, but the files are "
+"not packaged in a folder."
+msgstr ""
+
+#: includes/third_party/class-tgm-plugin-activation.php:1178
+#: includes/third_party/class-tgm-plugin-activation.php:3005
+msgctxt "plugin A *and* plugin B"
+msgid "and"
+msgstr ""
+
+#. translators: %s: version number
+#: includes/third_party/class-tgm-plugin-activation.php:2039
+msgid "TGMPA v%s"
+msgstr ""
+
+#: includes/third_party/class-tgm-plugin-activation.php:2330
+msgid "Required"
+msgstr ""
+
+#: includes/third_party/class-tgm-plugin-activation.php:2333
+msgid "Recommended"
+msgstr ""
+
+#: includes/third_party/class-tgm-plugin-activation.php:2349
+msgid "WordPress Repository"
+msgstr ""
+
+#: includes/third_party/class-tgm-plugin-activation.php:2352
+msgid "External Source"
+msgstr ""
+
+#: includes/third_party/class-tgm-plugin-activation.php:2355
+msgid "Pre-Packaged"
+msgstr ""
+
+#: includes/third_party/class-tgm-plugin-activation.php:2372
+msgid "Not Installed"
+msgstr ""
+
+#: includes/third_party/class-tgm-plugin-activation.php:2376
+msgid "Installed But Not Activated"
+msgstr ""
+
+#: includes/third_party/class-tgm-plugin-activation.php:2378
+msgid "Active"
+msgstr ""
+
+#: includes/third_party/class-tgm-plugin-activation.php:2384
+msgid "Required Update not Available"
+msgstr ""
+
+#: includes/third_party/class-tgm-plugin-activation.php:2387
+msgid "Requires Update"
+msgstr ""
+
+#: includes/third_party/class-tgm-plugin-activation.php:2390
+msgid "Update recommended"
+msgstr ""
+
+#. translators: 1: install status, 2: update status
+#: includes/third_party/class-tgm-plugin-activation.php:2399
+msgctxt "Install/Update Status"
+msgid "%1$s, %2$s"
+msgstr ""
+
+#. translators: 1: number of plugins.
+#: includes/third_party/class-tgm-plugin-activation.php:2445
+msgctxt "plugins"
+msgid "All <span class=\"count\">(%s)</span>"
+msgid_plural "All <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: 1: number of plugins.
+#: includes/third_party/class-tgm-plugin-activation.php:2449
+msgid "To Install <span class=\"count\">(%s)</span>"
+msgid_plural "To Install <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: 1: number of plugins.
+#: includes/third_party/class-tgm-plugin-activation.php:2453
+msgid "Update Available <span class=\"count\">(%s)</span>"
+msgid_plural "Update Available <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: 1: number of plugins.
+#: includes/third_party/class-tgm-plugin-activation.php:2457
+msgid "To Activate <span class=\"count\">(%s)</span>"
+msgid_plural "To Activate <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/third_party/class-tgm-plugin-activation.php:2539
+msgctxt "as in: \"version nr unknown\""
+msgid "unknown"
+msgstr ""
+
+#: includes/third_party/class-tgm-plugin-activation.php:2547
+msgid "Installed version:"
+msgstr ""
+
+#: includes/third_party/class-tgm-plugin-activation.php:2555
+msgid "Minimum required version:"
+msgstr ""
+
+#: includes/third_party/class-tgm-plugin-activation.php:2567
+msgid "Available version:"
+msgstr ""
+
+#: includes/third_party/class-tgm-plugin-activation.php:2590
+msgid "No plugins to install, update or activate."
+msgstr ""
+
+#: includes/third_party/class-tgm-plugin-activation.php:2604
+msgid "Plugin"
+msgstr ""
+
+#: includes/third_party/class-tgm-plugin-activation.php:2605
+msgid "Source"
+msgstr ""
+
+#: includes/third_party/class-tgm-plugin-activation.php:2606
+msgid "Type"
+msgstr ""
+
+#: includes/third_party/class-tgm-plugin-activation.php:2610
+msgid "Version"
+msgstr ""
+
+#: includes/third_party/class-tgm-plugin-activation.php:2611
+msgid "Status"
+msgstr ""
+
+#. translators: %2$s: plugin name in screen reader markup
+#: includes/third_party/class-tgm-plugin-activation.php:2660
+msgid "Install %2$s"
+msgstr ""
+
+#. translators: %2$s: plugin name in screen reader markup
+#: includes/third_party/class-tgm-plugin-activation.php:2665
+msgid "Update %2$s"
+msgstr ""
+
+#. translators: %2$s: plugin name in screen reader markup
+#: includes/third_party/class-tgm-plugin-activation.php:2671
+msgid "Activate %2$s"
+msgstr ""
+
+#: includes/third_party/class-tgm-plugin-activation.php:2741
+msgid "Upgrade message from the plugin author:"
+msgstr ""
+
+#: includes/third_party/class-tgm-plugin-activation.php:2774
+msgid "Install"
+msgstr ""
+
+#: includes/third_party/class-tgm-plugin-activation.php:2780
+msgid "Update"
+msgstr ""
+
+#: includes/third_party/class-tgm-plugin-activation.php:2783
+msgid "Activate"
+msgstr ""
+
+#: includes/third_party/class-tgm-plugin-activation.php:2814
+msgid "No plugins were selected to be installed. No action taken."
+msgstr ""
+
+#: includes/third_party/class-tgm-plugin-activation.php:2816
+msgid "No plugins were selected to be updated. No action taken."
+msgstr ""
+
+#: includes/third_party/class-tgm-plugin-activation.php:2857
+msgid "No plugins are available to be installed at this time."
+msgstr ""
+
+#: includes/third_party/class-tgm-plugin-activation.php:2859
+msgid "No plugins are available to be updated at this time."
+msgstr ""
+
+#: includes/third_party/class-tgm-plugin-activation.php:2965
+msgid "No plugins were selected to be activated. No action taken."
+msgstr ""
+
+#: includes/third_party/class-tgm-plugin-activation.php:2991
+msgid "No plugins are available to be activated at this time."
+msgstr ""
+
+#: includes/third_party/class-tgm-plugin-activation.php:3215
+msgid "Plugin activation failed."
+msgstr ""
+
+#. translators: 1: plugin name, 2: action number 3: total number of actions.
+#: includes/third_party/class-tgm-plugin-activation.php:3555
+msgid "Updating Plugin %1$s (%2$d/%3$d)"
+msgstr ""
+
+#. translators: 1: plugin name, 2: error message.
+#: includes/third_party/class-tgm-plugin-activation.php:3558
+msgid "An error occurred while installing %1$s: <strong>%2$s</strong>."
+msgstr ""
+
+#. translators: 1: plugin name.
+#: includes/third_party/class-tgm-plugin-activation.php:3560
+msgid "The installation of %1$s failed."
+msgstr ""
+
+#: includes/third_party/class-tgm-plugin-activation.php:3564
+msgid ""
+"The installation and activation process is starting. This process may take a "
+"while on some hosts, so please be patient."
+msgstr ""
+
+#. translators: 1: plugin name.
+#: includes/third_party/class-tgm-plugin-activation.php:3566
+msgid "%1$s installed and activated successfully."
+msgstr ""
+
+#: includes/third_party/class-tgm-plugin-activation.php:3566
+#: includes/third_party/class-tgm-plugin-activation.php:3574
+msgid "Show Details"
+msgstr ""
+
+#: includes/third_party/class-tgm-plugin-activation.php:3566
+#: includes/third_party/class-tgm-plugin-activation.php:3574
+msgid "Hide Details"
+msgstr ""
+
+#: includes/third_party/class-tgm-plugin-activation.php:3567
+msgid "All installations and activations have been completed."
+msgstr ""
+
+#. translators: 1: plugin name, 2: action number 3: total number of actions.
+#: includes/third_party/class-tgm-plugin-activation.php:3569
+msgid "Installing and Activating Plugin %1$s (%2$d/%3$d)"
+msgstr ""
+
+#: includes/third_party/class-tgm-plugin-activation.php:3572
+msgid ""
+"The installation process is starting. This process may take a while on some "
+"hosts, so please be patient."
+msgstr ""
+
+#. translators: 1: plugin name.
+#: includes/third_party/class-tgm-plugin-activation.php:3574
+msgid "%1$s installed successfully."
+msgstr ""
+
+#: includes/third_party/class-tgm-plugin-activation.php:3575
+msgid "All installations have been completed."
+msgstr ""
+
+#. translators: 1: plugin name, 2: action number 3: total number of actions.
+#: includes/third_party/class-tgm-plugin-activation.php:3577
+msgid "Installing Plugin %1$s (%2$d/%3$d)"
+msgstr ""
+
+#. translators: %s = OSM Privacy Policy URL
+#: skins/default/property-list/map.php:25
+#: skins/default/single-property/map-init.php:39
+msgid ""
+"This website utilizes map services provided by the OpenStreetMap Foundation, "
+"St John’s Innovation Centre, Cowley Road, Cambridge, CB4 0WS, United Kingdom "
+"(short OSMF). Your Internet browser or application will connect to servers "
+"operated by the OSMF located in the United Kingdom and in other countries. "
+"The operator of this site has no control over such connections and "
+"processing of your data by the OSMF. You can find more information on the "
+"processing of user data by the OSMF in the <a href=\"%s\">OSMF privacy "
+"policy</a>."
+msgstr ""
+
+#: skins/default/property-list/map.php:38
+#: skins/default/single-property/map-embed.php:23
+#: skins/default/single-property/map-embed.php:36
+#: skins/default/single-property/map-embed.php:47
+msgid "Agreed, show maps!"
+msgstr ""
+
+#: skins/default/property-list/pagination.php:14
+msgid "Previous page"
+msgstr ""
+
+#: skins/default/property-list/pagination.php:15
+msgid "Next page"
+msgstr ""
+
+#: skins/default/property-search/element-extended-search-toggle.php:30
+#: skins/default/property-search/element-extended-search-toggle.php:40
+msgid "Extended Search"
+msgstr ""
+
+#. translators: %1 = Google Maps, %2 = Privacy Policy URL
+#. translators: %1 = Photon/OpenStreetMap, %2 = Privacy Policy URL
+#: skins/default/property-search/element-google-places-autocomplete.php:20
+#: skins/default/property-search/element-photon-autocomplete.php:23
+msgid ""
+"This site utilizes %1$s for location autocompletion and map display, please "
+"see our <a href=\"%2$s\" target=\"_blank\">privacy policy</a>!"
+msgstr ""
+
+#: skins/default/property-search/element-google-places-autocomplete.php:24
+#: skins/default/property-search/element-photon-autocomplete.php:27
+msgid "Agreed!"
+msgstr ""
+
+#: skins/default/property-search/element-reset.php:18
+msgid "Reset Form"
+msgstr ""
+
+#: skins/default/property-search/element-submit.php:20
+msgid "Matches"
+msgstr ""
+
+#: skins/default/property-search/element-submit.php:21
+msgid "one match"
+msgstr ""
+
+#: skins/default/property-search/element-submit.php:22
+msgid "no matches"
+msgstr ""
+
+#: skins/default/single-property/footer.php:20
+msgid "Back to overview"
+msgstr ""
+
+#: skins/default/single-property/location-description.php:26
+#: skins/default/single-property/location-info.php:26
+msgid "Location and Infrastructure"
+msgstr ""
+
+#. translators: %1 = Google Privacy Policy, %2 = dataliberation.org
+#: skins/default/single-property/map-init.php:27
+msgid ""
+"This website utilizes Google Maps services. Google collects and processes "
+"certain, possibly personal data when using the maps services. Detailed "
+"informationen about scope and usage of this data as well as your personal "
+"privacy options is available in <a href=\"%1$s\" target=\"_blank\">Google's "
+"privacy policy</a>. Comprehensive instructions on how to manage your own "
+"data related to Google products can also be found here: <a href=\"%2$s\" "
+"target=\"_blank\">dataliberation.org</a>\n"
+"\n"
+"By clicking on the following button, you permit submission of data collected "
+"during using the map function to Google in accordance with the privacy "
+"policy mentioned above."
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "immonex Kickstart"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://wordpress.org/plugins/immonex-kickstart/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Essential components and add-on framework for embedding and searching/"
+"filtering imported OpenImmo-XML-based real estate offers"
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "inveris OHG / immonex"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://immonex.dev/"
+msgstr ""

@@ -1,0 +1,235 @@
+== Changelog ==
+
+= 1.8.0 =
+* Release date: 2023-09-22
+* Added option for default number of properties per page in list views.
+* Added option for disabling the "Ken Burns Effect" in property detail views.
+* Added 8 new action hooks for inserting contents during output (default skin).
+* Added action hook inx_rest_set_query_language.
+* Added filter inx_search_form_debounce_delay.
+* Reworked excerpt generation.
+* Reworked area and price min/max determination after OpenImmo imports.
+* Reworked/Extended property search form element rendering and JS (i.a. improved dynamic list/map updates).
+* Reworked Photon/OSM based location autocomplete.
+* Reworked default skin CSS/JS folder structure and moved CSS of third-party components to plugin core.
+* Fixed multilingual property query on dynamic list view updates.
+* Fixed a minor price range search form element bug.
+* Improved cache busting of lazy-loaded JS files.
+* Improved PHP 8.2 and WordPress 6.3/6.4 compatibility.
+* Updated external dependencies.
+
+= 1.7.25 =
+* Release date: 2023-06-09
+* Added various filter hooks for modifying property/list template rendering data.
+* Reworked several property search methods.
+* Reworked YouTube video embedding.
+* Optimized property cluster zoom in overview maps.
+* Improved property detail data full-text search.
+* Added automatic replacements of rental-specific property detail titles.
+* Extended possibilities to use XPath expressions in property detail element shortcodes.
+* Extended excerpt handling for property post type.
+* Fixed a rounding bug in the search form range slider component.
+* Updated external dependencies.
+
+= 1.7.11 =
+* Release date: 2022-10-31
+* Extended meta data of filter hook inx-property-detail-element.
+* Improved compatibility in multilingual environments (WPML/Polylang).
+* Fixed minor property search form JS bug.
+* Reworked automatic single property template page redirect - again.
+
+= 1.7.8 =
+* Release date: 2022-10-06
+* Reworked automatic single property template page redirect.
+* Fixed property image list creation used by add-ons.
+* Fixed saving of UTF-8 option strings.
+* Updated plugin option labels to be more precise.
+
+= 1.7.5 =
+* Release date: 2022-09-22
+* Optimized OpenImmo import related DB queries.
+* Fixed a property post ID related bug (special case).
+* Extended previous sort order/request fix.
+* Improved plugin option validation.
+* Simplified file/folder structure.
+* Updated dependencies.
+
+= 1.7.1  =
+* Release date: 2022-09-05
+* Fixed a sort order/request issue.
+
+= 1.7.0 =
+* Release date: 2022-08-31
+* Added filter hook for property template data retrieval.
+* Added filter hook for merging meta/taxonomy queries.
+* Added select option for disabling the default property archive/single templates.
+* Added basic support for custom/special order(by) elements.
+* Added shortcode attribute for template file selection.
+* Added an alternative property list template (slider).
+* Added search form shortcode attribute for limiting taxonomy based select options to top-level elements.
+* Added automatic redirect to default list view when calling up the selected property detail page directly.
+* Added option to display the (inner) seller commission in property detail pages (now inactive by default).
+* Improved recognition of taxonomy term lists in shortcode attributes.
+* Optimized search/filter query generation.
+* Optimized overview location map generation and marker handling.
+* Reworked distance search location autocomplete elements.
+* Optimized/Cached min/max value queries.
+* Fixed taxonomy sort bug regarding search form elements.
+* Fixed backend property list sorting by reference state.
+* Updated external dependencies.
+
+= 1.6.8 =
+* Release date: 2022-04-06
+* Formatted/Localized number of matches on search form submit button.
+* Improved search form price and area slider auto value range determination and value stepping.
+* Improved usability of pages containing all Kickstart elements as front page.
+* Replaced default skin gallery fade transition (if Ken Burns Effect is disabled) by a more visually appealing slide/fade variant.
+* Fixed a minor search form/sort dynamic update issue.
+* Fixed price range format in backlink URLs.
+* Updated dependencies.
+
+= 1.6.2 =
+* Release date: 2022-03-05
+* Optimized grid display in real estate list views.
+* Improved responsive tab navigation display in property detail views.
+* Fixed search form price slider auto value range setting for rental properties.
+
+= 1.6.0 =
+* Release date: 2022-02-28
+* Added new taxonomy "project" for property grouping.
+* Added (optional) search form select element for property projects (groups).
+* Added special query variable for selecting/excluding group master properties.
+* Added WP auto embed and other filters to property description processing.
+* Added custom field based setting of current property post ID.
+* Added the ability to use multiple property search forms on the same page.
+* Added seach form shortcode attribute for modifying countries supported by location search/autocomplete elements.
+* Reworked and extended backend property form.
+* Added optional dynamic content updates of frontend components when changing search parameters.
+* Replaced 301 redirects to custom property list and detail pages by internal request updates.
+* Fixed detail element shortcode issue (attribute "type" not taken into account).
+
+= 1.5.8 =
+* Release date: 2021-10-14
+* Fixed application of feature selection (extended search form).
+* Fixed subtab display problem in Windows-based environments.
+* Updated dependencies.
+
+= 1.5.5 =
+* Release date: 2021-09-07
+* Added automatic min/max value determination for search form area value sliders.
+* Added filter hook for overwriting min/max values of search form area value sliders.
+* Added special body classes for custom property list and detail pages.
+* Reworked plugin options page (e.g. sections as subtabs).
+* Updated dependencies.
+
+= 1.5.2 =
+* Release date: 2021-09-03
+* Adjusted property taxonomy archive page headlines.
+* Fixed disregard of explicitly stated search form taxonomy terms.
+
+= 1.5.0 =
+* Release date: 2021-09-02
+* Added search form shortcode attributes for taxonomy-based options.
+* Added search form shortcode attributes for excluding elements.
+* Added filter hooks for modifying property search form select options.
+* Added filter hook for adding property fulltext search fields
+* Added property address to default fulltext search fields
+* Added automatic determination of decimal places on primary price formatting.
+* Added flags for featured properties and front page offers.
+* Added step option for value/range slider elements in search forms.
+* Added option and shortcode attribute for setting the "no results" message of property searches.
+* Made private pages selectable as list or detail view templates.
+* Activated default property template on taxonomy based frontend queries.
+* Optimized building of hierarchical taxonomy option lists for search forms.
+* Reworked display of checkbox group elements in frontend search forms.
+* Reworked default skin gallery template (individual Ken Burns effect state per image)
+* Reworked distance search autocompletion JS components.
+* Reworked search form min/max price determination.
+* Extended backend property form.
+* Fixed some minor output related details.
+* Fixed a recursion bug (occuring under some rare conditions).
+* Fixed min/max price determination of non-integer values.
+* Fixed property sort order in list view not applied in special cases.
+* Added a missing space between price and time unit in list view.
+* Refactored code to meet updated WordPress coding standards.
+
+= 1.4.0 =
+* Release date: 2021-04-13
+* Added shortcode [inx-property-detail-element] for embedding individual
+  property detail values.
+* Fixed sort change not being applied without search form on the same page.
+* Activated Vue.js based components on custom property detail pages.
+* Added optional element for embedding separate location maps
+  in property detail pages.
+* Added optional element for embedding separate location description/details
+  sections (without maps) in property detail pages.
+* Added option for applying wpautop to description texts on property
+  detail pages.
+* Added option for enabling/disabling the contact section for
+  reference properties.
+* Added list shortcode attribute for disabling property detail links based on
+  its status flags.
+* Added filter hook for modifying tab-based element structure.
+* Improved property gallery thumbmail navigation (separate section for
+  video and virtual tour links).
+* Fixed price sections falsely visible in reference property details.
+* Fixed URL issues on overlapping page permalinks.
+* Improved performance and stability (JS components).
+
+= 1.3.0 =
+* Release date: 2021-03-08
+* Added option for setting an alternate reference price text.
+* Added option for enabling/disabling the map bounds auto-fit function.
+* Added automatic removal of backlink URL in browser address bar.
+* Added subtype "date" for search form text input fields (date picker).
+* Added property filter/sort shortcode attributes for creating custom
+  sort option selection lists.
+* Added option for enabling/disabling user consent for embedded maps.
+* Added titles to detail sections in property backend edit form.
+* Optimized support for multilingual sites (Polylang/WPML compatibility).
+* Lowered minimum zoom level for property overview maps.
+* Fixed distance search arguments not being applied in overview maps.
+* Fixed URL generation/modification for installations with deactivated
+  pretty permalinks.
+* Reworked search form shortcode.
+* Optimized automatic primary price min/max value determination for
+  search forms.
+
+= 1.2.0 =
+* Release date: 2020-12-08
+* Added property location overview maps incl. clustered markers.
+* Slightly reworked default skin.
+* Extended country code based queries to distinguish between single
+  and multiple codes.
+* Changed list image default size from 300 px to 800 px.
+* Added latitude and longitude to property backend form.
+* Updated Photon base URL (geo location autocompletion).
+* Updated JS code (WordPress 5.6 compatibility).
+
+= 1.1.2 =
+* Release date: 2020-09-01
+* Fixed an issue regarding the currency option usage.
+* Updated external libraries.
+
+= 1.1.0 =
+* Release date: 2020-08-20
+* Reworked the usage of regular pages as property detail templates.
+* Added author based property queries.
+* Added a special query variable for custom template reference IDs.
+* Extended the backend property edit form (images/attachments).
+* Extended the add-on API (filter hooks).
+* Slightly updated the default skin styles.
+* Various compatibility, security and performance optimizations.
+
+= 1.0.3 =
+* Release date: 2020-04-02
+* Fixed typos etc. in readme.txt.
+
+= 1.0.2 =
+* Release date: 2020-04-01
+* Changed text domain to formally match the plugin slug.
+* Fixed URL and slightly extended readme.txt.
+
+= 1.0.0 =
+* Release date: 2020-03-31
+* Initial release.

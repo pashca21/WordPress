@@ -1,0 +1,56 @@
+#wpi-primary {
+  @include breakpoint(print) {
+    a[href]:after {
+      content: none !important;
+    }
+    .wpi-header h2 {
+      text-align: center !important;
+      text-transform: uppercase;
+    }
+    #media-slider {
+      img {
+        display: none;
+      }
+      img:first-of-type {
+        display: block !important;
+        width: 100% !important;
+        margin: 0 auto !important;
+      }
+    }
+    .details-panel {
+      text-align: center !important;
+      .hardfacts {
+        text-align: center !important;
+      }
+    }
+
+    .objektdetails.panel.panel-default,
+    .preise.panel.panel-default,
+    .flaechen.panel.panel-default,
+    .ausstattung.panel.panel-default,
+    .zustand.panel.panel-default {
+      width: 48%;
+      float: left;
+      margin-right: 1%;
+    }
+
+    .printing,
+    #eckdaten,
+    .meta,
+    #tablist {
+      display: none !important;
+    }
+
+    .tab-pane, .active::not {
+      display: block !important;
+    }
+    .immo-nav {
+      display: none;
+    }
+    article {
+      overflow: hidden;
+      page-break-after: always !important;
+    }
+  }
+
+}

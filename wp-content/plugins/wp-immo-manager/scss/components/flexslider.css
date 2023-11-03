@@ -1,0 +1,45 @@
+/**
+Flexslider Basic Custom Navigation CSS
+*/
+.flexslider {
+  margin-bottom: 10px; }
+
+.flex-control-nav {
+  position: relative;
+  bottom: auto; }
+
+.custom-navigation {
+  display: table;
+  width: 100%;
+  table-layout: fixed; }
+
+.custom-navigation > * {
+  display: table-cell; }
+
+.custom-navigation > a {
+  width: 50px; }
+
+.custom-navigation .flex-next {
+  text-align: right; }
+
+/**
+Flexslider Basic Caption CSS
+ */
+.flex-caption {
+  padding: 2% 0 2% 0;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);
+  font-size: 14px;
+  line-height: 18px;
+  text-align: center;
+  margin-bottom: 2%; }
+
+.slides li {
+  background: whitesmoke; }
+
+.flex-direction-nav a {
+  padding-top: 10px; }
+
+ol.flex-control-nav.flex-control-paging {
+  margin-top: 20px; }
+
+/*# sourceMappingURL=flexslider.css.map */
