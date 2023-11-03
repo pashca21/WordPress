@@ -1,0 +1,103 @@
+    /*
+    Flaticon icon font: Flaticon
+    Creation date: 22/08/2018 16:54
+    */
+
+    @font-face {
+  font-family: "Flaticon";
+  src: url("./Flaticon.eot");
+  src: url("./Flaticon.eot?#iefix") format("embedded-opentype"),
+       url("./Flaticon.woff") format("woff"),
+       url("./Flaticon.ttf") format("truetype"),
+       url("./Flaticon.svg#Flaticon") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: "Flaticon";
+    src: url("./Flaticon.svg#Flaticon") format("svg");
+  }
+}
+
+    .fi:before{
+        display: inline-block;
+  font-family: "Flaticon";
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  line-height: 1;
+  text-decoration: inherit;
+  text-rendering: optimizeLegibility;
+  text-transform: none;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+    }
+
+    .flaticon-location:before { content: "\f100"; }
+.flaticon-calendar:before { content: "\f101"; }
+.flaticon-email:before { content: "\f102"; }
+.flaticon-phone:before { content: "\f103"; }
+.flaticon-family:before { content: "\f104"; }
+.flaticon-man:before { content: "\f105"; }
+.flaticon-woman:before { content: "\f106"; }
+.flaticon-plans:before { content: "\f107"; }
+.flaticon-desk:before { content: "\f108"; }
+.flaticon-gps:before { content: "\f109"; }
+.flaticon-home-message:before { content: "\f10a"; }
+.flaticon-star:before { content: "\f10b"; }
+.flaticon-coins:before { content: "\f10c"; }
+.flaticon-back:before { content: "\f10d"; }
+.flaticon-next:before { content: "\f10e"; }
+.flaticon-home:before { content: "\f10f"; }
+.flaticon-flat-plan:before { content: "\f110"; }
+.flaticon-house:before { content: "\f111"; }
+.flaticon-phone-call:before { content: "\f112"; }
+.flaticon-fax:before { content: "\f113"; }
+.flaticon-checked:before { content: "\f114"; }
+.flaticon-multiply:before { content: "\f115"; }
+.flaticon-map-location:before { content: "\f116"; }
+.flaticon-menu:before { content: "\f117"; }
+.flaticon-direction-pin-and-map:before { content: "\f118"; }
+.flaticon-marker:before { content: "\f119"; }
+.flaticon-menu-1:before { content: "\f11a"; }
+.flaticon-down-arrow-1:before { content: "\f11b"; }
+.flaticon-list1:before { content: "\f11c"; }
+.flaticon-sort:before { content: "\f11d"; }
+.flaticon-pin:before { content: "\f11e"; }
+.flaticon-maps-and-location:before { content: "\f11f"; }
+    
+    $font-Flaticon-location: "\f100";
+    $font-Flaticon-calendar: "\f101";
+    $font-Flaticon-email: "\f102";
+    $font-Flaticon-phone: "\f103";
+    $font-Flaticon-family: "\f104";
+    $font-Flaticon-man: "\f105";
+    $font-Flaticon-woman: "\f106";
+    $font-Flaticon-plans: "\f107";
+    $font-Flaticon-desk: "\f108";
+    $font-Flaticon-gps: "\f109";
+    $font-Flaticon-home-message: "\f10a";
+    $font-Flaticon-star: "\f10b";
+    $font-Flaticon-coins: "\f10c";
+    $font-Flaticon-back: "\f10d";
+    $font-Flaticon-next: "\f10e";
+    $font-Flaticon-home: "\f10f";
+    $font-Flaticon-flat-plan: "\f110";
+    $font-Flaticon-house: "\f111";
+    $font-Flaticon-phone-call: "\f112";
+    $font-Flaticon-fax: "\f113";
+    $font-Flaticon-checked: "\f114";
+    $font-Flaticon-multiply: "\f115";
+    $font-Flaticon-map-location: "\f116";
+    $font-Flaticon-menu: "\f117";
+    $font-Flaticon-direction-pin-and-map: "\f118";
+    $font-Flaticon-marker: "\f119";
+    $font-Flaticon-menu-1: "\f11a";
+    $font-Flaticon-down-arrow-1: "\f11b";
+    $font-Flaticon-list1: "\f11c";
+    $font-Flaticon-sort: "\f11d";
+    $font-Flaticon-pin: "\f11e";
+    $font-Flaticon-maps-and-location: "\f11f";

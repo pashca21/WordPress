@@ -1,0 +1,62 @@
+
+<div class="FFrecommendation-default-overview-card">
+	<div class="FFrecommendation-default-overview-card-video"  >
+		<video id="my-video" class="video-js" controls preload="auto" width="100%" height="150"
+			poster="{{ recommendation.mainImage.creatorImageLink.value}}" data-setup="{}">
+			<source src="{{ recommendation.video.creatorVideoLink.value }}" type='video/mp4'>
+			<source src="{{ recommendation.video.creatorVideoLink.value }}" type='video/mov'>
+			<p class="vjs-no-js">
+				Um das Video anschauen zu können benötigen Sie eine Browser welcher JavaScript oder HTML5 Supportet.
+			</p>
+		</video>
+	</div>		
+	
+	<div class="FFrecommendation-default-overview-card-content">
+		<div class="FFrecommendation-default-overview-card-name">
+			{% if recommendation.details.creatorName.value %}
+				{{ recommendation.details.creatorSalutation.value}}
+				{{ recommendation.details.creatorName.value[:1] }} ...
+			{% endif %}	
+		</div>
+		<div class="FFrecommendation-default-overview-card-type">
+			Kundenbwertung
+		</div>
+		<div class="FFrecommendation-default-overview-card-voting">
+			{% if recommendation.details.ratingTotal.value == "1" %}
+				<div class="FFrecommendation-star-filled"></div>
+				<div class="FFrecommendation-star"></div>
+				<div class="FFrecommendation-star"></div>
+				<div class="FFrecommendation-star"></div>
+				<div class="FFrecommendation-star"></div>
+			{% endif %}	
+			{% if recommendation.details.ratingTotal.value == "2" %}
+				<div class="FFrecommendation-star-filled"></div>
+				<div class="FFrecommendation-star-filled"></div>
+				<div class="FFrecommendation-star"></div>
+				<div class="FFrecommendation-star"></div>
+				<div class="FFrecommendation-star"></div>
+			{% endif %}
+			{% if recommendation.details.ratingTotal.value == "3" %}
+				<div class="FFrecommendation-star-filled"></div>
+				<div class="FFrecommendation-star-filled"></div>
+				<div class="FFrecommendation-star-filled"></div>
+				<div class="FFrecommendation-star"></div>
+				<div class="FFrecommendation-star"></div>
+			{% endif %}
+			{% if recommendation.details.ratingTotal.value == "4" %}
+				<div class="FFrecommendation-star-filled"></div>
+				<div class="FFrecommendation-star-filled"></div>
+				<div class="FFrecommendation-star-filled"></div>
+				<div class="FFrecommendation-star-filled"></div>
+				<div class="FFrecommendation-star"></div>
+			{% endif %}
+			{% if recommendation.details.ratingTotal.value == "5" %}
+				<div class="FFrecommendation-star-filled"></div>
+				<div class="FFrecommendation-star-filled"></div>
+				<div class="FFrecommendation-star-filled"></div>
+				<div class="FFrecommendation-star-filled"></div>
+				<div class="FFrecommendation-star-filled"></div>
+			{% endif %}	
+		</div>
+	</div>
+</div>

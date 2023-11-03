@@ -1,0 +1,37 @@
+<div id="ff-default" class="FFestateview-default-overview">
+	<!-- flowfact-wp-connector version: {{ pluginVersion }} -->
+	<!-- get search -->
+	
+		{% include 'compontent-estate-search.html' %}
+		
+		{% if search.search.view == "map" %}
+			{% if api.maps %}
+				{% if search.search.show_map == "on" %}
+					{% include 'compontent-estate-map.html'%}
+				{% endif %}	
+			{% endif %}	
+		{% else %}	
+
+			<!-- estate list -->
+			<div class="FFestateview-default-overview-list" data-width="250">
+				<!-- get estate-->
+
+				{% if search.results %}
+					{% for id,estates in search.results %}
+						{% include 'compontent-estate-card.html' with estates%}
+					{% endfor %}	
+
+				{% else %}
+
+					{% include 'compontent-estate-no-result.html' %}
+					
+				{% endif %}	
+			</div>
+		
+		<!-- paging -->		
+		{% include 'compontent-estate-paging.html' %}
+
+	{% endif %}
+</div>
+
+

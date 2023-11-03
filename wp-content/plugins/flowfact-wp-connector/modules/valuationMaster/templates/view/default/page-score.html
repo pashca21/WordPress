@@ -1,0 +1,582 @@
+{# Calculation of the market range #}
+
+{% if score.history %}
+	<input type="hidden" value="{{ score.history }}" id="leadId">
+{% endif %}
+
+{% if color.primary %}
+	<style>
+		:root {
+			--ff-primary-color: {{ color.primary }} !important;
+			--ff-secondary-color: {{ color.secondary }} !important;
+		}
+	</style>
+{% endif %}
+
+{% if score.valuation.data.value or score.rent.data.value %}
+	<div class="FFvaluation-default-score">
+		<div class="FFvaluation-container">
+			<div class="FFvaluation-header">
+				<div class="property-address">
+					<img src="{{imagepath}}/score-page/home.svg" /> <strong>{{ score.street }} {{ score.house_number }}</strong>  <span class="text-light">{{ score.zip }} {{ score.town }}</span>
+				</div>
+				<div class="property-details">
+					{% if score.type %}
+						<div class="detail">
+							Type <strong>{{ score.type }}</strong>
+						</div>
+					{% endif %}
+
+					{% if score.livingarea %}
+						<div class="detail">
+							Wohnfläche <strong>{{ score.livingarea }} m²</strong>
+						</div>
+					{% endif %}
+
+					{% if score.plot_area %}
+						<div class="detail">
+							Grundstücksfläche <strong>{{ score.plot_area }} m²</strong>
+						</div>
+					{% endif %}
+
+					{% if score.rooms %}
+						<div class="detail">
+							Zimmerzahl <strong>{{ score.rooms }}</strong>
+						</div>
+					{% endif %}
+
+					{% if score.yearofconstruction %}
+						<div class="detail">
+							Baujahr <strong>{{ score.yearofconstruction }}</strong>
+						</div>
+					{% endif %}
+				</div>
+			</div>
+
+			<div class="FFvaluation-welcome">
+				<div class="ff-row">
+					<div class="col">
+						<h2>Guten Tag <strong>{% if score.customer_salutation %} {{ score.customer_salutation }} {% endif %} {% if score.customer_name %}  
+							{{ score.customer_name }}</strong>{% endif %},
+						</h2>
+						<p><strong>hier finden Sie detaillierte Informationen zum Marktwert Ihrer Immobilie in "{{ score.street }} {{ score.house_number }}, {{ score.zip }} {{ score.town }}".</strong></p>
+						<p>Diese Bewertung basiert auf Ihren Angaben sowie Vergleichsobjekten unseres Datenlieferanten und gibt Ihnen einen guten ersten Eindruck über den Marktwert Ihrer Immobilie.</p>
+					</div>
+
+					{% if score.calltoaction %}
+					<div class="col d-flex flex-column">
+						<div class="hide-on-mobile">
+							<div class="title">
+								Ihr Ansprechpartner
+							</div>
+							{% if agentphoto_url %}
+								<div class="agent-image">
+									<img src="{{ agentphoto_url }}" alt="" width="74" height="auto">
+								</div>
+							{% endif %}
+
+							{% if score.calltoaction.name %}
+								<div class="agent-name">
+									<strong>{{ score.calltoaction.name }}</strong>
+								</div>
+							{% endif %}
+							<a href="#agent-callback" class="scroll-to-callback">Kontaktieren Sie uns</a>
+						</div>
+						<div class="show-on-mobile-flex">
+							{% if agentphoto_url %}
+								<div class="agent-image">
+									<img src="{{ agentphoto_url }}" alt="" width="74" height="auto">
+								</div>
+							{% endif %}
+							<div class="agent-info-right flex-column">
+								<div>
+									<div class="title">
+										Ihr Ansprechpartner
+									</div>
+									<div class="d-flex justify-between">
+										{% if score.calltoaction.name %}
+											<div class="agent-name">
+												<strong>{{ score.calltoaction.name }}</strong>
+											</div>
+										{% endif %}
+										<a href="#agent-callback" class="scroll-to-callback">Kontaktieren Sie uns</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					{% endif %}
+				</div>
+			</div>
+
+			<div class="FFvaluation-wrapper">
+				<div class="d-flex">
+					<div class="left-col">
+						<img src="{{imagepath}}/score-page/estimation.svg" width="84px" height="82" style="margin-top: -25px;"/>
+					</div>
+					<div class="content">
+						<strong>Der errechnete Marktwert Ihrer Immobilie</strong>
+					</div>
+				</div>
+				<div class="content-no-icon">
+					<p>Nachfolgend sehen Sie den möglichen Marktpreis und den möglichen Mietpreis Ihrer Immobilie. Dieser wurde auf Basis der Lage und der von Ihnen gemachten Angaben berechnet.</p>
+				</div>
+			</div>
+
+			<div class="FFvaluation-wrapper market-value">
+				<div class="ff-row inside">
+					{% if score.valuation.data.value %}
+						<div class="col d-flex align-center flex-column">
+							<strong>Marktwert Ihrer Immobilie</strong>
+							<div class="value-badge text-center">
+								<div class="value">{{ score.valuation.data.value |number_format(0, ',', '.')}} € *</div>
+								<div class="type">Marktwert</div>
+							</div>
+							{% if score.valuation.data.meta.range.min and score.valuation.data.meta.range.max %}
+								<div class="value-range">
+									<div class="grey-bar"></div>
+
+									<div class="value min">
+										<div class="d-flex justify-center">
+											<div class="circle">
+												<div class="circle-left"></div>
+											</div>
+										</div>
+										{{ score.valuation.data.meta.range.min |number_format(0, ',', '.')}} €
+									</div>
+
+									<div class="trend">
+										<div class="d-flex justify-center">
+											<svg width="44px" height="54px" class="gauge" viewBox="0 0 28 35" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+													<title>Group 17</title>
+													<g id="Design" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+															<g id="Group-17" transform="translate(0.000000, -0.000000)">
+																	<path d="M14.1968338,3.60778074e-12 L19.0228279,7.92801168 C24.2735444,9.94685105 28,15.0382454 28,21 C28,28.7319865 21.7319865,35 14,35 C6.2680135,35 0,28.7319865 0,21 C0,14.898373 3.90336405,9.70842554 9.34923146,7.7910183 L14.1968338,3.60778074e-12 Z" id="Combined-Shape" fill="{{ color.primary }}"></path>
+																	<circle id="Oval-Copy-12" fill="#FFFFFF" cx="14" cy="21" r="9"></circle>
+															</g>
+													</g>
+											</svg>
+										</div>
+										30 Tage Trend
+									</div>
+
+									<div class="value max">
+										<div class="d-flex justify-center">
+											<div class="circle">
+												<div class="circle-right"></div>
+											</div>
+										</div>
+										{{ score.valuation.data.meta.range.max |number_format(0, ',', '.')}} €
+									</div>
+								</div>
+							{% endif %}
+						</div>
+					{% endif %}
+
+					{% if score.rent.data.value %}
+						<div class="col d-flex align-center flex-column">
+							<strong>Möglicher Mietpreis Ihrer Immobilie</strong>
+							<div class="value-badge text-center">
+								<div class="value">{{ score.rent.data.value |number_format(0, ',', '.')}} € *</div>
+								<div class="type">Aktueller Wert</div>
+							</div>
+							{% if score.rent.data.meta.range.min and score.rent.data.meta.range.max %}
+								<div class="value-range">
+									<div class="grey-bar"></div>
+									<div class="value min">
+										<div class="d-flex justify-center">
+											<div class="circle">
+												<div class="circle-left"></div>
+											</div>
+										</div>
+										{{ score.rent.data.meta.range.min |number_format(0, ',', '.')}} €
+									</div>
+									<div class="trend">
+										<div class="d-flex justify-center">
+											<svg width="44px" height="54px" class="gauge" viewBox="0 0 28 35" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+													<title>Group 17</title>
+													<g id="Design" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+															<g id="Group-17" transform="translate(0.000000, -0.000000)">
+																	<path d="M14.1968338,3.60778074e-12 L19.0228279,7.92801168 C24.2735444,9.94685105 28,15.0382454 28,21 C28,28.7319865 21.7319865,35 14,35 C6.2680135,35 0,28.7319865 0,21 C0,14.898373 3.90336405,9.70842554 9.34923146,7.7910183 L14.1968338,3.60778074e-12 Z" id="Combined-Shape" fill="{{ color.primary }}"></path>
+																	<circle id="Oval-Copy-12" fill="#FFFFFF" cx="14" cy="21" r="9"></circle>
+															</g>
+													</g>
+											</svg>
+										</div>
+										30 Tage Trend
+									</div>
+									<div class="value max">
+										<div class="d-flex justify-center">
+											<div class="circle">
+												<div class="circle-right"></div>
+											</div>
+										</div>
+										{{ score.rent.data.meta.range.max |number_format(0, ',', '.')}} €
+									</div>
+								</div>
+							{% endif %}
+						</div>
+					{% endif %}
+
+				</div>
+			</div>
+
+			<div class="FFvaluation-wrapper">
+				<div class="content-no-icon">
+					<div class="icon-title">
+						<img src="{{imagepath}}/score-page/tips.svg" width="36px" height="36px" style="margin-top: -7.5px" /> 
+						<strong>Erfahren Sie mehr</strong>
+					</div>
+
+					<p>Die genaue Bewertung hängt von vielen weiteren Faktoren ab. Als Immobilienspezialisten kennen wir den Markt und können das Potenzial Ihrer Immobilie bestens einschätzen. Gerne unterstützen wir Sie auch beim Verkauf Ihrer Immobilie.</p>
+
+					<a href="#agent-callback" class="scroll-to-callback">Kontaktieren Sie uns</a>
+				</div>
+			</div>
+
+			{% if score.valuation.data.value or score.rent.data.value %}
+				<div class="FFvaluation-wrapper value-graph">
+					<div class="d-flex" style="margin: auto;">
+						<div class="left-col">
+							<img src="{{imagepath}}/score-page/chart_dashed_line.svg" width="84px" height="82" style="margin-top: -25px;"/>
+						</div>
+						<div class="content">
+							<strong>Historische Preisentwicklung in der Region</strong>
+						</div>
+					</div>
+					<div class="FFvaluation-default-score-full">
+						<canvas id="ChartA" width="925" height="463" class="FFvaluation-default-score-chart w-100 h-auto"></canvas>
+					</div>
+				</div>
+			{% endif %}
+
+			{% if score.valuation.data.value or score.rent.data.value %}
+				<div class="FFvaluation-wrapper value-graph">
+					<div class="d-flex" style="margin: auto;">
+						<div class="left-col">
+							<img src="{{imagepath}}/score-page/chart_dashed_line.svg" width="84px" height="82" style="margin-top: -25px;"/>
+						</div>
+						<div class="content">
+							<strong>Erwarteter Trend in der Region</strong>
+						</div>
+					</div>
+					<div class="FFvaluation-default-score-full">
+						<canvas id="ChartB" width="925" height="463" class="FFvaluation-default-score-chart w-100 h-auto"></canvas>
+					</div>
+				</div>
+			{% endif %}
+
+		</div>
+	
+		<div class="FFvaluation-default-agent-callback">
+			<div class="callback-container">
+				<h2>Sind Sie interessiert an einer <b>kostenlosen Beratung?</b></h2>
+				<div class="subtitle">Nehmen Sie Kontakt mit <b>uns</b> auf.</div>
+				<div class="agent-container">
+					<div class="agent">
+						<div class="agent-thumb">
+							<img src="{{ agentphoto_url }}" width="100px" height="auto" alt="">
+							
+							<div class="agent-stars">
+								<svg width="17" height="15" viewBox="0 0 17 15" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-left: -3.5px">
+									<path fill-rule="evenodd" clip-rule="evenodd" d="M8.43652 12L3.73424 14.4721L4.6323 9.23607L0.828071 5.52786L6.08538 4.76393L8.43652 0L10.7877 4.76393L16.045 5.52786L12.2407 9.23607L13.1388 14.4721L8.43652 12Z" fill="{{ color.primary }}"/>
+								</svg>
+
+								<svg width="17" height="15" viewBox="0 0 17 15" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-left: -3.5px">
+									<path fill-rule="evenodd" clip-rule="evenodd" d="M8.43652 12L3.73424 14.4721L4.6323 9.23607L0.828071 5.52786L6.08538 4.76393L8.43652 0L10.7877 4.76393L16.045 5.52786L12.2407 9.23607L13.1388 14.4721L8.43652 12Z" fill="{{ color.primary }}"/>
+								</svg>
+
+								<svg width="17" height="15" viewBox="0 0 17 15" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-left: -3.5px">
+									<path fill-rule="evenodd" clip-rule="evenodd" d="M8.43652 12L3.73424 14.4721L4.6323 9.23607L0.828071 5.52786L6.08538 4.76393L8.43652 0L10.7877 4.76393L16.045 5.52786L12.2407 9.23607L13.1388 14.4721L8.43652 12Z" fill="{{ color.primary }}"/>
+								</svg>
+
+								<svg width="17" height="15" viewBox="0 0 17 15" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-left: -3.5px">
+									<path fill-rule="evenodd" clip-rule="evenodd" d="M8.43652 12L3.73424 14.4721L4.6323 9.23607L0.828071 5.52786L6.08538 4.76393L8.43652 0L10.7877 4.76393L16.045 5.52786L12.2407 9.23607L13.1388 14.4721L8.43652 12Z" fill="{{ color.primary }}"/>
+								</svg>
+
+								<svg width="17" height="15" viewBox="0 0 17 15" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-left: -3.5px">
+									<path fill-rule="evenodd" clip-rule="evenodd" d="M8.43652 12L3.73424 14.4721L4.6323 9.23607L0.828071 5.52786L6.08538 4.76393L8.43652 0L10.7877 4.76393L16.045 5.52786L12.2407 9.23607L13.1388 14.4721L8.43652 12Z" fill="{{ color.primary }}"/>
+								</svg>
+							</div>
+							
+						</div>
+						<div class="agent-details">
+							{% if score.calltoaction.name %}
+								<div class="agent-name">
+									{{ score.calltoaction.name }}
+								</div>
+							{% endif %}
+							{% if score.calltoaction.phone %}
+								<div class="agent-phone-number">
+									<a href="tel:{{score.calltoaction.phone|spaceless}}"><img src="{{imagepath}}/call-24px(4).svg" alt="">{{ score.calltoaction.phone }}</a>
+								</div>
+							{% endif %}
+							{% if score.calltoaction.email %}
+								<div class="agent-email">
+									<a href="mailto:{{score.calltoaction.email}}"><img src="{{imagepath}}/email-24px(7).svg" alt="">{{ score.calltoaction.email }}</a>
+								</div>
+							{% endif %}
+						</div>
+					</div>
+					<div class="agent company-info">
+						{% if company.logo.url %}
+						<div class="company-logo">
+							<img src="{{ company.logo.url }}" alt="" width="73px" height="auto">
+						</div>
+						{% endif %}
+						<div class="company-details">
+							<div class="name">
+								{{ company.companyName }}
+							</div>
+							<div class="address">
+								{{ company.companyStreet }}, {{ company.companyPostcode }}, {{ company.companyCity }}
+							</div>
+							<div class="email">
+								<img src="{{imagepath}}/email-24px(7).svg" alt=""> <a href="mailto:{{ company.companyMailInfo }}">{{ company.companyMailInfo }}</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				{% if score.history %}
+					<div class="ff-row">
+						<div class="col">
+							<a href="" class="callback-button" data-popup="agent-callback">Kostenlosen Rückruf anfordern</a>
+						</div>
+						<div class="col">
+							<a href="" class="message-button" data-popup="agent-message">Schreiben Sie uns eine Nachricht.</a>
+						</div>
+					</div>
+				{% endif %}
+			</div>
+	
+			<div class="popup-wrapper">
+				<div class="popup agent-callback">
+					<div class="form-close"><i class="flaticon-multiply"></i></div>
+					<div class="popup-loading">
+						<div class="loader-wrapper">
+							<div class="loader"><img src="{{imagepath}}/Illus_Loading@1x.svg" width="150px" class="icon-spiner" /></div>
+						</div>
+					</div>
+					<div class="agent-callback-success">
+						<img src="{{imagepath}}/Illus_thankyou@1x.svg" alt="">
+						<h2>Vielen Dank</h2>
+						<p>Wir haben Ihre Anfrage erhalten und melden uns schnellstmöglich bei Ihnen.</p>
+						<button class="btn-primary close-popup">Fertig</button>
+					</div>
+				</div>
+	
+				<div class="popup agent-message">
+					<div class="form-close"><i class="flaticon-multiply"></i></div>
+					<div class="popup-loading">
+						<div class="loader-wrapper">
+							<div class="loader"><img src="{{imagepath}}/Illus_Loading@1x.svg" width="150px" class="icon-spiner" /></div>
+						</div>
+					</div>
+					<div class="agent-message-form">
+						<h2>Ihre Nachricht:</h2>
+						<form>
+							<input type="hidden" name id="client_name" value="{{score.customer_name}}">
+							<input type="hidden" name id="client_email" value="{{score.customer_email}}">
+							<input type="hidden" name id="client_phone" value="{{score.customer_phone}}">
+							<input type="hidden" name id="client_path" value="{{score.path}}">
+							<textarea name="your_message" id="client_message" cols="50" rows="10"></textarea>
+						</form>
+						<input type="submit" value="Senden" class="btn-primary">
+					</div>
+					
+					<div class="agent-message-success">
+						<img src="{{imagepath}}/illus_message@2x.svg" alt="" width="150px">
+						<h2>Vielen Dank</h2>
+						<p>Wir haben Ihre Nachricht erhalten und melden uns schnellstmöglich bei Ihnen.</p>
+						<button class="btn-primary close-popup">Fertig</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="FFvaluation-default-score-legal">
+			<small>*</small> Sämtliche Berechnungen erfolgten anhand Ihrer getätigten Angaben:
+			<span><b>Lage:</b> {{score.estate.data.address.street}} {{score.estate.data.address.house_number}}, {{score.estate.data.address.zip}} {{score.estate.data.address.town}}  </span>
+			
+				{% if score.estate.data.category %}<span><b>Art:</b>&nbsp; {{score.estate.data.category}}</span>&nbsp;{% endif %}
+				{% if score.estate.data.construction_year %}<span><b>Baujahr:</b>&nbsp; {{score.estate.data.construction_year}}</span>&nbsp;{% endif %}
+				{% if score.estate.data.plot_area %}<span><b>Grundstücksfläche:</b>&nbsp; {{score.estate.data.plot_area}} m²</span>&nbsp;{% endif %}
+				{% if score.estate.data.living_area %}<span><b>Wohnfläche:</b>&nbsp; {{score.estate.data.living_area}} m²</span>&nbsp;{% endif %}
+							
+			. Die Berechnungen basieren auf den Marktdaten der Firma Sprengnetter. Sie spiegeln den Marktdurchschnitt wider und dienen zu keiner Zeit als Kauf- oder Verkaufsempfehlung. Auch stellt dies keinerlei verbindliche Preisempfehlung dar.
+		</div>
+	</div>
+{% else %}
+	<center> Leider liegen uns zu der Region zu wenig Daten vor, um den Marktwert zu ermitteln.</center>	
+{% endif %}
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.2/dist/Chart.min.js"></script>
+	<script>
+		jQuery('.open-fullscreen').click(function () {
+			jQuery(this).css('display', 'none');
+			jQuery(this).parent().find('.exit-fullscreen').css('display', 'block');
+			jQuery(this).parent().find('canvas').removeClass('w-100');
+		});
+
+		jQuery('.exit-fullscreen').click(function () {
+			jQuery(this).css('display', 'none');
+			jQuery(this).parent().find('.open-fullscreen').css('display', 'block');
+			jQuery(this).parent().find('canvas').addClass('w-100');
+		});
+
+		var ctx1 = document.getElementById("ChartA").getContext('2d');
+		var ctx2 = document.getElementById("ChartB").getContext('2d');
+
+				
+		var myChart1 = new Chart(ctx1, {
+			type: 'line',
+			data: {
+				labels: [{% for field in score.valuation.growth.data %}"1.{{field.month}}.{{field.year}}",{% endfor%}],
+				datasets: [{
+					label: 'Marktwert in €/m²',
+					color: "{{color.primary}}",
+					borderColor: "#c0d2dd",
+					pointBorderWidth: 5,
+					pointBorderColor: "#fff",
+					pointBackgroundColor: "{{color.primary}}",
+					pointHoverRadius: 7,
+					pointRadius: 7,
+					borderWidth:2,
+					fill: false,
+					data: [{% for field in score.valuation.growth.data %}"{{field.value}}",{% endfor%}],
+					yAxisID: 'y-axis-1',
+				}	],
+			},
+			options: {
+				responsive: false,
+				legend: {
+					display: true,
+					align: 'end',
+					labels: {
+						padding: 10
+					},
+				},
+				tooltips: {
+					mode: 'index',
+					intersect: true,
+          backgroundColor: '{{color.primary}}'
+				},
+				scales: {
+					xAxes: [{
+						display: true,
+						scaleLabel: {
+							display: false,
+							labelString: ''
+						},
+						gridLines: {
+							display:false
+						},
+						ticks: {
+							display: true,
+							fontColor: '#6d8391'
+						}
+					}],
+					yAxes: [{
+							type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+							display: true,
+							position: 'left',
+							id: 'y-axis-1',
+							gridLines: {
+                offsetGridLines: true,
+                display: true,
+                borderDash: [6, 2],
+                tickMarkLength:5,
+								drawBorder: false,
+              },
+							ticks: {
+                display: true,
+								fontColor: '#6d8391'
+            	}
+					}]
+				}
+			}
+		});	
+		
+		var myChart2 = new Chart(ctx2, {
+			type: 'line',
+			data: {
+				labels: [{% for field in score.valuation.growth.trend.label %}"1.{{field.month}}.{{field.year}}",{% endfor%}],
+				datasets: [{
+					label: 'Historischer Marktwert in €/m²',
+					color: "{{color.primary}}",
+					borderColor: "#c0d2dd",
+					pointBorderWidth: 5,
+					pointBorderColor: "#fff",
+					pointBackgroundColor: "{{color.primary}}",
+					pointHoverRadius: 7,
+					pointRadius: 7,
+					borderWidth:2,
+					fill: false,
+					data: [{% for field in score.valuation.growth.trend.now %}"{{field.value}}",{% endfor%}],
+					yAxisID: 'y-axis-1'
+				},
+				{
+					label: 'Erwarteter Marktwert in €/m²',
+					borderColor: "{{color.primary}}",
+					pointBorderColor: "#fff",
+					pointBackgroundColor: "{{color.primary}}",
+					pointBorderWidth: 5,
+					borderDash: [5, 5],
+					pointHoverRadius: 7,
+					pointRadius: 7,
+					borderWidth:2,
+					fill: false,
+					data: [NaN,NaN,NaN,NaN,{% for field in score.valuation.growth.trend.predict %}"{{field.value}}",{% endfor%}],
+					yAxisID: 'y-axis-1'
+				}]
+			},
+			options: {
+				responsive: false,
+				legend: {
+					display: true,
+					align: 'end',
+					labels: {
+						padding: 20
+					},
+				},
+				tooltips: {
+					mode: 'index',
+					intersect: true,
+          backgroundColor: '{{color.primary}}'
+				},
+				scales: {
+					xAxes: [{
+						display: true,
+						scaleLabel: {
+							display: false,
+							labelString: ''
+						},
+						gridLines: {
+							display:false
+						},
+						ticks: {
+							display: true,
+							fontColor: '#6d8391'
+						}
+					}],
+					yAxes: [{
+							type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+							display: true,
+							position: 'left',
+							id: 'y-axis-1',
+							gridLines: {
+                offsetGridLines: true,
+                display: true,
+                borderDash: [6, 2],
+                tickMarkLength:5,
+								drawBorder: false,
+              },
+							ticks: {
+                display: true,
+								fontColor: '#6d8391'
+            	}
+					}]
+				}
+			}
+		});
+	</script>

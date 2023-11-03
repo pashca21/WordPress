@@ -1,0 +1,77 @@
+
+
+.FFformIntegration-default-success {
+	display:none;
+}
+
+.ff-formIntegration-elements {
+	display:flex;
+	justify-content:space-between;
+	margin-bottom:2%;	
+}
+	
+.FFformIntegration-default-content-header h2 {
+	margin-bottom:40px;
+}
+
+
+.ff-textarea,
+.ff-formIntegration-elements div {
+	border:1px solid #dadada;
+	background:#fff;
+	display:flex;	
+	width:100%;
+	justify-content:space-between;
+}
+
+
+
+
+
+.ff-textarea textarea,
+.ff-formIntegration-elements div select,
+.ff-formIntegration-elements div input{
+	width:100%;
+	height:40px;
+	border:0;
+	padding: .8em;
+	font-size:13px;
+}
+
+.ff-textarea div,
+.ff-textarea textarea {
+	width:100%;
+}
+
+
+.ff-textarea div,
+.ff-textarea textarea {
+	height:100px;
+}
+
+.FFformIntegration-default-legal label{
+	margin-left:30px;
+	display:inline-block;
+}
+
+.FFformIntegration-default-legal input{
+	position:absolute;
+	margin-top:5px;
+}
+
+.FFformIntegration-default-legal a {
+	text-decoration:underline;
+}
+
+.FFformIntegration-default-content-action button {
+
+    border: 0 none;
+    font-size: 1em;
+    font-weight: 400;
+    padding: 10px 40px;
+    text-decoration: none;
+	margin:40px 0;
+	border-radius:0;
+	cursor:pointer;
+
+}

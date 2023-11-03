@@ -1,0 +1,63 @@
+{% if estates.multimedia %}
+	{% if estates.multimedia.main_image %}
+		<div class="img-wrapper">
+			<img src="{{ estates.multimedia.main_image.0.multimedia.fileReference }}" alt="" class="estate-pictures-slider-modal-trigger" id="main-image">
+			<div class="thumbs-count"> 
+				{% set tourlinks = 0 %}
+				{% for key, media in estates.multimedia %}
+					{% if key == "360_links" and media|length > 0 %}
+						{% set tourlinks = 1 %}
+					{% endif %}
+				{% endfor %}
+
+				{% if estates.multimedia.pictures|length + estates.multimedia.videos|length +  tourlinks +  estates.multimedia.link_property_video|length + 1 > 1 %}
+					{{ estates.multimedia.pictures|length + estates.multimedia.videos|length +  tourlinks +  estates.multimedia.link_property_video|length + 1}} Fotos und Anhänge ansehen
+				{% else %}
+					1 Fotos und Anhänge ansehen
+				{% endif %}
+			</div>
+		</div>
+	{% endif %}
+{% else %}
+	{% if estates.mainImage %}
+		<div class="img-wrapper">
+			{% if estates.mainImage.mainImage.0.value %}
+				<img src="{{ estates.mainImage.mainImage.0.value }}" alt="" class="estate-pictures-slider-modal-trigger" id="main-image">
+			{% else %}
+				<img src="{{ estates.mainImage.onlineImage.0.value }}" alt="" class="estate-pictures-slider-modal-trigger" id="main-image">
+			{% endif %}
+			<div class="thumbs-count">
+				{% if estates.mainImage.mainImage %}
+					{% set mainImage = 1 %}
+				{% endif %}
+
+				{% if estates.mainImage.onlineImage %}
+					{% set pictures = (estates.mainImage.onlineImage) %}
+				{% endif %}
+
+				{% if estates.linkTour %}
+					{% set linkTour = estates.linkTour %}
+				{% endif %}
+				{% if estates.description.linkpropertyvideo %}
+					{% set linkpropertyvideo = estates.description.linkpropertyvideo %}
+				{% endif %}
+
+				{% if pictures|length + linkTour|length + linkpropertyvideo|length > 1 %}
+					{{ pictures|length + mainImage + linkTour|length + linkpropertyvideo|length }} Fotos und Anhänge ansehen
+				{% else %}
+					1 Fotos und Anhänge ansehen
+				{% endif %}
+			</div>
+		</div>
+	{% endif %}
+{% endif %}
+
+{% for key, media in estates.multimedia %}
+	{% if key == "360_links" and media|length > 0 %}
+		{% for field in media %}
+			<div class="start-360-tour">
+				<a href="#" onclick='window.open("{{field.multimedia.fileReference}}");return false;' class=""> > 360° Rundgang starten</a>
+			</div>
+		{% endfor %}	
+	{% endif %}
+{% endfor %}

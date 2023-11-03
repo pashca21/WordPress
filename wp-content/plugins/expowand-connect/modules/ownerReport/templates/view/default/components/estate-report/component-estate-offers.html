@@ -1,0 +1,17 @@
+<div class="FFownerReport-estate-report-offers" >
+	<h4>Offer History</h4>
+	{% for offer in offers %}
+		<div class='FFownerReport-estate-report-offer'>	
+			{%if offer.caption == 'Exposé send' %}
+				<div class='FFownerReport-estate-report-offer-sent'><div>{{offer.value}}</div><div> {{offer.caption}}</div></div>
+			{%endif %}
+			{%if offer.caption == 'Exposé opend' %}
+			<div class='FFownerReport-estate-report-offer-opened'><div>{{offer.value}}</div><div> {{offer.caption}}</div></div>
+			{%endif %}
+			{%if offer.caption == 'Time spend on IEX' %}
+			<div class='FFownerReport-estate-report-offer-minutes'><div>{{offer.value}} </div>Spend</div>	
+			{%endif %}
+		</div>
+	{% endfor %}	
+{% include '/components/estate-report/component-estate-votes.html' %}
+</div>

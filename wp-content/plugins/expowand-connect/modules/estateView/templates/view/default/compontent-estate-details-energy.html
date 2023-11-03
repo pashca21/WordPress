@@ -1,0 +1,66 @@
+<!-- estate content -->
+
+
+{% if (estates.energyUsage.energyEfficienceClass.value.0) %} {% set energyClass = estates.energyUsage.energyEfficienceClass.value.0 %}   {% endif %}
+{% if (estates.energyUsage.energyefficienceclass.value.0) %} {% set energyClass = estates.energyUsage.energyefficienceclass.value.0 %}   {% endif %}
+
+
+
+
+
+
+<div class="FFestateview-default-details-content-energyUsage" data-width="250">
+	<h3>Energieausweisangaben</h3>	
+	<div>
+		{% if estates.energyUsage.energyefficienceclass.value.0 or estates.energyUsage.energyEfficienceClass.value.0 %}
+			<div class="FFestateview-default-details-content-energyUsage-new">
+				<div data-class="{{energyClass}}">
+					<div style="height:11.11%; {% if( energyClass == 'A+')%} border-color:{{color.primary}}; color: {{color.primary}};{% endif %}"  ><span>A+</span></div>
+					<div style="height:22.22%; {% if( energyClass == 'A') %} border-color:{{color.primary}}; color: {{color.primary}};{% endif %}"  ><span>A</span></div>
+					<div style="height:33.33%; {% if( energyClass == 'B') %} border-color:{{color.primary}}; color: {{color.primary}};{% endif %}"  ><span>B</span></div>
+					<div style="height:44.44%; {% if( energyClass == 'C') %} border-color:{{color.primary}}; color: {{color.primary}};{% endif %}"  ><span>C</span></div>
+					<div style="height:55.55%; {% if( energyClass == 'D') %} border-color:{{color.primary}}; color: {{color.primary}};{% endif %}"  ><span>D</span></div>
+					<div style="height:66.66%; {% if( energyClass == 'E') %} border-color:{{color.primary}}; color: {{color.primary}};{% endif %}"  ><span>E</span></div>
+					<div style="height:77.77%; {% if( energyClass == 'F') %} border-color:{{color.primary}}; color: {{color.primary}};{% endif %}"  ><span>F</span></div>
+					<div style="height:88.88%; {% if( energyClass == 'G') %} border-color:{{color.primary}}; color: {{color.primary}};{% endif %}"  ><span>G</span></div>
+					<div style="height:99.99%; {% if( energyClass == 'H') %} border-color:{{color.primary}}; color: {{color.primary}};{% endif %}"  ><span>H</span></div>
+				</div>
+			</div>
+		{% endif%}		
+		<ul>
+			{% for fields in estates.energyUsage %}
+				{% if fields.value %}
+						<li>
+							<span>	
+								{{fields.caption}} 		
+							</span>
+							<span>
+								{% if fields.type == "area" %}
+									<i>ca.</i>
+									{{fields.value}} 
+									<i>{{fields.unit}}</i>
+								
+								{% elseif fields.type == "addresses" %}
+									{{ fields.value.zipcode }} {{ fields.value.city }}
+							
+								{% elseif fields.type == "option" %}
+									{% for val in fields.value %}
+										{% if val %}
+											{{val}}
+										{% endif %}	
+									{% endfor %}	
+									
+								{% else %}	
+									{{fields.value}} 
+									<i>{{fields.unit}}</i>
+								{% endif %}	
+							</span>
+						</li>	
+				{% endif %}	
+			{% endfor %}
+		</ul>								
+	</div>
+</div>
+
+
+

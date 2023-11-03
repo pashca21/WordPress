@@ -1,0 +1,121 @@
+
+
+<!-- contact -->
+{% if estates.contact.emails.values.0 %}
+
+	<article class="FFestateview-default-popup ff-hidden">
+		<div class="FFestateview-default-popup-content FFestateview-default-popup-success">	
+			<div class="FFestateview-default-popup-content-header">
+				Wie können wir Ihnen behilflich sein?
+				
+				<div class="FFestateview-default-popup-close">
+					<i class="flaticon-multiply"></i>
+				</div>
+			</div>
+			<div class="FFestateview-default-popup-content-body">
+				<h3>Herzlichen Dank für Ihre Anfrage.</h3>
+				<p> Wir werden diese so schnell wie möglich bearbeiten.</p>			
+			</div>	
+		</div>	
+		<div class="FFestateview-default-popup-content form">	
+			<div class="FFestateview-default-popup-content-header">
+				Wie können wir Ihnen behilflich sein?
+				
+				<div class="FFestateview-default-popup-close">
+					<i class="flaticon-multiply"></i>
+				</div>
+			</div>
+			{% if preloader %}	
+				<div class="FFestateview-default-popup-preloader">	
+					<img src="{{ imagepath }}/preloader.gif"/><br/>
+					<p>Mitteilung wird übermittelt.</p>
+				</div>
+			{%endif%}
+			<form class="validateDontSubmit">
+				<div class="FFestateview-default-popup-content-body">			
+					<div>
+						<label for="email-salutation">Anrede</label>
+						<select class="chosen-select"  id="email-salutation" name="email-salutation">
+							<option value="Herr" selected >Herr</option>
+							<option value="Frau">Frau</option>
+							<option value="Divers">Divers</option>
+						</select>
+					</div>
+								
+					<div class="ff-input-text">
+						<label for="email-firstName">Vorname</label>
+						<input id="email-firstName" type="text" value="" name="email-firstName" />
+					</div>
+					
+					<div class="ff-input-text">
+						<label for="email-lastName">Nachname<small>*</small></label>
+						<input id="email-lastName" type="text" value="" required name="email-lastName" />
+					</div>
+					
+					<div class="ff-input-text">
+						<label for="email-phone">Rufnummer</label>
+						<input id="email-phone" type="text" value="" name="email-phone" />
+					</div>
+					
+					<div class="ff-input-text">
+						<label for="email-street">Straße</label>
+						<input id="email-street" type="text" value=""  name="email-street" />
+					</div>
+					<div class="ff-input-text" style="display:flex; justify-content:space-between;"> 
+						<div style="width:35%">
+							<label for="email-zip">PLZ</label>
+							<input id="email-zip" type="text" value=""  name="email-zip" />
+						</div>
+						<div style="width:60%">
+							<label for="email-zip">Ort</label>
+							<input id="email-town" type="text" value=""  name="email-town" />
+						</div>
+					</div>
+					
+					<div class="ff-input-text">
+						<label for="email-mail">E-Mail<small>*</small></label>
+						<input id="email-mail" type="email" value="" required name="email-mail" />
+					</div>
+					
+					
+					<div class="ff-textarea">
+						<label for="email-message">Mitteilung<small>*</small></label>
+						<textarea id="email-message" type="text" required name="email-message">Bitte senden Sie mir weitere Unterlagen zur Immobilie {{ estates.headerBar.identifier.value }} zu.</textarea>
+					</div>		
+					
+					
+					<input id="estateIdentifier" type="hidden" value="{{ estates.headerBar.identifier.value }}" name="estateIdentifier" />
+					<input id="estateLeadUrl" type="hidden" value="{{page.url}}/{{id }}" name="estateLeadUrl" />
+					<input id="estateHeadline" type="hidden" value="{{estates.headerBar.headline.value}}" name="estateHeadline" />
+					<input id="estateId" type="hidden" value="{{ id }}" name="estateId" />
+					<input id="ffreply" type="hidden" value="{{ estates.contact.emails.values.0 }}" name="ffreply" />
+				
+				</div>
+				
+				<div class="FFestateview-default-popup-legal">
+					<p>
+						<input type="checkbox" id="email-legal-privacy" required name="email-legal-privacy" value="email-legal-privacy"  />
+						<label id="email-legal-privacy-text" for="email-legal-privacy">Ja, ich habe die
+						{% if legal.privacy %}
+							<a href="{{legal.privacy}}" target="_blank" title="Link zur Datenschutzbestimmung">Datenschutzbestimmung</a> 
+						{% else %}
+							Datenschutzbestimmung
+						{% endif %}
+						gelesen und bin mit diesen einverstanden<small>*</small></label>
+					</p>
+					<p>
+						<input type="checkbox" id="email-legal-phone" required name="email-legal-phone" value="email-legal-phone"  />
+						<label id="email-legal-phone-text" for="email-legal-phone">Ich bin mit einer Kontaktaufnahme bezüglich meiner Anfrage einverstanden. Diese Einverständniserklärung kann ich jederzeit widerrufen.<small>*</small></label>
+					</p>
+				</div>
+
+				<div class="FFestateview-default-popup-content-action">		
+					<small class="ff-requiered" style="font-size:12px;">* Pflichtfeld</small>
+					<div>
+						<button type="submit">Senden</button>
+					</div>
+				</div>
+			</form>
+		</div>	
+	</article>
+{% endif %}

@@ -1,0 +1,122 @@
+
+{%if frame == 1%}
+	{% set frameparam = "?iframe=1" %}
+{% endif %}	
+
+
+<!-- estate -->		
+<article class="FFestateview-default-overview-estate">
+	<a style="color:inherit; text-decoration:none;" href="{{ search.path }}/{%if seo.slug.value %}{{ seo.slug.value }}/{% endif %}{{ search.schema }}/{{ id }}{{frameparam}}">
+		<div class="front">
+		
+				<!-- estate image -->	
+				{% set image = "" %}
+						
+				{% if estates.multimedia  %}
+					{% for key, media in estates.multimedia %}		
+						{% if key == "main_image" and media|length > 0 %}
+							{% for field in media %}
+								{% set image = field.multimedia.fileReference %}					
+							{% endfor %}			
+						{% endif %}
+					{% endfor %}
+				{% else %}	
+					{% if estates.mainImage %}
+						{% for fields in estates.mainImage %}
+							{% set image = fields.0.value %}
+						{% endfor %}	
+					{% endif %}	
+				{% endif %}	
+				
+				{% if image %}
+					<div  class="FFestateview-default-overview-estate-image">
+						<div style="background-image:url({{api.cloudimage.url}}300/n/{{ image }})"></div>
+					</div>
+				{% else %}
+
+					<div  class="FFestateview-default-overview-estate-image" >
+						<div style="background-color:#eee" class="ff-default-image"></div>
+					</div>	
+				{% endif %}	
+				
+			
+			<!-- estate type -->
+			{% if estates.headline %}
+				<div class="FFestateview-default-overview-estate-type">
+						{{ estates.headline.headline.value }}
+				</div>			
+			{% endif %}		
+
+			<!-- headline -->
+			<div class="FFestateview-default-overview-estate-addresses">
+				{% if estates.estatetype %}
+					{% for field in estates.estatetype %}
+						{% if field.value %}
+							{% for val in field.value %}
+								{{ val }}
+							{% endfor %}
+						{% endif %}
+					{% endfor %}
+				{% endif %}	<br>
+				<!-- estate address -->
+				{% if estates.addresses %}
+					{% for field in estates.addresses %}
+						{% if field.value %}
+							{{ field.value.zipcode }} {{ field.value.city }} {{ field.value.district }}
+						{% endif %}		
+					{% endfor %}	
+				{% endif %}	
+			</div>
+				
+			<!-- estate price -->
+			<div class="FFestateview-default-overview-estate-price ff-color-primary">
+				{% if estates.price %}
+					{% if estates.price.price_on_request.value == "ja"%}
+						<div><span>Auf Anfrage</span><div><span class="ff-border-color-primary" style="color:{{color.primary}};" >{% if estates.price.rent is defined %}Mietpreis{% else %}{{ estates.price.price_on_request.caption }}{% endif %}</span></div></div>
+					{% else %}	
+						{% for field in estates.price %}
+							{% if field.value and field.value != 0 %}	
+								<div><span>{{ field.value }} {{field.unit}}</span><div><span class="ff-border-color-primary" style="color:{{color.primary}};" >{{ field.caption }}</span></div></div>			
+							{% endif %}		
+						{% endfor %}
+					{% endif %}			
+				{% endif %}	
+			</div>	
+
+			<!-- estate details -->
+			<div class="FFestateview-default-overview-estate-details">
+				{% if estates.details %}
+					{% for key,field in estates.details %}
+						{% if field.type == "option" %}
+							{% for val in field.value %}
+								{% if val %}
+									<div class="{{key}}">
+										<div class="FFestateview-default-overview-estate-details-values"><span>{{field.caption}}</span><span>{{ val }}<i>{{field.unit}}</i></span></div>	
+									</div>
+								{% endif %}	
+							{% endfor %}
+						{% else %}	
+							{% if field.value %}
+								<div class="{{key}}">
+									<div class="FFestateview-default-overview-estate-details-values">
+										<span>
+											{{field.caption}}
+										</span>
+										<span>
+											{% if field.type == "area" %}
+												ca. 
+											{% endif %}
+											{{ field.value }}<i>{{field.unit}}</i>
+										</span>
+									</div>	
+								</div>
+								
+							{% endif %}
+						{% endif %}		
+					{% endfor %}	
+				{% endif %}	
+
+			</div>	
+		</div>	
+	</a>
+</article>

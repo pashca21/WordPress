@@ -1,0 +1,382 @@
+{% if color.primary %}
+	<style>
+		:root {
+			--ff-primary-color: {{ color.primary }} !important;
+			--ff-secondary-color: {{ color.secondary }} !important;
+		}
+	</style>
+{% endif %}
+
+
+<div class="FFvaluation-default-overview" data-width="300">
+	<!-- Circles which indicates the steps of the form: -->
+	<form action="{{path}}/store{% if iframe %}&iframe=1{% endif %}" id="regForm" method="post" onsubmit="return checkForm(this);" >
+		<input type="hidden" name="type" value="{{type}}" />
+    <input type="hidden" name="captcha" value="{{captchaStr}}" />
+
+		{% if type is empty %}
+			
+			<div class="ff-valuation-tab ff-valuation-category">
+
+				<div class="FFvaluation-progress-bar">
+					<div class="step-wrapper">
+						<div class="js-step-no active">1</div>
+					</div>
+					<div class="step-wrapper">
+						<div class="js-step-no">2</div>
+					</div>
+					<div class="step-wrapper">
+						<div class="js-step-no">3</div>
+					</div>
+					<div class="step-wrapper">
+						<div class="js-step-no">4</div>
+					</div>
+					<div class="bar"></div>
+					<div class="bar-bg"></div>
+				</div>
+
+				<div class="ff-valuation-card">
+					<div class="ff-valuation-tab-data">
+						<h3>Bitte wählen Sie Ihre Immobilie</h3>
+						<p>Für welche Art von Immobilie möchten Sie eine Marktwertermittlung durchführen?</p>
+						<div class="ff-valuation-master-fields d-block d-sm-flex">
+							{% for id,types in mapping.possibleTypes %}
+								{% if iframe %}
+									<a href="{{path}}/?type={{types.name}}&iframe=1" class="ff-valuation-field d-inline-block mb-2 w-100 w-sm-22">
+										<img src="{{imagepath}}/{{types.icon}}" />
+										<p>{{types.caption|raw}}</p>
+									</a>
+								{% else %}
+									<a href="{{path}}/?type={{types.name}}" class="ff-valuation-field d-inline-block mb-2 w-100 w-sm-22">
+										<img src="{{imagepath}}/{{types.icon}}" />
+										<p>{{types.caption|raw}}</p>
+									</a>
+								{% endif %}
+							{% endfor %}
+						</div>							
+					</div>
+				</div>
+			</div>
+
+		{% else %}
+			{% for processid,values in mapping.process %}
+				{% if processid == type %}
+					{% for phasesid,phases in values.phases %}
+						{% if phases.layout == "contact" %}
+							<div class="ff-valuation-tab" {% if captcha == "true"%} data-captcha="true" {% else %} data-captcha="false" {% endif %}>
+								<div class="FFvaluation-progress-bar">
+									<div class="step-wrapper">
+										<div class="js-step-no finish"><img src="{{imagepath}}/done_white_24dp.svg" alt=""></div>
+									</div>
+									<div class="step-wrapper">
+										<div class="js-step-no finish"><img src="{{imagepath}}/done_white_24dp.svg" alt=""></div>
+									</div>
+									<div class="step-wrapper">
+										<div class="js-step-no finish"><img src="{{imagepath}}/done_white_24dp.svg" alt=""></div>
+									</div>
+									<div class="step-wrapper">
+										<div class="js-step-no active">4</div>
+									</div>
+									<div class="bar" style="width: 100%;"></div>
+									<div class="bar-bg"></div>
+								</div>
+
+								<div class="ff-valuation-card">
+									<div class="ff-valuation-tab-data ff-contact">
+										<h3>{{ phases.name }} </h3>
+										<p>{{ phases.description }}</p>	
+										<div class="ff-valuation-fields">
+											{% for fieldsid,fields in phases.fields %}
+												<div class="ff-valuation-field {{fields.type}} {{fields.name|lower|spaceless}}">
+												<div class="ff-valuation-label">{{fields.caption}} {% if fields.requiert == 1%}<span class="ff-requiert ff-color-primary" title="Pflichtfeld">*</span>{% endif %}</div>
+													{% if fields.type == "option"%}
+														<div>
+															<select name="{{fields.name}}" {% if fields.requiert == 1%} required {% endif %}>
+																{% for fieldid,field in fields.option %}
+																	<option value="{{field.value}}">{{field.caption}}</option>
+																{% endfor %}
+															</select>
+														</div>	
+													{% elseif fields.type == "checkbox"%}
+														<div class="ff-valuation-checkbox">
+															<input id="{{fields.name}}" name="{{fields.name}}" type="checkbox" {% if fields.requiert == 1%} required {% endif %} />
+															<label for="{{fields.name}}">{{fields.label|replace({'%url_to_gdpr%': gdprUrl})|raw}} {% if fields.requiert == 1%}<span class="ff-requiert ff-color-primary" title="Pflichtfeld">*</span>{% endif %}</label>
+														</div>		
+													{% elseif fields.type == "number"%}
+														<div>
+															<input type="number" min="{{fields.min}}" max="{{fields.max}}" name="{{fields.name}}" {% if fields.requiert == 1%} required {% endif %} />
+															<span class="ff-valuation-unit">{{fields.unit}}</span>
+														</div>	
+													{% else %}
+														<div>
+															<input type="text" name="{{fields.name}}" {% if fields.requiert == 1%} required {% endif %} />
+															<span class="ff-valuation-unit">{{fields.unit}}</span>
+														</div>
+													{% endif %}
+												</div>
+											{% endfor %}
+
+											{% if captcha == "true"%}
+											
+												<div class="captcha">
+													<div class="captcha-wrapper">
+														<div id="captcha">
+														</div>
+														<div class="reload-captcha">
+															<img src="{{imagepath}}/icon-reload.svg" alt="" onclick="createCaptcha()">
+														</div>
+													</div>
+													
+													<div class="captcha-input">
+														<input type="text" placeholder="Captcha" id="cpatchaTextBox"/>
+														<button type="submit" onclick="validateCaptcha()">
+															Bestätigen
+														</button>
+													</div>
+												</div>
+
+											{% endif %}
+										</div>
+									</div>
+								</div>
+							</div>
+
+						{% elseif phases.layout == "addresses" %}	
+
+							<div class="ff-valuation-tab">
+								<div class="FFvaluation-progress-bar">
+									<div class="step-wrapper">
+										<div class="js-step-no finish"><img src="{{imagepath}}/done_white_24dp.svg" alt=""></div>
+									</div>
+									<div class="step-wrapper">
+										<div class="js-step-no finish"><img src="{{imagepath}}/done_white_24dp.svg" alt=""></div>
+									</div>
+									<div class="step-wrapper">
+										<div class="js-step-no active">3</div>
+									</div>
+									<div class="step-wrapper">
+										<div class="js-step-no">4</div>
+									</div>
+									<div class="bar" style="width: 66%;"></div>
+									<div class="bar-bg"></div>
+								</div>
+
+								<div class="ff-valuation-card">
+									<div class="ff-valuation-tab-data ff-addresses">
+										<div class="row">
+											<div class="col">
+												<h3>{{ phases.name }} </h3>
+												<p>{{ phases.description }}</p>	
+												<div id="map-response"></div>
+												<div class="ff-valuation-fields">
+													{% for fieldsid,fields in phases.fields %}
+														<div class="ff-valuation-field  {{fields.type}}">
+														<div class="ff-valuation-label">{{fields.caption}}  {% if fields.requiert == 1%}<span class="ff-requiert ff-color-primary" title="Pflichtfeld">*</span>{% endif %}</div>
+															{% if fields.type == "option"%}
+																<div>
+																	<select name="{{fields.name}}" {% if fields.requiert == 1%} required {% endif %}>
+																		{% for fieldid,field in fields.option %}
+																			<option value="{{field.value}}">{{field.caption}}</option>
+																		{% endfor %}
+																	</select>
+																</div>	
+															{% elseif fields.type == "checkbox"%}
+																<div class="ff-valuation-checkbox">
+																	<input name="{{fields.name}}" type="checkbox" {% if fields.requiert == 1%} required {% endif %} />
+																	<label for="{{fields.name}}">{{fields.label}} {% if fields.requiert == 1%}<span class="ff-requiert ff-color-primary" title="Pflichtfeld">*</span>{% endif %}</label>	
+																</div>		
+															{% elseif fields.type == "number"%}
+																<div>
+																	<input type="number" min="{{fields.min}}" max="{{fields.max}}" name="{{fields.name}}" {% if fields.requiert == 1%} required {% endif %} />
+																	<span class="ff-valuation-unit">{{fields.unit}}</span>
+																</div>	
+															{% else %}
+																<div>
+																	{% if fields.name == 'street' %}
+																		<input type="text" name="{{fields.name}}" onkeypress="return /[a-zA-ZÄäÖöÜüẞß -]/i.test(event.key)" {% if fields.requiert == 1%} required {% endif %} />
+																		<ul class="auto-address"></ul>
+																	{% elseif fields.name == 'house_number' %}
+																		<input type="text" name="{{fields.name}}" onkeypress="return /[0-9a-zA-Z]/i.test(event.key)" {% if fields.requiert == 1%} required {% endif %} />
+																	{% elseif fields.name == 'zip' %}
+																		<input type="text" name="{{fields.name}}" onkeypress="return /[0-9]/i.test(event.key)" {% if fields.requiert == 1%} required {% endif %} />
+																	{% elseif fields.name == 'town' %}
+																		<input type="text" name="{{fields.name}}" onkeypress="return /[a-zA-ZÄäÖöÜüẞß ]/i.test(event.key)" {% if fields.requiert == 1%} required {% endif %} />
+																	{% else %}
+																		<input type="text" name="{{fields.name}}" {% if fields.requiert == 1%} required {% endif %} />
+																		<span class="ff-valuation-unit">{{fields.unit}}</span>
+																	{% endif %}
+																</div>
+															{% endif %}
+														</div>
+													{% endfor %}
+												</div>
+											</div>
+											<div class="col">
+												<div class="property-map">
+													<div id="map-property" style="width: 100%; height: 400px; position: relative; outline: none;"></div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+						{% else %}
+						
+							<div class="ff-valuation-tab">
+								<div class="FFvaluation-progress-bar">
+									<div class="step-wrapper">
+										<div class="js-step-no finish"><img src="{{imagepath}}/done_white_24dp.svg" alt=""></div>
+									</div>
+									<div class="step-wrapper">
+										<div class="js-step-no active">2</div>
+									</div>
+									<div class="step-wrapper">
+										<div class="js-step-no">3</div>
+									</div>
+									<div class="step-wrapper">
+										<div class="js-step-no">4</div>
+									</div>
+									<div class="bar" style="width: 33%;"></div>
+									<div class="bar-bg"></div>
+								</div>
+								
+								<div class="ff-valuation-card">
+									<div class="ff-valuation-tab-data ff-grid">
+										<h3>{{ phases.name }}</h3>
+										<p>{{ phases.description }}</p>	
+										<div class="ff-valuation-fields ">
+											{% for fieldsid,fields in phases.fields %}
+												<div class="ff-valuation-field {{fields.type}}">
+													<div><img src="{{imagepath}}/{{fields.icon}}" /></div>
+													<div  class="ff-valuation-label">{{fields.caption}} {% if fields.requiert == 1%}<span class="ff-requiert ff-color-primary" title="Pflichtfeld">*</span>{% endif %}</div>
+												
+													{% if fields.type == "option"%}
+														<div>
+															<select name="{{fields.name}}" {% if fields.requiert == 1%} required {% endif %}>
+																{% for fieldid,field in fields.option %}
+																	<option value="{{field.value}}">{{field.caption}}</option>
+																{% endfor %}
+															</select>
+														</div>	
+													{% elseif fields.type == "checkbox"%}
+														<div class="ff-valuation-checkbox">
+															<input name="{{fields.name}}" type="checkbox" {% if fields.requiert == 1%} required {% endif %} />
+															<label for="{{fields.name}}">{{fields.label}} {% if fields.requiert == 1%}<span class="ff-requiert ff-color-primary" title="Pflichtfeld">*</span>{% endif %}</label>	
+														</div>	
+													{% elseif fields.type == "number"%}
+														<div class="ff-valuation-number">
+															<input type="number" min="{{fields.min}}" value="{{fields.value}}" max="{{fields.max}}" name="{{fields.name}}" {% if fields.requiert == 1%} required {% endif %} />
+															<span class="ff-valuation-unit">{{fields.unit}}</span>
+														</div>
+													{% elseif fields.type == "range"%}
+														<div class="ff-valuation-range">
+															<div class="ff-valuation-data-wrapper">
+																<input type="number" class="ff-valuation-data" id="{{fields.name}}" min="{{fields.min}}" value="{{fields.value}}" max="{{fields.max}}" name="{{fields.name}}" {% if fields.requiert == 1%} required {% endif %}>
+																<span class="ff-valuation-unit">{{fields.unit}}</span>
+															</div>
+															<div class="ff-valuation-min-max-wrapper">
+																<div class="">{{fields.min}}</div>
+																<div class="">{{fields.max}}</div>
+															</div>
+															<div class="ff-valuation-range-wrapper">
+																<input type="range" min="{{fields.min}}" max="{{fields.max}}" value="{{fields.value}}" id="{{fields.name}}"/>
+															</div>
+														</div>
+													{% else %}
+														<div>
+															<input type="text" name="{{fields.name}}" {% if fields.requiert == 1%} required {% endif %} />
+															<span class="ff-valuation-unit">{{fields.unit}}</span>
+														</div>
+													{% endif %}
+												</div>
+											{% endfor %}
+										</div>
+									</div>
+								</div>
+							</div>
+						
+						{% endif %}
+					{% endfor %}
+				{% endif %}
+			{% endfor %}
+
+			<div class="ff-valuation-loading">	
+				<div class="FFvaluation-progress-bar">
+					<div class="step-wrapper">
+						<div class="js-step-no finish"><img src="{{imagepath}}/done_white_24dp.svg" alt=""></div>
+					</div>
+					<div class="step-wrapper">
+						<div class="js-step-no finish"><img src="{{imagepath}}/done_white_24dp.svg" alt=""></div>
+					</div>
+					<div class="step-wrapper">
+						<div class="js-step-no finish"><img src="{{imagepath}}/done_white_24dp.svg" alt=""></div>
+					</div>
+					<div class="step-wrapper">
+						<div class="js-step-no finish"><img src="{{imagepath}}/done_white_24dp.svg" alt=""></div>
+					</div>
+					<div class="bar" style="width: 100%;"></div>
+					<div class="bar-bg"></div>
+				</div>
+
+				<div class="loader-wrapper">
+					<div class="loader"><img src="{{imagepath}}/Illus_Loading@1x.svg" width="150px" class="icon-spiner" /></div>
+				</div>
+
+				<h2>Ihre Immobilie wird bewertet...</h2>
+
+				<div class="text-center">
+					Die Bewertung basiert auf:
+				</div>
+
+				<div class="ff-valuation-boxes-wrapper">
+					<div class="icon">
+						<img src="{{imagepath}}/Illus_house@1x.svg" alt="" width="84" height="auto">
+						<div class="text">
+							300.000 neuen Kaufpreise pro Jahr
+						</div>
+					</div>
+					<div class="icon">
+						<img src="{{imagepath}}/Illus_tag@1x.svg" alt="" width="84" height="auto">
+						<div class="text">
+							über 8 Mio. Angebotspreise
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="ff-valuation-button">
+				<div>
+					<button type="button" id="prevBtn" onclick="nextPrev(-1)">Zurück</button>
+					<button type="button" id="goBackToSelection" onclick="history.back()">Zurück</button>
+				</div>
+				<div>
+					<button type="button" id="nextBtn" onclick="nextPrev(1)">Weiter</button>
+				</div>
+			</div>
+			<div class="ff-requiert-label">* Pflichtfeld</div>
+		{% endif %}
+	</form>
+	<div class="trust-icons">
+		<div class="icon">
+			<img src="{{imagepath}}/01.png" alt="" width="84" height="auto">
+			<div class="text">
+				Aktuelle Marktpreise
+			</div>
+		</div>
+		<div class="icon">
+			<img src="{{imagepath}}/02.png" alt="" width="84" height="auto">
+			<div class="text">
+				Kostenlos und unverbindlich
+			</div>
+		</div>
+		<div class="icon">
+			<img src="{{imagepath}}/03.png" alt="" width="84" height="auto">
+			<div class="text">
+				In nur 2 Minuten fertig
+			</div>
+		</div>
+	</div>
+</div>
+
+
+

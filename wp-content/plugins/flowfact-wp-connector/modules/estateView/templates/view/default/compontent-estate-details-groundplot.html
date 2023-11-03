@@ -1,0 +1,31 @@
+<!-- estate groundplot -->
+{% if estates.multimedia %}
+	{% for key, media in estates.multimedia %}		
+		{% if key == "floorplans" and media|length > 0 %}
+				<div class="FFestateview-default-groundplot">
+					<h3>Grundrisse</h3>
+					<div>
+						{% for field in media %}
+							<div>
+								<a href="{{ field.multimedia.fileReference }}" rel="gallery" class="thickbox"><img src="{{field.multimedia.fileReference}}" style="border:0; margin-bottom:40px; width: auto; max-width:100%; margin-auto" scrolling="none" ></a>
+							</div>
+						{% endfor %}	
+					</div>		
+				</div>			
+		{% endif %}
+	{% endfor %}
+{% else %}
+
+	{% if estates.groundplot.groundplotImage %}
+		<div class="FFestateview-default-groundplot">
+			<h3>Grundrisse</h3>
+			<div>
+				{% for field in estates.groundplot.groundplotImage %}
+					<div>
+						<a href="{{ field.value }}" rel="gallery" class="thickbox"><img src="{{field.value}}" style="border:0; margin-bottom:40px; width: auto; max-width:100%; margin-auto" scrolling="none" ></a>
+					</div>
+				{% endfor %}	
+			</div>		
+		</div>			
+	{% endif %}	
+{% endif %}	

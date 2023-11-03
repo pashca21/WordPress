@@ -1,0 +1,162 @@
+{
+	"schema":"house_purchase",
+	"id":"626165a6-9acb-4dff-993a-dc939c726de9",
+	"headline":"Nice estate in the center of Colone",
+	"image":"https://ax151qown.cloudimg.io/width/1980/n/https://s3.eu-central-1.amazonaws.com/cloudios.production.image/27/75cad74e-dac9-4e1c-9544-97dffbc53f27/e9/626165a6-9acb-4dff-993a-dc939c726de9/9f/02c7c33a-0445-478e-a70e-481e18b16e9f.jpg",
+	"kanban":{
+		"id":"956165a6-922b-6dff-993a-dc939c726d54",
+		"totalPhases":["Aquisition","Preperation","Sales","Contract","After sales"],
+		"activePhase":"Sales"
+	},
+	"details":[
+		{
+			"caption":"Straße",
+			"value":"holweiderstr.23"
+		},
+		{
+			"caption":"zipcode",
+			"value":"51065"
+		},
+		{
+			"caption":"town",
+			"value":"Köln"
+		},
+		{
+			"caption":"price",
+			"value":"254.000€"
+		},
+		{
+			"caption":"livingarea",
+			"value":"120m²"
+		},
+		{
+			"caption":"rooms",
+			"value":"4"
+		}
+	],
+	"activities":[
+		{
+			"caption":"Visitings",
+			"value":"80"
+		},
+		{
+			"caption":"Financing Consulting",
+			"value":"10"
+		},
+		{
+			"caption":"Phone Calls",
+			"value":"60"
+		},
+		{
+			"caption":"Inhouse Appointments",
+			"value":"50"
+		}
+	],
+	"activityStream":{
+		"value":[0,0,1,2,3,42,45,23,21,12,2,2,0],
+		"Phase":["Aquisition","Aquisition","Aquisition","Aquisition","Preperation","Preperation","Sales","Sales","Sales","Sales","Sales","Contract","After sales"]
+	
+	},
+	"offers":[
+		{
+			"caption":"Exposé send",
+			"value":"200"
+		},
+		{
+			"caption":"Exposé opend",
+			"value":"100"
+		},
+		{
+			"caption":"Time spend on IEX",
+			"value":"1960 minutes"
+		}
+	],
+	"votes":[
+		{
+			"caption":"Total Votes",
+			"value":"200"
+		},
+		{
+			"caption":"Likes",
+			"value":"166"
+		},
+		{
+			"caption":"Dislikes",
+			"value":"34"
+		}
+	],
+	"publishing":[
+		{
+			"portal":"Immobilien Scout",
+			"status":"Online",
+			"since":"15.01.2018"
+		},
+		{
+			"portal":"Immonet",
+			"status":"Online",
+			"since":"16.01.2018"
+		},
+		{
+			"portal":"Wordpress",
+			"status":"Online",
+			"since":"22.01.2018"
+		},
+		{
+			"portal":"Kalaydo",
+			"status":"Online",
+			"since":"13.02.2018"
+		}
+	],
+	"prospects":[
+		{
+			"name":"Müller",
+			"gender":"ms",
+			"status":"offering"
+		},
+		{
+			"name":"Meyer",
+			"gender":"mr",
+			"status":"offering"
+		},
+		{
+			"name":"Berger",
+			"gender":"mr",
+			"status":"Financing"
+		},
+		{
+			"name":"Miller-Burgmann",
+			"gender":"mr",
+			"status":"Appointment"
+		},
+		{
+			"name":"Hauser",
+			"gender":"ms",
+			"status":"offering"
+		},
+		{
+			"name":"Ulmann",
+			"gender":"ms",
+			"status":"IEX sended"
+		},
+		{
+			"name":"Krämer",
+			"gender":"ms",
+			"status":"IEX open"
+		},
+		{
+			"name":"Hausmann",
+			"gender":"mr",
+			"status":"offering"
+		},
+		{
+			"name":"Neuer",
+			"gender":"mr",
+			"status":"IEX sended"
+		},
+		{
+			"name":"Köhler",
+			"gender":"mr",
+			"status":"IEX sended"
+		}
+	]
+}

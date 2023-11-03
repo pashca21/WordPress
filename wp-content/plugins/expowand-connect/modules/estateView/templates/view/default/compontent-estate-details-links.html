@@ -1,0 +1,12 @@
+<!-- estate content -->
+<div>
+	<ul>
+		{% for id, link in estates.multimedia.links %}
+			<li><a rel="nofollow" target="_blank" href="{{link.multimedia.fileReference}}">{{link.multimedia.title}}</a></li>
+		{% endfor %}
+	</ul>	
+	
+</div>		
+
+
+

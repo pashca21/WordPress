@@ -1,0 +1,20 @@
+<div id="ff-default" class="FFownerReport-estate-list-page">
+	<div class="FFownerReport-estate-list-container" >
+			{% include '/components/logout-button/component-button.html'%}
+			<div class ="FFownerReport-estate-list-container-elementes">
+				{% for id,estate in entries %}		
+					{% include '/components/estate-list/component-estate-card.html'%}
+				{% endfor %}
+			</div>
+	</div>
+	
+
+		<div class="ff-before">	
+			{% if page > 1 %} <a href='?pg={{page - 1}}' class="ff-before ffgoto" data-page="{{page - 1}}">Zurück</a>	{% endif %}	
+		</div>
+		<div class="ff-next">
+			
+			{% if (totalCount / pageSize)|round(0,'ceil') > page %} 
+			<a href='?pg={{page + 1}}' class="ffgoto" data-page="{{page + 1}}">Weiter</a>	{% endif %}	
+		</div>	
+</div>

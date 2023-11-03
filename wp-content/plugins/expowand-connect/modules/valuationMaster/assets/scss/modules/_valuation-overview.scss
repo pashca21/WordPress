@@ -1,0 +1,151 @@
+.FFvaluation-default-overview form {
+	/* border: 1px solid #eee;
+	box-shadow: 0 0 20px rgba(0,0,0,.1); */
+	padding: 2vw;
+	max-width: 800px;
+	margin: 40px auto;
+}
+
+.FFvaluation-default-overview form button{
+	font-size: 1em;
+	border: 0 !important;
+	width: 100%;
+	text-align: center;
+	height: 100%;
+	border-radius: 0;
+	border-top-right-radius: 2px;
+	border-bottom-right-radius: 2px;
+	max-height: 55px;
+	padding: 10px 30px;
+}
+
+.FFvaluation-default-score-block {
+	display:flex;
+	justify-content:space-between;
+}
+
+.FFvaluation-default-score-block > div{
+	min-width:300px;
+	width:100%;
+	max-width: 49%;
+	padding:20px;
+	box-sizing:border-box;
+}
+
+/* Make circles that indicate the steps of the form: */
+.step {
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbbbbb;
+  border: none;
+  border-radius: 50%;
+  display: inline-block;
+  opacity: 0.5;
+}
+
+/* Mark the active step: */
+.step.active {
+  opacity: 1;
+}
+
+/* Mark the steps that are finished and valid: */
+.step.finish {
+  background-color: #4CAF50;
+} 
+
+/* Hide all steps by default: */
+.ff-valuation-tab {
+  display: none;
+}
+
+.ff-valuation-card {
+  display:flex;
+}
+
+.ff-valuation-card h3{
+  padding: 20px 20px 0 20px;
+  font-weight: 400;
+  min-height: 2em;
+  box-sizing: border-box;
+  font-size: 2em;
+  overflow: hidden;
+}
+
+.ff-valuation-card p{
+  padding: 0 10px 10px;
+  font-size: 14px;
+  min-height: 37px;
+  box-sizing: border-box;
+  background: #fff;
+}
+
+.ff-valuation-button {
+  display: block;
+  justify-content:space-between;
+  margin-top:40px;
+}
+
+.ff-valuation-button > div {
+  min-width: 100%;
+}
+
+.ff-valuation-button > .steps {
+  text-align: center;
+  min-width: 200px;
+  margin-bottom: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.ff-valuation-tab-data {
+  min-width:50%;
+  width:100%;
+  text-align:center;
+}
+
+.ff-valuation-tab-collection {
+  min-width:33.3%;
+  width:100%;
+  text-align:center;
+  padding:40px;
+  background: #f6f6f6;
+}
+
+.ff-valuation-master-fields {
+  margin: 25px 0 0 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.ff-valuation-master-fields a:hover {
+  border: 2px solid var(--ff-primary-color);
+  color:#222;
+}	
+
+.ff-valuation-master-fields a:hover p {
+  color:#000;
+}
+
+.ff-valuation-master-fields a {
+  text-align: center !important;
+  border-top: 2px solid rgb(192, 210, 221);
+  border-bottom: 2px solid rgb(192, 210, 221);
+  border-left: 2px solid rgb(192, 210, 221);
+  border-right: 0;
+  border-radius: 0px;
+  opacity: .6;
+}
+
+.ff-valuation-master-fields a:first-child {
+  border-radius: 4px 0px 0px 4px;
+}
+
+.ff-valuation-master-fields a:last-child {
+  border-right: 2px solid rgb(192, 210, 221);
+  border-radius: 0 4px 4px 0;
+}
+
+.property-map {
+	position: relative;
+	z-index: 0;
+}

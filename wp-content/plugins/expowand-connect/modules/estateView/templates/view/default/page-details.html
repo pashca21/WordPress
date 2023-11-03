@@ -1,0 +1,72 @@
+<div id="ff-default" class="FFestateview-default-details" data-width="250">
+
+	{% for id,estates in page.results %}
+		
+		<!-- load images -->
+
+		{% if property_slider == 1 %}
+			{% include 'component-ff-slider.html'%}
+		{% elseif property_slider == 2 %}
+			{% include 'component-immo-slider.html'%}
+		{% else %}
+			{% include 'component-immo-slider.html'%}
+		{% endif %}
+		
+		<!-- load descriptions -->
+		{% if (estates.description or estates.geo.latitude.value) %}
+			{% include 'compontent-estate-details-description.html'%}
+		{% endif %}
+		
+		
+		<!-- load descriptions -->
+		{% if estates.energyUsage %}
+			{% include 'compontent-estate-details-energy.html'%}
+		{% endif %}
+		
+
+		<!-- groundplot -->	
+		{% include 'compontent-estate-details-groundplot.html' %}
+		
+		
+		<!-- related -->	
+		{% include 'compontent-related-estate.html' %}
+
+		
+		<!-- load links and documents -->
+		{% if estates.multimedia.links or estates.multimedia.documents %}	
+			
+			<h3>Weitere Informationen</h3>
+			<div class="FFestateview-default-details-content-documents" >
+				
+				{% if estates.multimedia.documents %}
+					{% include 'compontent-estate-details-files.html'%}
+				{% endif %}
+				
+				{% if estates.multimedia.links %}
+					{% include 'compontent-estate-details-links.html'%}
+				{% endif %}
+				
+			</div>
+		{% endif %}
+
+		
+		
+		<!-- content estate content legal -->
+		{% if estates.legal %}
+			<div class="FFestateview-default-details-content-legal" >
+				
+					{% for fields in estates.legal %}
+					<h3>{{fields.caption}} </h3>
+					<p>{{fields.value}}</p>
+					{% endfor %}
+			</div>
+		{% endif %}	
+
+		<!-- contact -->	
+		{% include 'compontent-agent-contact.html' %}
+	
+		
+		
+	{% endfor %}	
+		
+</div>

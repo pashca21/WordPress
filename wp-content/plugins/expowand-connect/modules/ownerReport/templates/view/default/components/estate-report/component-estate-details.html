@@ -1,0 +1,17 @@
+<div class="FFownerReport-estate-report-details" >
+	<div class="FFownerReport-estate-report-details-image" >
+		<img src='{{image}}'>
+	</div>
+	<div class="FFownerReport-estate-report-details-address" >
+		<h3 class='FFownerReport-estate-report-details-headline' >{{headline}}</h3>
+		{% for detail in details %}	
+			<div class='FFownerReport-estate-report-details-item details-{{detail.caption}}' >
+				<p>
+					<strong>{{detail.caption|capitalize}}</strong> : <span>{{detail.value}}</span>
+				</p>
+			  
+			</div>
+		
+		{%endfor %}
+	</div>
+</div>

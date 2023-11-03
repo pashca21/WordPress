@@ -1,0 +1,15 @@
+{% if search.results %}
+
+
+	<!-- get estate-->
+	<div id="ff-default" class="FFestateview-default-slider">
+		<!-- estate list -->
+		<div class="FFestateview-default-details-main">	
+			{% for id,estates in search.results %}
+				{% include 'compontent-estate-slide.html' with estates%}
+			{% endfor %}	
+		</div>	
+	</div>
+{% else %}
+	{% include 'compontent-estate-no-result.html' %}
+{% endif %}

@@ -1,0 +1,115 @@
+<!-- estate content -->
+{% if estates.description%}
+	{% for key, fields in estates.description %}
+		{% if key == "textEstate" %}
+			<div class="FFestateview-default-details-content-description" >
+				<div>
+					<h3>{{fields.caption}}</h3>
+					<p>{{fields.value|nl2br}}</p>
+				</div>
+			</div>
+		{% endif %}
+	{% endfor %}
+{% endif %}
+
+{% if estates.addresses %}
+	{% for field in estates.addresses %}
+		{% if field.value %}
+			{{ field.value.zipcode }} {{ field.value.city }} {{ field.value.district }}
+		{% endif %}
+	{% endfor %}	
+{% endif %}	
+
+<!-- location content -->
+{% if estates.description.textLocation or estates.geo.latitude.value %}
+	<div class="FFestateview-default-details-content-description" >
+		<div>
+			<h3>Lage</h3>
+			{% if estates.description.textLocation %}
+				{% for key, fields in estates.description %}
+					{% if key == "textLocation" %}
+						<p>{{fields.value|nl2br}}</p>
+					{% endif %}
+				{% endfor %}
+			{% endif %}
+
+			<!-- map content -->
+			{% if estates.geo.latitude.value %}
+				{% include 'compontent-estate-map.html' %}
+			{% endif %}
+		</div>
+	</div>
+{% endif %}
+
+
+<!-- environment content -->
+{% if estates.description.textEnvironment|length > 0 or estates.equipments|length > 0%}
+<div class="FFestateview-default-details-content-description" >
+	<div>
+
+		<h3>Ausstattung</h3>
+		{% for key, fields in estates.description %}
+			{% if key == "textEnvironment" %}
+				<p>{{fields.value|nl2br}}</p>
+			{% endif %}
+		{% endfor %}
+		<div class="FFestateview-default-details-content-equipments" >
+			{% if estates.equipments|length > 0 %}
+				<div>
+					{% for fields in estates.equipments %}
+						{% if fields.value == "ja" %}
+							<span class="{{fields.value}}" style="border-color: {{color.primary}}; opacity:1;  color: {{color.primary}}">{{fields.caption}} <i class="flaticon-checked"></i></span>
+						{% endif %}
+						{% if fields.value == "nein" %}
+							<span class="{{fields.value}}">{{fields.caption}} <i class="flaticon-multiply"></i></span>
+						{% endif %}
+					{% endfor %}
+				</div>
+			{% endif %}
+		</div>
+	</div>
+</div>
+{% endif %}
+
+
+<!-- content description -->
+{% if estates.description%}
+	{% for key, fields in estates.description %}
+		{% if key == "textConstructability" %}
+			<div class="FFestateview-default-details-content-description" >
+				<div>
+					<h3>{{fields.caption}}</h3>
+					<p>{{fields.value|nl2br}}</p>
+				</div>
+			</div>
+		{% endif %}
+	{% endfor %}
+{% endif %}
+
+<!-- content description -->
+{% if estates.description%}
+	{% for key, fields in estates.description %}
+		{% if key == "textDevelopment" %}
+			<div class="FFestateview-default-details-content-description" >
+				<div>
+					<h3>{{fields.caption}}</h3>
+					<p>{{fields.value|nl2br}}</p>
+				</div>
+			</div>
+		{% endif %}
+	{% endfor %}
+{% endif %}
+
+<!-- content description -->
+{% if estates.description%}
+	{% for key, fields in estates.description %}
+		{% if key == "textFree" %}
+			<div class="FFestateview-default-details-content-description" >
+				<div>
+					<h3>{{fields.caption}}</h3>
+					<p>{{fields.value|nl2br}}</p>
+				</div>
+			</div>
+		{% endif %}
+	{% endfor %}
+{% endif %}

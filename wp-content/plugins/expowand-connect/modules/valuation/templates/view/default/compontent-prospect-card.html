@@ -1,0 +1,84 @@
+
+<!-- prospect -->		
+<article class="FFvaluation-default-overview-prospect" >
+		<!-- prospect type -->		
+		<div class="FFvaluation-default-overview-image">
+			<div>
+				<!-- image placeholder -->
+				<div class="{% if prospect.contact.salutation.values.0 == 'Herr' %}flaticon-man{% elseif prospect.contact.salutation.values.0 == 'Frau' %}flaticon-woman{% elseif prospect.contact.salutation.values.0 == 'Firma' %}flaticon-desk{% elseif prospect.contact.salutation.values.0 == 'Familie' %}flaticon-family{% else %}flaticon-man{% endif %}"></div>
+			</div>
+			<div style="align-self: center;">
+				{% if prospect.contact.salutation.values.0 %}
+					{% if prospect.contact.salutation.values.0 == 'Firma' %}
+						<div style="font-weight:600;">{{ prospect.contact.salutation.values.0 }} {{ prospect.contact.company.values.0 |first }}</div>
+					{% else %}
+						<div style="font-weight:600;">{{ prospect.contact.salutation.values.0 }} {{ prospect.contact.lastName.values.0 |first}}</div>
+					{% endif %}
+				{% endif%}
+			
+				<!-- addresses -->
+				{% if prospect.contact.addresses.values.0.city %}	
+					<div style="font-size:0.8em;">aus  {{ prospect.contact.addresses.values.0.zipcode }} {{ prospect.contact.addresses.values.0.city }}</div>
+				{% endif%}
+		
+			</div>
+		</div>
+
+		<!-- prospect type -->		
+		<div class="FFvaluation-default-overview-prospect-type">
+			{% if prospect.estatetype %}
+				{% for field in prospect.estatetype %}
+					{% if field.value %}
+						{% for val in field.value %}
+							{{ val }},
+						{% endfor %}
+					{% endif %}
+				{% endfor %}
+			{% endif %}	
+		</div>				
+
+			
+		<!-- prospect price -->
+		{% if prospect.price %}
+			<div class="FFvaluation-default-overview-prospect-price ff-color-primary">
+				{% if prospect.price.price_on_request.value == "ja"%}
+				{% else %}
+					{% for field in prospect.price %}
+						{% if field.value %}
+							<div>{{ field.value }} {{field.unit}}</div>
+						{% elseif field.to %}
+							<div>
+								{% if field.to == false  %}ab {% endif %}
+								{% if field.from %} {{ field.from }}{{field.unit}} {% endif %}
+								{% if field.to %} bis {{ field.to }}{{field.unit}}{% endif %}
+							</div>	
+						{% endif %}
+					{% endfor %}
+				{% endif %}			
+			</div>	
+		{% endif %}	
+		<!-- prospect details -->
+		<div class="FFvaluation-default-overview-prospect-details">
+			{% if prospect.details %}
+				{% for key,field in prospect.details %}
+					{% if field.value %}
+						<div class="{{key}}">
+							<div class="FFvaluation-default-overview-prospect-details-values"><span>{{field.caption}}</span><span>{{ field.value }} <i>{{field.unit}}</i></span></div>	
+						</div>
+					{% else %}		
+						<div class="{{key}}">
+							<div class="FFvaluation-default-overview-prospect-details-values">
+								<span>{{field.caption}}</span>
+								<span>
+								{% if field.to == false  %}ab {% endif %}
+								{% if field.from %} {{ field.from }} <i>{{field.unit}}</i> {% endif %}
+								{% if field.to %} bis {{ field.to }} <i>{{field.unit}}</i>{% endif %}
+								</span>
+							</div>	
+						</div>	
+					{% endif %}		
+				{% endfor %}	
+			{% endif %}	
+		</div>
+
+</article>

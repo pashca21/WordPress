@@ -1,0 +1,117 @@
+<!-- agent -->
+
+
+	<!-- headline 
+	{% if estates.contact.salutation.values.0 == "Frau"%}
+		<h3>Ihre Ansprechpartnerin</h3>
+	{% else %}
+		<h3>Ihr Ansprechpartner</h3>
+	{% endif %}
+	-->	
+	<!-- agent data -->
+	<div class="FFestateview-default-details-agent" >
+
+		<div class="">
+			{% if company.logo.url %}
+			<div class="company-logo">
+				<img src="{{ company.logo.url }}" alt="" width="150px" height="auto" style="margin: 10px 0;">
+			</div>
+			{% endif %}
+			<div class="company-details">
+				<div class="name">
+					{{ company.companyName }}
+				</div>
+				<div class="address">
+					{{ company.companyStreet }}, {{ company.companyPostcode }} {{ company.companyCity }}
+				</div>
+				<div class="email">
+					<a href="mailto:{{ company.companyMailInfo }}">{{ company.companyMailInfo }}</a>
+				</div>
+			</div>
+		</div>
+
+		{% if estates.contact.lastName.values.0 %}
+			<div>
+				<!-- name -->
+				{% if estates.contact.lastName.values.0 %}
+					<div class="FFestateview-default-details-agent-name">
+						{% if estates.contact.multimedia|length > 0  %}
+							{% for key, media in estates.contact.multimedia %}		
+								{% if key == "main_image" and media|length > 0 %}
+									{% for field in media %}
+										<div class="FFestateview-default-details-agent-image" style="background-image:url({{api.cloudimage.url}}200/n/{{field.multimedia.fileReference}});"></div>		
+									{% endfor %}			
+								{% endif %}
+							{% endfor %}
+						{% else %}
+							{% if estates.contact.images.values.0.uri %}
+								<div class="FFestateview-default-details-agent-image" style="background-image:url({{api.cloudimage.url}}100/n/{{estates.contact.images.values.0.uri }});"></div>
+							{% endif%}
+						{% endif%}
+						
+						<span>{{ estates.contact.firstName.values.0 }} {{ estates.contact.lastName.values.0 }}</span>
+						{% if estates.contact.position.values.0 %}
+							<p>{{ estates.contact.position.values.0 }}</p>
+						{% endif%}
+					</div>
+				{% endif%}
+
+				
+				<div class="FFestateview-default-details-agent-details">
+
+					<!-- addresses -->
+					{% if estates.contact.addresses.values.0 == "OFF" %}
+						<div class="FFestateview-default-details-agent-addresses">
+							<div>{{ estates.contact.addresses.values.0.street }}</div>
+							<div>{{ estates.contact.addresses.values.0.zipcode }} {{ estates.contact.addresses.values.0.city }}</div>
+						</div>
+					{% endif%}
+						
+					<!-- phones -->
+					{% if estates.contact.phones.values.0 %}
+						<div class="FFestateview-default-details-agent-contact">
+							{% for phone in estates.contact.phones.values %}
+								{% if phone.type != "private" and phone.number|trim is not empty %}
+									{% if phone.type == "mobile" %}
+										<a href="tel:{{ phone.number }}"><i class="flaticon-phone"></i> {{ phone.number }}</a>
+									{% elseif phone.type == "other" %}
+										<a href="tel:{{ phone.number }}"><i class="flaticon-phone"></i> {{ phone.number }}</a>
+									{% elseif phone.type == "fax" %}
+										<a href="tel:{{ phone.number }}"><i class="flaticon-fax"></i> {{ phone.number }}</a>
+									{% else %}
+										<a href="tel:{{ phone.number }}"><i class="flaticon-phone-call"></i> {{ phone.number }}</a>
+									{% endif %}
+								{% endif %}	
+							{% endfor%}
+						</div>
+					{% endif%}
+				
+					<!-- email -->
+				{% if show.contactFrom == false %}	
+					{% if estates.contact.emails.values.0 %}
+						<div class="FFestateview-default-details-agent-contact-email">
+							<a href="mailto:{{ estates.contact.emails.values.0 }}">
+								<i class="flaticon-email"></i> {{ estates.contact.emails.values.0 }}
+								<!-- <span style="background: #eee">{{ estates.contact.emails.values.0 }}</span> -->
+							</a>	
+						</div>
+					{% endif%}
+				{% endif%}
+
+				</div>
+			</div>
+
+			{% if estates.contact.emails.values.0 %}
+				{% if show.contactFrom %}
+					<div class="FFestateview-default-details-content-facts-contact">
+						<button style="width: 100%;" class="FFestateview-default-popup-open">Kontakt</button>
+					</div>	
+				{% endif%}
+			{% endif%}
+		{% endif%}		
+		
+		{% if socialmedia == 1 %}
+			{% include 'compontent-estate-share.html'%}
+		{% endif%}
+	</div>
+

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <title>FLOWFACT - Neue Kontaktanfrage von Ihrer Homepage ist eingegangen</title>
+  <link href="https://fonts.googleapis.com/css?family=Raleway:400,600" rel="stylesheet"> 
+  
+  
+  
+  <style>
+		.mail-content td{
+				padding-bottom:5px;
+		}
+		
+		@media only screen and (max-width: 900px) {
+
+			.mail-content tr{
+				display:flex;
+				flex-direction:column;
+			}
+				
+			.mail-content tr td{
+				vertical-align:top;
+			}
+					
+
+			.mail-content tr td div{
+				padding:10px !important;
+				margin:0 !important;
+			}
+			
+			.subbuttons a{
+				display:none;
+			}
+		}
+  </style>
+</head>
+
+	<body style="font-size:15px; background:#f6f6f6; color:#222; min-width:400px;">
+
+		<div style="border-left:1px solid #eee; border-right:1px solid #eee; background: #fff; margin:40px auto;  max-width: 899px; ">
+
+			<!-- header -->
+
+			<table style="max-width: 100%;  width: 100%; margin:auto; background: #00bcd4; padding:30px 60px 60px 60px; background-size:cover; background-position:center; ">
+			
+				<tr>
+					<td>
+						<a href="https://www.flowfact.de" title="Zur Flowfact Homepage"><img src="https://download.flowfact.me/ff_logo_weis.png" width="180px" alt="Logo"></a>
+					</td>
+				</tr>	
+				
+				<tr>
+					<td colspan="2" style="padding:40px 0 40px 0;  font-family: 'Raleway', sans-serif; color:#fff;  font-weight:600; font-size:1.2em;">
+						Sehr geehrte Damen und Herren,<br/><br/>
+						es ist eine neue Nachricht zu Ihrer Immobilie ({{estate.identifier}}#{{portalkey}}) eingegangen. Die Anfrage wurde auf Ihrer Webseite:{{page}} erstellt.
+					</td>
+				</tr>
+			</table>  
+			
+			
+			<!-- Spacer -->
+					<!-- Spacer -->
+			<img style="margin-top:-100px;" src="https://download.flowfact.me/curve-a.png" width="100%" height="100px">
+			
+			
+			<!-- content -->
+			<table class="mail-content" style="max-width: 899px; width: 100%; margin:auto; background:#fff; padding:30px 60px 60px 60px; ">
+				<tr>
+					<td style="padding:40px 0 0; line-height:1.56; font-family: 'Raleway', sans-serif; width:50%;" >
+						<b style="font-size:1.2em">
+							<!-- Text -->
+							Interessent
+						</b>
+						<p style="font-size:1em">
+							<!-- Text -->
+							{{prospect.salutation}} {{prospect.firstName}} {{prospect.lastName}}<br/>
+							{{prospect.street}} <br/>{{prospect.zip}} {{prospect.town}}<br/>
+
+							{%if prospect.phone %}Telefon: {{prospect.phone}}<br/>{%endif%}
+							{%if prospect.email %}E-Mail: {{prospect.email}}<br/>{%endif%}
+							<br/>
+							<!-- Text -->
+							Folgenden Einwilligungen wurden zugestimmt:
+							<ul>
+								<li>{{legal.privacy}}</li> 
+								<li>{{legal.phone}}</li>
+							</ul>	
+						</p>
+					</td>
+				</tr>	
+				
+				<tr>
+					<td style="padding:40px 0 0; line-height:1.56; font-family: 'Raleway', sans-serif; " >
+						<b style="font-size:1.2em">
+							<!-- Text -->
+							Mitteilung des Interessenten
+						</b>
+						<p  style="font-size:1em">
+							{{message}}
+						</p>		
+					</td>
+				</tr>	
+				
+				<tr>
+					<td style="padding:40px 0 0; line-height:1.56; font-family: 'Raleway', sans-serif; " >
+						<b style="font-size:1.2em">
+							<!-- Text -->
+							Angefragte Immobilie
+						</b>
+						<p  style="font-size:1em">
+							Zur Immobilie: <a target="_blank" href="{{estate.leadUrl}}">{{estate.identifier}}#{{portalkey}} - {{estate.headline}}</a><br/>
+						</p>
+					</td>
+				</tr>	
+				
+			</table>  
+
+			
+			<!-- Spacer -->
+			<img style="margin-bottom:-100px;" src="https://download.flowfact.me/curve-b.png" height="100px" width="100%">
+			<defs>
+				<style>
+				  .cls-1 {
+					fill: #fff;
+					stroke: #fff;
+					stroke-width: 0;
+					fill-rule: evenodd;
+					filter: url(#filter);
+				  }
+				</style>
+				 <filter id="filter" x="-13" y="-40" width="966" height="150" filterUnits="userSpaceOnUse">
+					  <feFlood result="flood" flood-color="#fff"/>
+					  <feComposite result="composite" operator="in" in2="SourceGraphic"/>
+					  <feBlend result="blend" in2="SourceGraphic"/>
+					</filter>
+				  </defs>
+				  <g style="fill: #fff; filter: url(#filter)">
+					<path id="Abgerundetes_Rechteck_1" data-name="Abgerundetes Rechteck 1" class="cls-1" d="M948,110l-41-9C516.018,21.052,62.379-2.35-8,88L-13-35a5,5,0,0,1,5-5H948a5,5,0,0,1,5,5V105A5,5,0,0,1,948,110Z" style="stroke: inherit; filter: none; fill: inherit"/>
+				  </g>
+				  <use xlink:href="#Abgerundetes_Rechteck_1" style="stroke: #000; filter: none; fill: none"/>
+			</svg>
+
+			
+			<!-- Footer -->
+			<table style="max-width: 899px; width: 100%; margin:auto; background:#eee; padding:30px 60px 60px 60px;">
+				<tr>
+					<td style="padding-top:60px; text-align:center; font-size: 1.2em; line-height: 1.56; font-family: 'Raleway', sans-serif;">
+						
+					</td>
+				</tr>	
+			</table>  
+		</div> 
+		<div style="text-align:center; font-size:.9em;">
+			<a href="https://www.flowfact.de" target="_blank" style="color:#222; margin:0 10px 40px 10px; display:inline-block; font-family: 'Raleway', sans-serif; text-align:center; text-decoration:none; font-weight:300; ">
+				FLOWFACT
+			</a>
+			<a href="https://my.flowfact.com/impressum/" target="_blank" style="color:#222; margin:0 10px 40px 10px; display:inline-block; font-family: 'Raleway', sans-serif; text-align:center; text-decoration:none; font-weight:300; ">
+				Impressum
+			</a>
+			<a href="https://my.flowfact.com/datenschutz/" target="_blank" style="color:#222; margin:0 10px 40px 10px; display:inline-block; font-family: 'Raleway', sans-serif; text-align:center; text-decoration:none; font-weight:300; ">
+				Datenschutz
+			</a>
+		</div>	
+		<div style="text-align:center; font-size:0.8em; color:#888;  margin:0 auto 40px auto;   max-width: 899px; min-width:400px; font-family: 'Raleway', sans-serif;">
+			Diese Nachricht kann vertrauliche Informationen enthalten. Sollten
+			Sie nicht der vorgesehene Empfänger sein, so bitten wir Sie, den
+			Absender unverzüglich zu informieren und die E-Mail zu löschen.
+			Jeder unbefugte Zugriff oder unbefugte Weiterleitung, die Fertigung
+			einer Kopie, die Veröffentlichung oder sonstige in diesem
+			Zusammenhang stehende Handlung ist untersagt. Da wir nicht die
+			Echtheit oder Vollständigkeit der in dieser Nachricht enthaltenen
+			Informationen garantieren können, schließen wir die rechtliche
+			Verbindlichkeit der vorstehenden Erklärungen und Äußerungen
+			aus.
+		</div>
+		<div style="display:none; height:0px; overflow:hidden;" class="for-importer">
+			{%if prospect.salutation %}Anrede:{{prospect.salutation}}<br>{%endif%}
+			{%if prospect.firstName %}Vorname:{{prospect.firstName}}<br>{%endif%}
+			{%if prospect.lastName %}Nachname:{{prospect.lastName}}<br>{%endif%}
+			{%if prospect.street %}
+				Straße:{{prospect.street}}<br>
+				PLZ:{{prospect.zip}}<br> 
+				Ort:{{prospect.town}}<br>
+			{%endif%}
+			{%if prospect.phone %}Telefon:{{prospect.phone}}<br>{%endif%}
+			{%if prospect.email %}E-Mail:{{prospect.email}}<br>{%endif%}
+			OBJID:{{estate.identifier}}#{{portalkey}}<br>
+			<div class="notice">{{message}}</div>
+		</div>
+	</body>
+</html>

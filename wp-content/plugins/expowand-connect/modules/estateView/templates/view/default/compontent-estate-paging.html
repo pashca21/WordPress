@@ -1,0 +1,8 @@
+<div class="FFestateview-default-overview-estate-paging">	
+	<div class="ff-before">	
+		{% if search.page > 1 %} <button class="ff-before ffgoto" data-page="{{search.page - 1}}">Zurück</button>	{% endif %}	
+	</div>
+	<div class="ff-next">
+		{% if search.page_max > search.page %} <button class="ffgoto" data-page="{{search.page + 1}}">Weiter</button>	{% endif %}	
+	</div>			
+</div>

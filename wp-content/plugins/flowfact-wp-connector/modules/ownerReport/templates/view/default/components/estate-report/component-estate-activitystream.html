@@ -1,0 +1,24 @@
+{% set NewPhase = [] %}
+
+{% for name in activityStream.Phase %}
+   {% if name not in NewPhase %}
+   
+   {% set NewPhase = NewPhase|merge([name]) %}
+   {% endif %}
+{% endfor %}
+
+<div class="FFownerReport-estate-report-activitystream" >
+	<h4>Activity Stream </h4>
+		<div class='FFownerReport-estate-report-activitiesstream-chart-container'>
+			<div class='FFownerReport-estate-report-activitiesstream-chart' data-labels='{{activityStream.Phase|json_encode }} ' data-values='{{activityStream.value|json_encode}} '>
+			</div>
+			<div class='FFownerReport-estate-report-activitiesstream-phases'>
+				{% for phase in NewPhase %}
+				<div class='FFownerReport-estate-report-activitiesstream-phase'>
+					{{phase}}
+				</div>
+				{% endfor %}
+			</div>
+	</div>
+</div>
+

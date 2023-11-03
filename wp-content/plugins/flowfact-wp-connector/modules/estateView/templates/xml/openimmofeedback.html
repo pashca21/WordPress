@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+  <openimmo_feedback>
+  <version>1.2.5</version>
+  <sender>
+    <name>{{general.portal}}</name>
+    <datum>{{general.createDate}}</datum>
+    <makler_id></makler_id>
+    <regi_id>FLOWFACT Wordpress Connector</regi_id>
+  </sender>
+
+  <objekt>
+    <portal_obj_id>{{general.portalId}}</portal_obj_id>
+    <oobj_id>{{estate.identifier}}#{{portalkey}}</oobj_id>
+    
+    <expose_url>{{estate.leadUrl}}</expose_url>
+    <bezeichnung>{{estate.headline}}</bezeichnung>
+    <strasse>{{estate.street}}</strasse>
+    <ort>{{estate.zip}} {{estate.town}}</ort>
+    <land>{{estate.country}}</land>
+    <stadtbezirk>{{estate.district}}</stadtbezirk>
+    <preis>{{estate.price}}</preis>
+    <anzahl_zimmer>{{estate.room}}</anzahl_zimmer>
+    <flaeche>{{estate.area}}</flaeche>
+
+    <interessent>
+      <anrede>{{prospect.salutation}}</anrede>
+      <vorname>{{prospect.firstName}}</vorname>
+      <nachname>{{prospect.lastName}}</nachname>
+      <strasse>{{prospect.street}}</strasse>  
+      <plz>{{prospect.zip}}</plz>
+      <ort>{{prospect.town}}</ort>
+      <tel>{{prospect.phone}}</tel>
+      <email>{{prospect.email}}</email>
+      <anfrage>{{message}}</anfrage>   
+    </interessent>
+  </objekt>
+</openimmo_feedback>

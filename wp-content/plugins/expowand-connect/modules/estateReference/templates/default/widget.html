@@ -1,0 +1,78 @@
+<div id="ff-default" class="FFrecommendation-default">
+    <div class="FFrecommendation-default">
+		
+		{% for result in results %}
+			<div class="FFrecommendation-default-element">
+				<div>
+					<div class="FFrecommendation-default-image {% if result.creator_salutation == 'Herr' %}ff-default-men{% endif %}{% if result.creator_salutation == 'Frau' %}ff-default-woman{% endif %}{% if result.creator_salutation == 'Familie' %}ff-default-family{% endif %}">
+						{% if result.creator_image %}
+							<img src="{{ result.creator_image }}"></>
+						{% endif %}	
+					</div>
+					<div>
+						<div >
+							{% if result.creator_name %}
+								{% if result.link %}
+									<a href="{{result.link}}">{{ result.creator_salutation }} {{ result.creator_name }}</a>
+								{% else %}	
+									{{ result.creator_salutation }} {{ result.creator_name }}
+								{% endif %}	
+							{% endif %}
+						</div>
+						<div class="FFrecommendation-default-element-rating">
+								{% if result.rating|round == 1 %}
+									<div class="rate"></div>
+									<div class="rate-1"></div>
+									<div class="rate-1"></div>
+									<div class="rate-1"></div>
+									<div class="rate-1"></div>
+								{% endif %}	
+									
+								{% if  result.rating|round == 2 %}
+									<div class="rate"></div>
+									<div class="rate"></div>
+									<div class="rate-1"></div>
+									<div class="rate-1"></div>
+									<div class="rate-1"></div>
+								{% endif %}	
+									
+								{% if result.rating|round == 3 %}
+									<div class="rate"></div>
+									<div class="rate"></div>
+									<div class="rate"></div>
+									<div class="rate-1"></div>
+									<div class="rate-1"></div>
+								{% endif %}	
+									
+								{% if result.rating|round == 4 %}
+									<div class="rate"></div>
+									<div class="rate"></div>
+									<div class="rate"></div>
+									<div class="rate"></div>
+									<div class="rate-1"></div>
+								{% endif %}	
+									
+								{% if result.rating|round == 5 %}
+									<div class="rate"></div>
+									<div class="rate"></div>
+									<div class="rate"></div>
+									<div class="rate"></div>
+									<div class="rate"></div>
+								{% endif %}
+							
+							{% if result.rating %}	
+								<div class="FFrecommendation-default-element-rating-score">
+									{{result.rating}} / 5
+								</div>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+
+		{% if overview %}
+			<a class="ff-default-overview-link" href="{{overview}}" titel="Bewertungs Übersicht">Alle anzeigen</a>
+		{% endif %}
+	</div>
+</div>
