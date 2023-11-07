@@ -1,9 +1,8 @@
 <?php
-// get config
 
 include_once 'dict.php';
 
-class FFestateReferenceCore extends API
+class EWestateReferenceCore extends API
 {
 	// get widget
     public function widget(){
@@ -22,28 +21,22 @@ class FFestateReferenceCore extends API
 	
 	// get search	
 	protected function get_search($data = NULL, $page = 1, $max_results = FF_ESTATEREFERENCE_MAX_RESULT) {
-		if(!empty($data))
-		{		
+		if(!empty($data)) {		
 			// default
 			$data["search"]["search"]["schema"] = "default";
 	
 			// get search params
-			if( !empty($_GET))
-			{	
+			if( !empty($_GET))	{	
 				foreach($_GET as $key => $value){
 					$data["search"]["search"][sanitize_text_field($key)] = esc_html(sanitize_text_field($value));
 				}
 			}
-
 			// get list
 			$data = $this->get_search_result($data);
-			
 			// get html
 			return $this->get_html("page-overview", FF_ESTATEVIEW_THEME, $data);
-			
-		}
-		else
-		{
+
+		}else{
 			return;
 		}	
 	}
@@ -107,10 +100,10 @@ class FFestateReferenceCore extends API
 				$data["api"]["maps"]["path"]		= plugin_dir_url( dirname( __FILE__ ) )."/estateView/assets/img/".FF_ESTATEVIEW_THEME."/";
 				
 				// change view to frame if set
-				if(!empty($_GET["iframe"]) and $_GET["iframe"] == "1")
-				{
-					$data["frame"]	== "1";
-				}
+				// if(!empty($_GET["iframe"]) and $_GET["iframe"] == "1")
+				// {
+				// 	$data["frame"]	== "1";
+				// }
 
 				// print("<pre>".print_r($data,true)."</pre>");exit;
 				
@@ -259,24 +252,14 @@ class FFestateReferenceCore extends API
             // set path
             $path = plugin_dir_path(__FILE__) . "templates/" . $template;
 
-
             if (file_exists($path . '/' . $page . '.html')) {
-                // $loader = new Twig_Loader_Filesystem($path);
-                // $twig = new Twig_Environment($loader);
 				// print("<pre>".print_r($data,true)."</pre>");exit;
-				// $html = $twig->render($page . '.html', $data);
 				$html = '';
 				ob_start();
 				$results = $data['search']['results'];
 				include($path . '/' . $page . '.php');
 				$html = ob_get_contents();
 				ob_end_clean();
-				// // print("<pre>".print_r($data,true)."</pre>");exit;
-				// foreach($data['search']['results'] as $key => $value){
-				// 	$offer = $value['offer'];
-				// 	$offerdetails = $value['offerdetails'];
-				// 	$html = $html . $key. ' ' .$offer['name'] . '<br>';
-				// }
 				// print("<pre>".print_r($html,true)."</pre>");exit;
                 return $html;
             } else {

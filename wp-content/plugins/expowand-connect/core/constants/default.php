@@ -9,8 +9,8 @@
 	*    Defaults
 	*********************/
 
-	(!empty(get_option('ff-token')))? define('FF_TOKEN', get_option('ff-token') ) : define('FF_TOKEN', '' ) ;
-	define('FF_CACHE', 20 );
+	(!empty(get_option('ew-token')))? define('EW_TOKEN', get_option('ew-token') ) : define('EW_TOKEN', '' ) ;
+	define('EW_CACHE', 20 );
 	define('FF_PATH', WP_PLUGIN_DIR . '/flowfact-saleautomat-connector' );
 	(!empty(get_option('ff-post-type')))? define('FF_POST_TYPE', get_option('ff-post-type') ) : define('FF_POST_TYPE', 'page' ) ;
 	
@@ -65,8 +65,6 @@
 	(!empty(get_option('ff-recommendation-route')))? define('FF_RECOMMENDATION_ROUTE', get_option('ff-recommendation-route') ) : define('FF_RECOMMENDATION_ROUTE', 'videobewertungen' ) ;
 	(!empty(get_option('ff-estateview-route')))? define('FF_ESTATEVIEW_ROUTE', get_option('ff-estateview-route') ) : define('FF_ESTATEVIEW_ROUTE', 'immobilien' ) ;
 	(!empty(get_option('ff-estatereference-route')))? define('FF_ESTATEREFERENCE_ROUTE', get_option('ff-estatereference-route') ) : define('FF_ESTATEREFERENCE_ROUTE', 'immobilienreferenzen' ) ;
-	(!empty(get_option('ff-valuation-route')))? define('FF_VALUATION_ROUTE', get_option('ff-valuation-route') ) : define('FF_VALUATION_ROUTE', 'immobilien-marktwertermittlung' ) ;
-	(!empty(get_option('ff-valuationMaster-route')))? define('FF_VALUATIONMASTER_ROUTE', get_option('ff-valuationMaster-route') ) : define('FF_VALUATIONMASTER_ROUTE', 'lead-hunter' ) ;
 	(!empty(get_option('ff-estateTracking-route')))? define('FF_ESTATETRACKING_ROUTE', get_option('ff-estateTracking-route') ) : define('FF_ESTATETRACKING_ROUTE', 'immobilientracking' ) ;
 	(!empty(get_option('ff-ownerreport-route')))? define('FF_OWNERREPORT_ROUTE', get_option('ff-ownerreport-route') ) : define('FF_OWNERREPORT_ROUTE', 'objekttracking' );
 

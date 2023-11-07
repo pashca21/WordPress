@@ -45,69 +45,69 @@ class FFestateViewCore extends API
 			// get estate details
 			$results[0] = $this->get_entity_by_id($schemaId, sanitize_key($id));
 
-			if(!empty($results[0]["securitydeposit"]["values"][0])) {
-				// test if string contains 'letters'
-				if(!preg_match("#[^0-9.,]#", $results[0]["securitydeposit"]["values"][0])){
-					$results[0]["securitydeposit"]["values"][0] .= " €";
-				}
-			}
+			// if(!empty($results[0]["securitydeposit"]["values"][0])) {
+			// 	// test if string contains 'letters'
+			// 	if(!preg_match("#[^0-9.,]#", $results[0]["securitydeposit"]["values"][0])){
+			// 		$results[0]["securitydeposit"]["values"][0] .= " €";
+			// 	}
+			// }
 
-			if (isset($results[0]['onlineImage']) && isset($results[0]['onlineImage']['values']))
-			{
-				$results[0]['onlineImage']['values'] = $this->sortOnlineImages($results[0]['onlineImage']['values']);
-			}
-			$schema = $this->get_schemas_by_name($results[0]['_metadata']['documentType']);
+			// if (isset($results[0]['onlineImage']) && isset($results[0]['onlineImage']['values']))
+			// {
+			// 	$results[0]['onlineImage']['values'] = $this->sortOnlineImages($results[0]['onlineImage']['values']);
+			// }
+			// $schema = $this->get_schemas_by_name($results[0]['_metadata']['documentType']);
 
-			$data["mapping"] = json_decode(FF_ESTATEVIEW_SALESAUTOMATE_MAPPING, true);
+			// $data["mapping"] = json_decode(FF_ESTATEVIEW_SALESAUTOMATE_MAPPING, true);
 
-			// Schemas mapping for fields with different captions but the same field names
-			if($schema["name"] == "office_surgery_rent") {
-				$data["mapping"]["details"]["default"]["details"]["pricesqm"]["caption"] = "Mietpreis pro m²";
-				$data["mapping"]["details"]["default"]["details"]["securitydeposit"]["unit"] = "";
-			}
+			// // Schemas mapping for fields with different captions but the same field names
+			// if($schema["name"] == "office_surgery_rent") {
+			// 	$data["mapping"]["details"]["default"]["details"]["pricesqm"]["caption"] = "Mietpreis pro m²";
+			// 	$data["mapping"]["details"]["default"]["details"]["securitydeposit"]["unit"] = "";
+			// }
 
-			if($schema["name"] == "flat_rent") {
-				$data["mapping"]["details"]["default"]["details"]["completiondate"]["caption"] = "Verfügbar ab";
-			}
+			// if($schema["name"] == "flat_rent") {
+			// 	$data["mapping"]["details"]["default"]["details"]["completiondate"]["caption"] = "Verfügbar ab";
+			// }
 
-			// check if data for availableFrom field is a date string
-			if(!empty($results[0]['availableFrom']['values'][0]) && is_numeric( strtotime( $results[0]['availableFrom']['values'][0] ) )) {
-				//if so trim it and change field type to text
-				$results[0]['availableFrom']['values'][0] = substr($results[0]['availableFrom']['values'][0], 0, 10);
-				$data["mapping"]["details"]["default"]["details"]["availableFrom"]["type"] = "text";
-			}
+			// // check if data for availableFrom field is a date string
+			// if(!empty($results[0]['availableFrom']['values'][0]) && is_numeric( strtotime( $results[0]['availableFrom']['values'][0] ) )) {
+			// 	//if so trim it and change field type to text
+			// 	$results[0]['availableFrom']['values'][0] = substr($results[0]['availableFrom']['values'][0], 0, 10);
+			// 	$data["mapping"]["details"]["default"]["details"]["availableFrom"]["type"] = "text";
+			// }
 			
 			// get fields
-			$fields = $this->getFields($data["mapping"]["details"], $schema["name"], $results, false);
+			// $fields = $this->getFields($data["mapping"]["details"], $schema["name"], $results, false);
 
-			if (!empty($fields))
-			{
-				$data["page"]["results"] = $fields;
-			}
-			else
-			{
-				$fields = $this->getFields($data["mapping"]["details"], "default", $results, false);
-				if (!empty($fields))
-				{
-					$data["page"]["results"] = $fields;
-				}
-				else
-				{
-					$result['title'] = "Fehler 404";
-					$this->show_404();
-				}
-			}
+			// if (!empty($fields))
+			// {
+			// 	$data["page"]["results"] = $fields;
+			// }
+			// else
+			// {
+			// 	$fields = $this->getFields($data["mapping"]["details"], "default", $results, false);
+			// 	if (!empty($fields))
+			// 	{
+			// 		$data["page"]["results"] = $fields;
+			// 	}
+			// 	else
+			// 	{
+			// 		$result['title'] = "Fehler 404";
+			// 		$this->show_404();
+			// 	}
+			// }
 
 			// remove related estates which are not included in the WordPress portal
-			if(!empty($data["page"]["results"][$id]["related"])) {
-				// fetch properties
-				$data["mapping"] = json_decode(FF_ESTATEVIEW_SALESAUTOMATE_MAPPING, true);
-				$data["estatesorting"] = get_option("ff-estateView-estate-sorting");
-				$wordpress_estates = $this->get_search($data, $attr);
+			// if(!empty($data["page"]["results"][$id]["related"])) {
+			// 	// fetch properties
+			// 	$data["mapping"] = json_decode(FF_ESTATEVIEW_SALESAUTOMATE_MAPPING, true);
+			// 	$data["estatesorting"] = get_option("ff-estateView-estate-sorting");
+			// 	$wordpress_estates = $this->get_search($data, $attr);
 
-				// remove properties which are not included
-				$data["page"]["results"][$id]["related"] = array_intersect_key($data["page"]["results"][$id]["related"], $wordpress_estates["search"]["results"]);
-			}
+			// 	// remove properties which are not included
+			// 	$data["page"]["results"][$id]["related"] = array_intersect_key($data["page"]["results"][$id]["related"], $wordpress_estates["search"]["results"]);
+			// }
 
 			// check if estate is still published
 			$publshed = API::get_portals_publsidhed_estates(sanitize_key($id) , FF_ESTATEVIEW_PUBLISH);

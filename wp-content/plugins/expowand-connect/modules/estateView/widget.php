@@ -11,9 +11,9 @@
 		public function __construct() {
 			$widgetOps = array(
 				'classname' 	=> 'FFestateView',
-				'description' 	=> 'Zur Einbindung von Immobilien aus dem FLOWFACT Saleautomat',
+				'description' 	=> 'Zur Einbindung von Immobilien aus dem Expowand',
 			);
-			parent::__construct('FFestateView', 'FLOWFACT - Immobiliensuche', $widgetOps );
+			parent::__construct('FFestateView', 'Expowand - Immobiliensuche', $widgetOps );
 		}
 
 		// output the widget content on the front-end

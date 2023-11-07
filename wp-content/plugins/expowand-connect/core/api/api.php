@@ -1,13 +1,6 @@
 <?php
 
-class API
-{
-	/********************************
-	 *								*
-	 *		API Calls				*
-	 *								*
-	 ********************************/
-	 
+class API {	 
 	// get Views
     protected function get_all_views_by_group(){
 		// set url
@@ -39,10 +32,10 @@ class API
             global $wpdb;
             $result = $wpdb->get_results("SELECT json
                                       FROM
-                                        {$wpdb->prefix}ff_general_cache
+                                        {$wpdb->prefix}ew_general_cache
                                       WHERE
                                            name = '".$name."'
-                                      and  created > (now() - INTERVAL ".FF_CACHE." Minute)");
+                                      and  created > (now() - INTERVAL ".EW_CACHE." Minute)");
 
             if (!empty($result)) {
                 return json_decode($result[0]->json);
@@ -212,190 +205,190 @@ class API
     }
 	
 	// get rent price of a estate
-	protected function get_estate_valuation_by_quality($search) {
+	// protected function get_estate_valuation_by_quality($search) {
 		
 		
-        if (!empty($search)) {
-            // set url
-            $url = FF_API_ESTATE_VALIDATION."/equipment";
+    //     if (!empty($search)) {
+    //         // set url
+    //         $url = FF_API_ESTATE_VALIDATION."/equipment";
 
-            // get token
-            $token = API::get_token();
-            $result = API::post_content($token, $url, $search);
+    //         // get token
+    //         $token = API::get_token();
+    //         $result = API::post_content($token, $url, $search);
 			
-			if (!empty($result) && $result['response']['code'] == 200) {
-				return json_decode($result['body'],true);
-			} else {
-				return false;
-			}
-        } else {
-			return false;
-		}
-    }
+	// 		if (!empty($result) && $result['response']['code'] == 200) {
+	// 			return json_decode($result['body'],true);
+	// 		} else {
+	// 			return false;
+	// 		}
+    //     } else {
+	// 		return false;
+	// 	}
+    // }
 
 	// get schemas by schema Group
-    protected function get_schemas_by_schema_group($group = NULL) {
-        if (!empty($group)) {
+    // protected function get_schemas_by_schema_group($group = NULL) {
+    //     if (!empty($group)) {
 
-            global $wpdb;
-            $result = $wpdb->get_results("SELECT json
-                                      FROM
-                                        {$wpdb->prefix}ff_schema_cache
-                                      WHERE
-                                           schemaName = 'FF ".$group." Schemas'
-                                      and  created > (now() - INTERVAL ".FF_CACHE." Minute)");
+    //         global $wpdb;
+    //         $result = $wpdb->get_results("SELECT json
+    //                                   FROM
+    //                                     {$wpdb->prefix}ff_schema_cache
+    //                                   WHERE
+    //                                        schemaName = 'FF ".$group." Schemas'
+    //                                   and  created > (now() - INTERVAL ".EW_CACHE." Minute)");
 
-            if (!empty($result)) {
-                return json_decode($result[0]->json);
+    //         if (!empty($result)) {
+    //             return json_decode($result[0]->json);
 
-            } else {
-                // set url
-                $url = FF_API_SCHEMA_SERVICE . '/estates?transform&resolveGroup=true';
+    //         } else {
+    //             // set url
+    //             $url = FF_API_SCHEMA_SERVICE . '/estates?transform&resolveGroup=true';
 
-                // get token
-                $token = API::get_token();
-                $result = API::get_content($token, $url);
+    //             // get token
+    //             $token = API::get_token();
+    //             $result = API::get_content($token, $url);
 
-                if(!empty($result) && $result['response']['code'] == 200) {
+    //             if(!empty($result) && $result['response']['code'] == 200) {
 
-                    // add token to cache
-                    //$this->set_schema_cached('FF '.$group.' Schemas', 'LOCAL', $result['body'] );
+    //                 // add token to cache
+    //                 //$this->set_schema_cached('FF '.$group.' Schemas', 'LOCAL', $result['body'] );
 
-                    // retrun
-                    return json_decode($result['body']);
-                } else {
-                    return false;
-                }
-            }
-        } else {
-            return false;
-        }
-    }
+    //                 // retrun
+    //                 return json_decode($result['body']);
+    //             } else {
+    //                 return false;
+    //             }
+    //         }
+    //     } else {
+    //         return false;
+    //     }
+    // }
 
-    protected function isSchemaGroupAvailable($groupName) {
-        $url = FF_API_SCHEMA_SERVICE_BASE_PATH . '/global/groups/assignments';
-        $token = API::get_token();
-        $result = API::get_content($token, $url);
-        if(!empty($result) && $result['response']['code'] == 200) {
-            $assignedGroups = json_decode($result['body']);
-            return array_search($groupName, array_column($assignedGroups->globalGroupAssignments, 'groupName')) !== false;
-        }
+    // protected function isSchemaGroupAvailable($groupName) {
+    //     $url = FF_API_SCHEMA_SERVICE_BASE_PATH . '/global/groups/assignments';
+    //     $token = API::get_token();
+    //     $result = API::get_content($token, $url);
+    //     if(!empty($result) && $result['response']['code'] == 200) {
+    //         $assignedGroups = json_decode($result['body']);
+    //         return array_search($groupName, array_column($assignedGroups->globalGroupAssignments, 'groupName')) !== false;
+    //     }
 
-        return false;
-    }
+    //     return false;
+    // }
 
     // get schemas by name
-    protected function get_schemas_by_name($name = NULL) {
-        if (!empty($name)) {
-            // set url
-            $url = FF_API_SCHEMA_SERVICE . '/'.$name;
+    // protected function get_schemas_by_name($name = NULL) {
+    //     if (!empty($name)) {
+    //         // set url
+    //         $url = FF_API_SCHEMA_SERVICE . '/'.$name;
 			
-            // get token
-            $token = API::get_token();
-            $result = API::get_content($token, $url);
+    //         // get token
+    //         $token = API::get_token();
+    //         $result = API::get_content($token, $url);
 			
-            if(!empty($result) && $result['response']['code'] == 200) {
-                return json_decode($result['body'],true);
-            } else {
-                return false;
-            }
-        }
-    }
+    //         if(!empty($result) && $result['response']['code'] == 200) {
+    //             return json_decode($result['body'],true);
+    //         } else {
+    //             return false;
+    //         }
+    //     }
+    // }
 
-    public function get_users() {
+    // public function get_users() {
        
-        // set url
-        $url = FF_API_USER_SERVICE;
-        $users = get_transient( 'ff_team_transient' );
+    //     // set url
+    //     $url = FF_API_USER_SERVICE;
+    //     $users = get_transient( 'ff_team_transient' );
            
-        if( $users == false ){
-            $token = API::get_token();
-            $result = API::get_content($token, $url);
+    //     if( $users == false ){
+    //         $token = API::get_token();
+    //         $result = API::get_content($token, $url);
  
-            if(!empty($result) && $result['response']['code'] == 200) {
+    //         if(!empty($result) && $result['response']['code'] == 200) {
               
-                $users = json_decode($result['body'],true);
-                $users =  $this->filter_active_users($users);
+    //             $users = json_decode($result['body'],true);
+    //             $users =  $this->filter_active_users($users);
                 
-				//set cached data
-                set_transient( 'ff_team_transient', $users, 120 );
+	// 			//set cached data
+    //             set_transient( 'ff_team_transient', $users, 120 );
                    
-                return $users;
-            } else {
+    //             return $users;
+    //         } else {
               
-                return false;
-            }
-        } else {
-            return $this->filter_active_users($users);
-        }
-    }
+    //             return false;
+    //         }
+    //     } else {
+    //         return $this->filter_active_users($users);
+    //     }
+    // }
 
-    public function get_users_no_cache() {
-        // set url
-        $url = FF_API_USER_SERVICE;
+    // public function get_users_no_cache() {
+    //     // set url
+    //     $url = FF_API_USER_SERVICE;
         
-        $token = API::get_token();
-        $result = API::get_content($token, $url);
+    //     $token = API::get_token();
+    //     $result = API::get_content($token, $url);
 
-        if(!empty($result) && $result['response']['code'] == 200) {
-            $users = json_decode($result['body'],true);
+    //     if(!empty($result) && $result['response']['code'] == 200) {
+    //         $users = json_decode($result['body'],true);
 
-            //$users =  $this->filter_active_users($users);
+    //         //$users =  $this->filter_active_users($users);
                 
-            return $users;
-        } else {
-            return false;
-        }
-    }
+    //         return $users;
+    //     } else {
+    //         return false;
+    //     }
+    // }
 	
-function filter_active_users($users){
-    $active_users= array();
-    foreach($users as $user){
+// function filter_active_users($users){
+//     $active_users= array();
+//     foreach($users as $user){
 
-        if($user['active']){
+//         if($user['active']){
 
-			$active_users[]=$user; 
-        }
+// 			$active_users[]=$user; 
+//         }
 		       
-    }
-    return $active_users;
+//     }
+//     return $active_users;
 
-}
-    protected function create_schema($data = NULL){
-        if (!empty($data)) {
+// }
+    // protected function create_schema($data = NULL){
+    //     if (!empty($data)) {
 
-            // set url
-            $url = FF_API_SCHEMA_SERVICE . '/';
+    //         // set url
+    //         $url = FF_API_SCHEMA_SERVICE . '/';
 
-            // get token
-            $token = API::get_token();
-            $result = API::post_content($token, $url, $data);
+    //         // get token
+    //         $token = API::get_token();
+    //         $result = API::post_content($token, $url, $data);
 
-            if(!empty($result) && $result['response']['code'] == 200) {
-                return json_decode($result['body']);
-            } else {
-                return false;
-            }
-        }
-    }    
+    //         if(!empty($result) && $result['response']['code'] == 200) {
+    //             return json_decode($result['body']);
+    //         } else {
+    //             return false;
+    //         }
+    //     }
+    // }    
 	
-	protected function delete_schemas_by_id($id = NULL) {
-        if (!empty($id)) {
+	// protected function delete_schemas_by_id($id = NULL) {
+    //     if (!empty($id)) {
 
-            // set url
-            $url = FF_API_SCHEMA_SERVICE . '/'.$name;
+    //         // set url
+    //         $url = FF_API_SCHEMA_SERVICE . '/'.$name;
 
-            // get token
-            $token = API::get_token();
-            $result = API::get_content($token, $url);
+    //         // get token
+    //         $token = API::get_token();
+    //         $result = API::get_content($token, $url);
 
-            if(!empty($result) && $result['response']['code'] == 200) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-    }
+    //         if(!empty($result) && $result['response']['code'] == 200) {
+    //             return true;
+    //         } else {
+    //             return false;
+    //         }
+    //     }
+    // }
 		
     // search via rest
     protected function get_entities_by_search($schemaId = NULL , $search = NULL,$max_results = NULL, $page = 1) {
@@ -543,21 +536,21 @@ function filter_active_users($users){
     }
 
 	// get all integration
-	protected function get_all_integration() {
+	// protected function get_all_integration() {
 		
-		// set url
-		$url = FF_API_SCHEMA_SERVICE_INTIGRATION;
+	// 	// set url
+	// 	$url = FF_API_SCHEMA_SERVICE_INTIGRATION;
 
-		// get token
-		$token = API::get_token();
-		$result = API::get_content($token, $url);
+	// 	// get token
+	// 	$token = API::get_token();
+	// 	$result = API::get_content($token, $url);
 
-		if (!empty($result) && $result['response']['code'] == 200) {
-			return json_decode($result['body'],true);
-		} else {
-			return false;
-		}	
-    }
+	// 	if (!empty($result) && $result['response']['code'] == 200) {
+	// 		return json_decode($result['body'],true);
+	// 	} else {
+	// 		return false;
+	// 	}	
+    // }
 
 	
 	// get all integration
@@ -579,153 +572,153 @@ function filter_active_users($users){
 
 
 	// get entitlement
-	function get_entitlement($product = NULL) {
+	// function get_entitlement($product = NULL) {
 		
-		if($product) {
+	// 	if($product) {
 		
-			// set url
-			$url = FF_API_ENTITLEMENT_SERVICE.$product;
+	// 		// set url
+	// 		$url = FF_API_ENTITLEMENT_SERVICE.$product;
 
-			// get token
-			$token = API::get_token();
-			$result = API::get_content($token, $url);
+	// 		// get token
+	// 		$token = API::get_token();
+	// 		$result = API::get_content($token, $url);
 			
 			
-			if (!empty($result) && $result['response']['code'] == 200) {
-				return json_decode($result['body'],true);
-			} else {
-				return false;
-			}
-		}
-		return false;
-    }
+	// 		if (!empty($result) && $result['response']['code'] == 200) {
+	// 			return json_decode($result['body'],true);
+	// 		} else {
+	// 			return false;
+	// 		}
+	// 	}
+	// 	return false;
+    // }
 
 
     // send mail by nylas
-    protected function send_mail_by_nylas($mail, $content)
-    {
-        if (empty($mail)) {
-            return false;
-        }
+    // protected function send_mail_by_nylas($mail, $content)
+    // {
+    //     if (empty($mail)) {
+    //         return false;
+    //     }
 
-        $url = FF_API_NYLAS_SERVICE . '/nylas/send?email=' . $mail;
-        $token = API::get_token();
-        $result = API::post_content($token, $url, $content);
-        if (!empty($result) && $result['response']['code'] == 200) {
-            return json_decode($result['body'], true);
-        }
+    //     $url = FF_API_NYLAS_SERVICE . '/nylas/send?email=' . $mail;
+    //     $token = API::get_token();
+    //     $result = API::post_content($token, $url, $content);
+    //     if (!empty($result) && $result['response']['code'] == 200) {
+    //         return json_decode($result['body'], true);
+    //     }
 
-        return false;
-    }
+    //     return false;
+    // }
 	
 	// add attachment to nylas
-	protected function send_mail_attachent_by_nylas($mail, $content) {
+	// protected function send_mail_attachent_by_nylas($mail, $content) {
 
-        if (!empty($mail) && !empty($content)) {
-            // set url
-            $url = FF_API_NYLAS_SERVICE."/nylas/files";
+    //     if (!empty($mail) && !empty($content)) {
+    //         // set url
+    //         $url = FF_API_NYLAS_SERVICE."/nylas/files";
 
-            // get token
-            $token = API::get_token();
-            $result = API::post_content($token, $url, $content);
+    //         // get token
+    //         $token = API::get_token();
+    //         $result = API::post_content($token, $url, $content);
 
-			if (!empty($result) && $result['response']['code'] == 200) {
-				return json_decode($result['body'],true);
-			} else {
-				return false;
-			}
-        } else {
-			return false;
-		}
-    }
+	// 		if (!empty($result) && $result['response']['code'] == 200) {
+	// 			return json_decode($result['body'],true);
+	// 		} else {
+	// 			return false;
+	// 		}
+    //     } else {
+	// 		return false;
+	// 	}
+    // }
 	
 
 	// get valuation of a estate
-	protected function get_estate_valuation($search) {
+	// protected function get_estate_valuation($search) {
 
-        if (!empty($search)) {
-            // set url
-            $url = FF_API_ESTATE_VALIDATION;
+    //     if (!empty($search)) {
+    //         // set url
+    //         $url = FF_API_ESTATE_VALIDATION;
 
-            // get token
-            $token = API::get_token();
-            $result = API::post_content($token, $url, $search);
+    //         // get token
+    //         $token = API::get_token();
+    //         $result = API::post_content($token, $url, $search);
 			
-			if (!empty($result) && $result['response']['code'] == 200) {
-				return json_decode($result['body'],true);
-			} else {
-				return false;
-			}
-        } else {
-			return false;
-		}
-    }
+	// 		if (!empty($result) && $result['response']['code'] == 200) {
+	// 			return json_decode($result['body'],true);
+	// 		} else {
+	// 			return false;
+	// 		}
+    //     } else {
+	// 		return false;
+	// 	}
+    // }
 	
 	// get valuation of a estate
-	protected function get_estate_valuation_ipi($search) {
+	// protected function get_estate_valuation_ipi($search) {
 		
 		
-        if (!empty($search)) {
-            // set url
-            $url = FF_API_ESTATE_VALIDATION."/ipi";
+    //     if (!empty($search)) {
+    //         // set url
+    //         $url = FF_API_ESTATE_VALIDATION."/ipi";
 
-            // get token
-            $token = API::get_token();
-            $result = API::post_content($token, $url, $search);
+    //         // get token
+    //         $token = API::get_token();
+    //         $result = API::post_content($token, $url, $search);
 			
-			if (!empty($result) && $result['response']['code'] == 200) {
-				return json_decode($result['body'],true);
-			} else {
-				return false;
-			}
-        } else {
-			return false;
-		}
-    }	
+	// 		if (!empty($result) && $result['response']['code'] == 200) {
+	// 			return json_decode($result['body'],true);
+	// 		} else {
+	// 			return false;
+	// 		}
+    //     } else {
+	// 		return false;
+	// 	}
+    // }	
 	
 	// get rent price of a estate
-	protected function get_estate_valuation_rent($search) {
+	// protected function get_estate_valuation_rent($search) {
 		
 		
-        if (!empty($search)) {
-            // set url
-            $url = FF_API_ESTATE_VALIDATION_RENT;
+    //     if (!empty($search)) {
+    //         // set url
+    //         $url = FF_API_ESTATE_VALIDATION_RENT;
 
-            // get token
-            $token = API::get_token();
-            $result = API::post_content($token, $url, $search);
+    //         // get token
+    //         $token = API::get_token();
+    //         $result = API::post_content($token, $url, $search);
 		
-			if (!empty($result) && $result['response']['code'] == 200) {
-				return json_decode($result['body'],true);
-			} else {
-				return false;
-			}
-        } else {
-			return false;
-		}
-    }
+	// 		if (!empty($result) && $result['response']['code'] == 200) {
+	// 			return json_decode($result['body'],true);
+	// 		} else {
+	// 			return false;
+	// 		}
+    //     } else {
+	// 		return false;
+	// 	}
+    // }
 	
 	// get rent prices of a estate
-	protected function get_estate_valuation_rent_ipi($search) {
+	// protected function get_estate_valuation_rent_ipi($search) {
 		
 		
-        if (!empty($search)) {
-            // set url
-            $url = FF_API_ESTATE_VALIDATION_RENT."/ipi";
+    //     if (!empty($search)) {
+    //         // set url
+    //         $url = FF_API_ESTATE_VALIDATION_RENT."/ipi";
 
-            // get token
-            $token = API::get_token();
-            $result = API::post_content($token, $url, $search);
+    //         // get token
+    //         $token = API::get_token();
+    //         $result = API::post_content($token, $url, $search);
 			
-			if (!empty($result) && $result['response']['code'] == 200) {
-				return json_decode($result['body'],true);
-			} else {
-				return false;
-			}
-        } else {
-			return false;
-		}
-    }
+	// 		if (!empty($result) && $result['response']['code'] == 200) {
+	// 			return json_decode($result['body'],true);
+	// 		} else {
+	// 			return false;
+	// 		}
+    //     } else {
+	// 		return false;
+	// 	}
+    // }
 	
 	
 	
@@ -858,50 +851,26 @@ function filter_active_users($users){
         return $entities;
     }
 	
-
-	/********************************
-	 *								*
-	 *		Helper classes			*
-	 *								*
-	 ********************************/
-	
 	// Get API TOKEN
     protected function get_token(){
-		
 		global $wpdb;
-		$result = $wpdb->get_results("SELECT json
-									  FROM
-										{$wpdb->prefix}ff_general_cache
-									  WHERE
-									  name = 'FF TOKEN'
-									  and  created > (now() - INTERVAL ".FF_CACHE." Minute)");
+		$result = $wpdb->get_results("SELECT json FROM {$wpdb->prefix}ew_general_cache WHERE name = 'EW_TOKEN' and  created > (now() - INTERVAL ".EW_CACHE." Minute)");
 		if (!empty($result)) {
-			
 			// get cached token
 			return $result[0]->json;
-			
 		} else {
-			
-			if(!empty(get_option('ff-token')))
-			{
+			if(!empty(get_option('ew-token'))) {
 				// get token
                 $call = API::get_content("e96fd307-9019-4cf3-a9c4-c5490a7fbd76",FF_API_ADMIN_TOKEN_SERVICE_AUTH, "token");
-				// $call = API::get_content(FF_TOKEN, FF_API_ADMIN_TOKEN_SERVICE_AUTH, "token");
-				
+				// $call = API::get_content(EW_TOKEN, FF_API_ADMIN_TOKEN_SERVICE_AUTH, "token");
 				// add token to cache
-				$this->set_general_cache('FF TOKEN', $call['body']);
-			}
-			else
-			{
+				$this->set_general_cache('EW_TOKEN', $call['body']);
+			}else{
 				// set demo token
                 $call = API::get_content("e96fd307-9019-4cf3-a9c4-c5490a7fbd76",FF_API_ADMIN_TOKEN_SERVICE_AUTH, "token");
-				// $call = API::get_content("9019",FF_API_ADMIN_TOKEN_SERVICE_AUTH, "token");
-			}	
-
-			// retrun
+			}
 			return $call['body'];
 		}	
-		 
     }
 
 	// Get content via rest
@@ -1011,7 +980,7 @@ function filter_active_users($users){
     protected function set_general_cache($name = NULL, $data = NULL) {
         if (!empty($name) && !empty($data)) {
             global $wpdb;
-            $sql = "INSERT INTO {$wpdb->prefix}ff_general_cache (created,name,json) VALUES (now(),'" . $name . "','" . $data . "') ON DUPLICATE KEY UPDATE created = now(), json = '" . $data . "';";
+            $sql = "INSERT INTO {$wpdb->prefix}ew_general_cache (created,name,json) VALUES (now(),'" . $name . "','" . $data . "') ON DUPLICATE KEY UPDATE created = now(), json = '" . $data . "';";
             $wpdb->query($sql);
             return;
         } else {
@@ -1023,7 +992,7 @@ function filter_active_users($users){
     protected function set_entity_cache($entityId = NULL, $schemaId = NULL, $data = NULL) {
         if (!empty($entityId) && !empty($schemaId) && !empty($data)) {
             global $wpdb;
-            $sql = "INSERT INTO {$wpdb->prefix}ff_entity_cache (created,entityId,schemaId,json) VALUES (now(),'" . $entityId . "','" . $schemaId . "','" . $data . "') ON DUPLICATE KEY UPDATE created = now(), json = '" . $data . "';";
+            $sql = "INSERT INTO {$wpdb->prefix}ew_entity_cache (created,entityId,schemaId,json) VALUES (now(),'" . $entityId . "','" . $schemaId . "','" . $data . "') ON DUPLICATE KEY UPDATE created = now(), json = '" . $data . "';";
             $wpdb->query($sql);
 
             return;
@@ -1033,17 +1002,17 @@ function filter_active_users($users){
     }
 	
 	// set schema cache
-    protected function set_schema_cache( $schemaId = NULL, $data = NULL) {
-        if (!empty($schemaId) && !empty($data) && !empty($schemaId)) {
-            global $wpdb;
-            $sql = "INSERT INTO {$wpdb->prefix}ff_schema_cache (created,schemaId,json) VALUES (now(),'" . $schemaId . "','" . $data . "') ON DUPLICATE KEY UPDATE created = now(), json = '" . $data . "';";
-            $wpdb->query($sql);
+    // protected function set_schema_cache( $schemaId = NULL, $data = NULL) {
+    //     if (!empty($schemaId) && !empty($data) && !empty($schemaId)) {
+    //         global $wpdb;
+    //         $sql = "INSERT INTO {$wpdb->prefix}ff_schema_cache (created,schemaId,json) VALUES (now(),'" . $schemaId . "','" . $data . "') ON DUPLICATE KEY UPDATE created = now(), json = '" . $data . "';";
+    //         $wpdb->query($sql);
 
-            return;
-        } else {
-            return false;
-        }
-    }
+    //         return;
+    //     } else {
+    //         return false;
+    //     }
+    // }
 		
 	// get formatted fields
 	function get_formated_fields($field = NULL, $field_data = NULL, $data = NULL, $estateId = NULL) {

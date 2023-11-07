@@ -1,11 +1,10 @@
 <?php 
 
-
 	// load module core
 	require_once( plugin_dir_path(__FILE__) .'/core.php');
 
 	// Widget Functions
-	class FFestateReferenceWidget extends WP_Widget  {
+	class EWestateReferenceWidget extends WP_Widget  {
 
 		// class constructor
 		public function __construct() {
@@ -20,8 +19,8 @@
 		public function widget( $args, $instance ) {
 			
 			// init module core
-			$FFestateReferenceWidget = new FFestateReferenceWidget();
-			echo $FFestateReferenceWidget->widget($args, $instance);
+			$EWestateReferenceWidget = new EWestateReferenceWidget();
+			echo $EWestateReferenceWidget->widget($args, $instance);
 		}
 
 		// output the option form field in admin Widgets screen
@@ -34,17 +33,17 @@
 	}
 	
 	// create Shortcode
-	function FFestateReferenceShortcode( $atts ) {
+	function EWestateReferenceShortcode( $atts ) {
 		// defaults
 		/*$a = shortcode_atts( array(
 		  'name' => 'world'
 	    ), $atts );*/
 	   
 	    // get addin
-		$FFestateReferenceCore = new FFestateReferenceCore();
-		$data = $FFestateReferenceCore->get_estate_reference_overview();
+		$EWestateReferenceCore = new EWestateReferenceCore();
+		$data = $EWestateReferenceCore->get_estate_reference_overview();
 		return $data['content'];
 	}
 	
-	add_shortcode( 'ff_estatereference_shortcode', 'FFestateReferenceShortcode' );
+	add_shortcode( 'ew_estatereference_shortcode', 'EWestateReferenceShortcode' );
 

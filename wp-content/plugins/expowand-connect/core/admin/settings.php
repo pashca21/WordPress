@@ -61,7 +61,7 @@
 			?>
 		
 			<?php if (!empty(FF_ADMIN_SETTINGS)): ?>
-				<img width="200px"; src="" />
+				<h1>EXPOWAND Connect</h1>
 
 				<?php $data = json_decode(FF_ADMIN_SETTINGS,true); ?>
 
