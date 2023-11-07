@@ -526,7 +526,7 @@ class FFestateViewCore extends API
 		}
 		// get list
 		$data = $this->get_search_result($data);
-		$fileData = get_file_data(dirname(__FILE__) . '/../../flowfact-wp-connector.php', ['Version' => 'Version'], 'plugin');
+		$fileData = get_file_data(dirname(__FILE__) . '/../../expowand-connect.php', ['Version' => 'Version'], 'plugin');
 		$data['pluginVersion'] = $fileData['Version'];
 
 		// get html

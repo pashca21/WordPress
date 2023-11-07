@@ -1,6 +1,8 @@
 <?php
 // get config
 
+include_once 'dict.php';
+
 class FFestateReferenceCore extends API
 {
 	// get widget
@@ -48,7 +50,8 @@ class FFestateReferenceCore extends API
 	
 	// return search
     protected function get_search_result($data = NULL, $page = 1, $max_results = FF_ESTATEREFERENCE_MAX_RESULT) {
-    	if (!empty($data["search"]["search"])){
+		// print("<pre>".print_r($data,true)."</pre>");exit;
+		if (!empty($data["search"]["search"])){
 
 				$schemaId = "estates";
 
@@ -62,49 +65,54 @@ class FFestateReferenceCore extends API
 				$search = $this->get_search_query($data);
 
 				$result = API::get_entities_by_search($schemaId , $search ,$max_results, $page);
-				$data["search"]["total_count"]	= $result["totalCount"];
-				$data["search"]["page_max"] 	= ceil($result["totalCount"]/$max_results);
+				// print_r($result); exit;
+
+				$data["search"]["total_count"]	= $result->totalCount;
+				$data["search"]["page_max"] 	= ceil($result->totalCount/$max_results);
 				$data["search"]["page"] 		= $page;
 				
-				
-				// get entries
-				$result = $this->getFields($data["mapping"]["list"], $data["search"]["search"]["schema"], $result["entries"]);
-				$multimedia = array("entities" => array("0" => array("assignments" => array())));
+				// get immos
+				// print("<pre>".print_r($data,true)."</pre>");exit;
+				// $result = $this->getFields($data["mapping"]["list"], $data["search"]["search"]["schema"], $result["immos"]);
+				// $multimedia = array("entities" => array("0" => array("assignments" => array())));
 
-				if (!empty($result)) {
-						// attached new multimedia images to entity
-						$multimedia = API::get_estate_images(array_keys($result));
-				}
+				// print("<pre>".print_r($result,true)."</pre>");exit;
+				// if (!empty($result)) {
+				// 		// attached new multimedia images to entity
+				// 		$multimedia = API::get_estate_images(array_keys($result));
+				// }
 
-				// create new multimedia array with main images & IDs
-				$main_imageArray = [];
-				foreach($multimedia["entities"] as $entity) {
-					if(!empty($entity["assignments"]["main_image"][0]["multimedia"]["entityId"])) {
-						$id = $entity["assignments"]["main_image"][0]["multimedia"]["entityId"];
-					}
-					if(!empty($entity["assignments"]["main_image"][0]["multimedia"]["fileReference"])) {
-						$main_imageArray[$id] = $entity["assignments"]["main_image"][0]["multimedia"]["fileReference"];
-					}					
-				};
+				// // create new multimedia array with main images & IDs
+				// $main_imageArray = [];
+				// foreach($multimedia["entities"] as $entity) {
+				// 	if(!empty($entity["assignments"]["main_image"][0]["multimedia"]["entityId"])) {
+				// 		$id = $entity["assignments"]["main_image"][0]["multimedia"]["entityId"];
+				// 	}
+				// 	if(!empty($entity["assignments"]["main_image"][0]["multimedia"]["fileReference"])) {
+				// 		$main_imageArray[$id] = $entity["assignments"]["main_image"][0]["multimedia"]["fileReference"];
+				// 	}					
+				// };
 
-				// assign main image url to results
-				foreach($main_imageArray as $key => $mainImage) {
-					$result[$key]["mainImage"]["mainImage"][0]["value"] = $mainImage;
-				}
+				// // assign main image url to results
+				// foreach($main_imageArray as $key => $mainImage) {
+				// 	$result[$key]["mainImage"]["mainImage"][0]["value"] = $mainImage;
+				// }
 					
-				$data["search"]["results"]				= $result;
-				$data["search"]["path"]		    		= get_bloginfo('wpurl') . '/' . FF_PLUGIN_ROUTE . '/' . FF_ESTATEREFERENCE_ROUTE;
-				$data["color"]["primary"]					= FF_PRIMARY_COLOR;
-				$data["color"]["secondary"]				= FF_SECONDARY_COLOR;
-				$data["api"]["cloudimage"]["url"] = FF_CLOUDIMAGE_IO_URL;
-				$data["api"]["maps"]["key"]				= FF_GG_API_MAPS;
-				$data["api"]["maps"]["path"]			= plugin_dir_url( dirname( __FILE__ ) )."/estateView/assets/img/".FF_ESTATEVIEW_THEME."/";
+				$data["search"]["results"]			= $result;
+				$data["search"]["path"]		    	= get_bloginfo('wpurl') . '/' . FF_PLUGIN_ROUTE . '/' . FF_ESTATEREFERENCE_ROUTE;
+				$data["color"]["primary"]			= FF_PRIMARY_COLOR;
+				$data["color"]["secondary"]			= FF_SECONDARY_COLOR;
+				$data["api"]["cloudimage"]["url"] 	= FF_CLOUDIMAGE_IO_URL;
+				$data["api"]["maps"]["key"]			= FF_GG_API_MAPS;
+				$data["api"]["maps"]["path"]		= plugin_dir_url( dirname( __FILE__ ) )."/estateView/assets/img/".FF_ESTATEVIEW_THEME."/";
 				
 				// change view to frame if set
 				if(!empty($_GET["iframe"]) and $_GET["iframe"] == "1")
 				{
 					$data["frame"]	== "1";
 				}
+
+				// print("<pre>".print_r($data,true)."</pre>");exit;
 				
 				return $data; 
       }
@@ -202,17 +210,34 @@ class FFestateReferenceCore extends API
 			{
 				foreach ($results as $result)
 				{			
+					//  print_r($result['offerdetails']);exit;
 					if($schema == $key)
 					{
 						foreach($row as $key2 => $row2)
 						{
+							// print_r($key2);
 							foreach($row2 as $key3 => $row3)
 							{
+								// print_r($key3);
+								// print_r($row3);exit;
 								if(!empty($row3["type"]))
 								{	
-									if(!empty($result[$key3]["values"]))
+									if(isset($result['offerdetails'][$key3])){
+										if(!empty($result['offerdetails'][$key3]))
+										{
+										// print_r($key3);
+										// print_r($row3);
+										// print_r($result);
+										// print_r($key2);
+											$field[$result["offer"]['id']][$key2][$key3] = API::get_formated_fields($key3,$row3, $result, $key2);
+										}
+									}
+									else if(isset($result['offer'][$key3]))
 									{
-										$field[$result["id"]][$key2][$key3] = API::get_formated_fields($key3,$row3, $result, $key2);
+										if(!empty($result['offer'][$key3]))
+										{
+											$field[$result["offer"]['id']][$key2][$key3] = API::get_formated_fields($key3,$row3, $result, $key2);
+										}
 									}
 								}
 							}
@@ -236,9 +261,23 @@ class FFestateReferenceCore extends API
 
 
             if (file_exists($path . '/' . $page . '.html')) {
-                $loader = new Twig_Loader_Filesystem($path);
-                $twig = new Twig_Environment($loader);
-				$html = $twig->render($page . '.html', $data);
+                // $loader = new Twig_Loader_Filesystem($path);
+                // $twig = new Twig_Environment($loader);
+				// print("<pre>".print_r($data,true)."</pre>");exit;
+				// $html = $twig->render($page . '.html', $data);
+				$html = '';
+				ob_start();
+				$results = $data['search']['results'];
+				include($path . '/' . $page . '.php');
+				$html = ob_get_contents();
+				ob_end_clean();
+				// // print("<pre>".print_r($data,true)."</pre>");exit;
+				// foreach($data['search']['results'] as $key => $value){
+				// 	$offer = $value['offer'];
+				// 	$offerdetails = $value['offerdetails'];
+				// 	$html = $html . $key. ' ' .$offer['name'] . '<br>';
+				// }
+				// print("<pre>".print_r($html,true)."</pre>");exit;
                 return $html;
             } else {
                 return false;
@@ -251,15 +290,24 @@ class FFestateReferenceCore extends API
     // load css for plugin
     protected function loadCss($theme = 'default')
     {
+
+		// JS
+		wp_register_script('BS', 'https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js');
+		wp_enqueue_script('BS');
+
+		// CSS
+		wp_register_style('BS', 'https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css');
+		wp_enqueue_style('BS');
+
 		// load default css	
-		wp_register_style('FF-EstateReference-Styles-' . $theme, plugins_url('/assets/css/' . $theme . '/ff-estatereference-styles.css', __FILE__),'','1.0.0', false);
-		wp_enqueue_style('FF-EstateReference-Styles-' . $theme);
+		// wp_register_style('FF-EstateReference-Styles-' . $theme, plugins_url('/assets/css/' . $theme . '/ff-estatereference-styles.css', __FILE__),'','1.0.0', false);
+		// wp_enqueue_style('FF-EstateReference-Styles-' . $theme);
 			
 		// force load Jquery
 		wp_enqueue_script( 'jquery');    
 			
 		// load default js
-		wp_register_script('FF-EstateReference-Script-' . $theme, plugins_url('/assets/js/' . $theme . '/ff-estatereference-script.js', __FILE__),'','1.0.0', true);
-		wp_enqueue_script( 'FF-EstateReference-Script-' . $theme );
+		// wp_register_script('FF-EstateReference-Script-' . $theme, plugins_url('/assets/js/' . $theme . '/ff-estatereference-script.js', __FILE__),'','1.0.0', true);
+		// wp_enqueue_script( 'FF-EstateReference-Script-' . $theme );
     }
 }

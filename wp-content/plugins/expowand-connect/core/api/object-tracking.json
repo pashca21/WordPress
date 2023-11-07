@@ -26,11 +26,11 @@
 			"value":"254.000€"
 		},
 		{
-			"caption":"livingarea",
+			"caption":"livingSpace",
 			"value":"120m²"
 		},
 		{
-			"caption":"rooms",
+			"caption":"numbersOfRooms",
 			"value":"4"
 		}
 	],

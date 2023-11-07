@@ -468,7 +468,7 @@
 						"type": "text",
 						"unit": ""
 					},
-					"livingarea": {
+					"livingSpace": {
 						"caption": "Wohnfläche",
 						"type": "area",
 						"unit": "m²"
@@ -478,12 +478,12 @@
 						"type": "area",
 						"unit": "m²"
 					},
-					"rooms": {
+					"numbersOfRooms": {
 						"caption": "Zimmer",
 						"type": "number",
 						"unit": ""
 					},
-					"plotarea": {
+					"plotArea": {
 						"caption": "Grundstück",
 						"type": "area",
 						"unit": "m²"
@@ -493,7 +493,7 @@
 						"type": "number",
 						"unit": "m²"
 					},
-					"totalarea": {
+					"totalFloorSpace": {
 						"caption": "Gesamtfläche",
 						"type": "area",
 						"unit": "m²"
@@ -599,7 +599,7 @@
 						"type":		"text",
 						"unit":		""
 					},
-					"livingarea": {
+					"livingSpace": {
 						"caption":	"Wohnfläche",
 						"type":		"area",
 						"unit":		"m²"
@@ -609,12 +609,12 @@
 						"type":		"area",
 						"unit":		"m²"
 					},
-					"rooms": {
+					"numbersOfRooms": {
 						"caption":	"Zimmer",
 						"type":		"number",
 						"unit":		""
 					},
-					"plotarea": {
+					"plotArea": {
 						"caption":	"Grundstück",
 						"type":		"area",
 						"unit":		"m²"
@@ -624,12 +624,12 @@
 						"type":		"number",
 						"unit":		"m²"
 					},
-					"totalarea": {
+					"totalFloorSpace": {
 						"caption":	"Gesamtfläche",
 						"type":		"area",
 						"unit":		"m²"
 					},
-					"plotareainha": {
+					"plotAreainha": {
 						"caption":	"Grundstücksfläche",
 						"type":		"area",
 						"unit":		"ha"
@@ -1459,12 +1459,12 @@
 								"type":		"currence",
 								"unit":		"€"
 							},
-							"livingarea": {
+							"livingSpace": {
 								"caption":	"Wohnfläche",
 								"type":		"area",
 								"unit":		"m²"
 							},
-							"rooms": {
+							"numbersOfRooms": {
 								"caption":	"Zimmer",
 								"type":		"number",
 								"unit":		""
@@ -2001,7 +2001,7 @@
 						"type":		"currence",
 						"unit":		"€"
 					},
-					"livingarea": {
+					"livingSpace": {
 						"caption":	"Wohnfläche",
 						"type":		"area",
 						"unit":		"m²"
@@ -2011,7 +2011,7 @@
 						"type":		"area",
 						"unit":		"m"
 					},
-					"plotarea": {
+					"plotArea": {
 						"caption":	"Grundstück",
 						"type":		"area",
 						"unit":		"m²"
@@ -2036,12 +2036,12 @@
 						"type":		"number",
 						"unit":		""
 					},
-					"rooms": {
+					"numbersOfRooms": {
 						"caption":	"Zimmer",
 						"type":		"number",
 						"unit":		""
 					},
-					"plotareainha": {
+					"plotAreainha": {
 						"caption":	"Grundstücksfläche",
 						"type":		"area",
 						"unit":		"ha"
@@ -2056,17 +2056,17 @@
 						"type":		"number",
 						"unit":		"ha"
 					},
-					"singlerooms": {
+					"singlenumbersOfRooms": {
 						"caption":	"Anzahl Einzelzimmer",
 						"type":		"number",
 						"unit":		""
 					},
-					"doublerooms": {
+					"doublenumbersOfRooms": {
 						"caption":	"Anzahl Doppelzimmer",
 						"type":		"number",
 						"unit":		""
 					},
-					"conferencerooms": {
+					"conferencenumbersOfRooms": {
 						"caption":	"Anzahl Konferenzräume",
 						"type":		"number",
 						"unit":		""
@@ -2106,7 +2106,7 @@
 						"type":		"number",
 						"unit":		""
 					},
-					"totalarea": {
+					"totalFloorSpace": {
 						"caption":	"Gesamtfläche",
 						"type":		"area",
 						"unit":		"m²"

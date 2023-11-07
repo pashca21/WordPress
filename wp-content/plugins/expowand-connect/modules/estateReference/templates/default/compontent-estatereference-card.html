@@ -1,9 +1,9 @@
 <!-- estate -->		
 <article class="FFestateReference-default-overview-estate">
-
+<?php print_r($estates); ?>
 	<!-- estate image -->	
 	{% set image = "" %}
-		
+
 	{% if estates.multimedia %}
 		{% for key, media in estates.multimedia %}		
 			{% if key == "main_image" and media|length > 0 %}
@@ -61,53 +61,31 @@
 		</div>
 	{% endif %}	
 
-	
 	<!-- estate type -->	
 	<div>				
 		<div class="FFestateReference-default-overview-estate-type">
-			{% if estates.estatetype %}
-				{% for field in estates.estatetype %}
-					{% if field.value %}
-						{% for val in field.value %}
-							<span>{{ val }} {{schema}}</span>
-						{% endfor %}
-					{% endif %}
-				{% endfor %}
+			{% if estates.name %}
+				{{ estates.name }}
 			{% endif %}		
 		</div>				
 			
 		<!-- estate address -->
 		<div class="FFestateReference-default-overview-estate-addresses">
-			{% if estates.addresses %}
-				{% for field in estates.addresses %}
-					{% if field.value %}
-						{{ field.value.zipcode }} {{ field.value.city }} {{ field.value.district }}
-					{% endif %}		
-				{% endfor %}	
+			{% if estates.street %}
+				{{ estates.postcode }} {{ estates.city }}
 			{% endif %}	
 		</div>		
 		
 		<!-- estate details -->
-		<div class="FFestateReference-default-overview-estate-details">
-			{% if estates.details %}
-				{% for key,field in estates.details %}
-					{% if field.type == "option"%}
-						{% for val in field.value %}
-							{% if val %}
-								<div class="{{key}}">
-									<div class="FFestateReference-default-overview-estate-details-values"><span>{{field.caption}}</span><span>{{ val }}<i>{{field.unit}}</i></span></div>	
-								</div>
-							{% endif %}	
-						{% endfor %}
-					{% else %}	
-						{% if field.value %}
-							<div class="{{key}}">
-								<div class="FFestateReference-default-overview-estate-details-values"><span>{{field.caption}}</span><span>{{ field.value }}<i>{{field.unit}}</i></span></div>	
-							</div>
-						{% endif %}		
-					{% endif %}	
-				{% endfor %}	
-			{% endif %}	
-		</div>	
+		{% if estates.immoprice %}
+			<div class="FFestateReference-default-overview-estate-details">
+				<div class="">
+					<div class="FFestateReference-default-overview-estate-details-values">
+						<span>{{estates.immoprice}}</span><span>{{ estates.immoprice }}<i> Euro</i></span>
+					</div>	
+				</div>
+			</div>
+		{% endif %}	
+
 	</div>	
 </article>

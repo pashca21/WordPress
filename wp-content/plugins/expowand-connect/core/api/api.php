@@ -405,6 +405,7 @@ function filter_active_users($users){
         {
             // get token
             $token  = API::get_token();
+            // print_r($token);exit;
             $url    = FF_API_SEARCH_SERVICE.'/schemas/'.$schemaId.'?page='.$page.'&size='.$max_results;
 
             if (!empty($search) && !empty($url)) {
@@ -419,15 +420,16 @@ function filter_active_users($users){
                     'body' => json_encode($search , JSON_NUMERIC_CHECK),
                     'compress' => false,
                     'decompress' => true,
-                    'sslverify' => true,
+                    'sslverify' => true, 
                     'stream' => false,
                     'filename' => null
                 );
 			
                 $result = wp_remote_post($url, $args);
-
+                // return $result;
+          
                 if (!empty($result) && $result['response']['code'] == 200) {			  
-				   return json_decode($result['body'],true);
+				   return json_decode($result['body']);
                 } else {
                     return false;
                 }
@@ -883,7 +885,8 @@ function filter_active_users($users){
 			if(!empty(get_option('ff-token')))
 			{
 				// get token
-				$call = API::get_content(FF_TOKEN, FF_API_ADMIN_TOKEN_SERVICE_AUTH, "token");
+                $call = API::get_content("e96fd307-9019-4cf3-a9c4-c5490a7fbd76",FF_API_ADMIN_TOKEN_SERVICE_AUTH, "token");
+				// $call = API::get_content(FF_TOKEN, FF_API_ADMIN_TOKEN_SERVICE_AUTH, "token");
 				
 				// add token to cache
 				$this->set_general_cache('FF TOKEN', $call['body']);
@@ -891,7 +894,8 @@ function filter_active_users($users){
 			else
 			{
 				// set demo token
-				$call = API::get_content("9019",FF_API_ADMIN_TOKEN_SERVICE_AUTH, "token");
+                $call = API::get_content("e96fd307-9019-4cf3-a9c4-c5490a7fbd76",FF_API_ADMIN_TOKEN_SERVICE_AUTH, "token");
+				// $call = API::get_content("9019",FF_API_ADMIN_TOKEN_SERVICE_AUTH, "token");
 			}	
 
 			// retrun
@@ -1053,26 +1057,28 @@ function filter_active_users($users){
 					$result["type"]    = $field_data["type"];
 					$result["caption"] = $field_data["caption"];
 					$result["unit"]    = $field_data["unit"];
-					$result["value"]   = $data[$field]["values"][0];
+                    if(isset($data['offer'][$field])) $source_value = $data['offer'][$field];
+                    else if(isset($data['offerdetails'][$field])) $source_value = $data['offerdetails'][$field];
+					$result["value"]   = $source_value;
 					break;
 
 				case "number":
-					if(isset($data[$field]["values"][0]["from"])=== true)
+					if(isset($data['offerdetails'][$field]["from"])=== true)
 					{
-						if( empty($data[$field]["values"][0]["to"]) or ($data[$field]["values"][0]["from"] == $data[$field]["values"][0]["to"]))
+						if( empty($data['offerdetails'][$field]["to"]) or ($data['offerdetails'][$field]["from"] == $data['offerdetails'][$field]["to"]))
 						{
 							$result["type"]    = $field_data["type"];
 							$result["caption"] = $field_data["caption"];
 							$result["unit"]    = $field_data["unit"];
-							$result["value"]   = $data[$field]["values"][0]["from"];
+							$result["value"]   = $data['offerdetails'][$field]["from"];
 						}
 						else
 						{
 							$result["type"]    = $field_data["type"];
 							$result["caption"] = $field_data["caption"];
 							$result["unit"]    = $field_data["unit"];
-							$result["from"]    = $data[$field]["values"][0]["from"];
-							$result["to"]      = $data[$field]["values"][0]["to"];
+							$result["from"]    = $data['offerdetails'][$field]["from"];
+							$result["to"]      = $data['offerdetails'][$field]["to"];
 						}
 					}
 					else
@@ -1080,84 +1086,88 @@ function filter_active_users($users){
 						$result["type"] 	= $field_data["type"];
 						$result["caption"] 	= $field_data["caption"];
 						$result["unit"]    	= $field_data["unit"];
-						$result["value"] 	= $data[$field]["values"][0];
+                        if(isset($data['offerdetails'][$field]))
+						    $result["value"] 	= $data['offerdetails'][$field];
+                        if(isset($data['offer'][$field]))
+                            $result["value"] 	= $data['offer'][$field];
+                        
 					}
 
 					break;
 
 				case "number_formatted":
-					if(isset($data[$field]["values"][0]["from"])=== true && (!empty($data[$field]["values"][0]["from"]) OR !empty($data[$field]["values"][0]["to"])))
+					if(isset($data['offerdetails'][$field]["from"])=== true && (!empty($data['offerdetails'][$field]["from"]) OR !empty($data['offerdetails'][$field]["to"])))
 					{
-						if(empty($data[$field]["values"][0]["to"])or ($data[$field]["values"][0]["from"] == $data[$field]["values"][0]["to"]))
+						if(empty($data['offerdetails'][$field]["to"])or ($data['offerdetails'][$field]["from"] == $data['offerdetails'][$field]["to"]))
 						{
 							$result["type"] = $field_data["type"];
 							$result["caption"] = $field_data["caption"];
 							$result["unit"]    = $field_data["unit"];
-							$result["value"] = number_format($data[$field]["values"][0]["from"],0,",",".");
+							$result["value"] = number_format($data['offerdetails'][$field]["from"],0,",",".");
 						}
 						else
 						{
 							$result["type"] = $field_data["type"];
 							$result["caption"] = $field_data["caption"];
 							$result["unit"]    = $field_data["unit"];
-							$result["from"] = number_format($data[$field]["values"][0]["from"],0,",",".");
-							$result["to"] = number_format($data[$field]["values"][0]["to"],0,",",".");
+							$result["from"] = number_format($data['offerdetails'][$field]["from"],0,",",".");
+							$result["to"] = number_format($data['offerdetails'][$field]["to"],0,",",".");
 						}
 					}
 					else
 					{
-						if(!empty($data[$field]["values"][0]))
+						if(!empty($data['offerdetails'][$field]))
 						{
-							if(is_numeric($data[$field]["values"][0]) === true)
+							if(is_numeric($data['offerdetails'][$field]) === true)
 							{
 								$result["type"] 	= $field_data["type"];
 								$result["caption"] 	= $field_data["caption"];
 								$result["unit"]    	= $field_data["unit"];
-								$result["value"] 	= number_format($data[$field]["values"][0],0,",",".");
+								$result["value"] 	= number_format($data['offerdetails'][$field],0,",",".");
 							}
 							else
 							{
 								$result["type"] 	= $field_data["type"];
 								$result["caption"] 	= $field_data["caption"];
 								$result["unit"]    	= $field_data["unit"];
-								$result["value"] 	= $data[$field]["values"][0];
+								$result["value"] 	= $data['offerdetails'][$field];
 							}
 						}	
 					}
 					break;
 				case "area":
-					if (isset($data[$field]["values"][0]["from"]) === true) {
-						if (!empty($data[$field]["values"][0]["from"]) OR !empty($data[$field]["values"][0]["to"]) AND ($data[$field]["values"][0]["to"] != $data[$field]["values"][0]["from"])) {
+					if (isset($data['offerdetails'][$field]["from"]) === true) {
+						if (!empty($data['offerdetails'][$field]["from"]) OR !empty($data['offerdetails'][$field]["to"]) AND ($data['offerdetails'][$field]["to"] != $data['offerdetails'][$field]["from"])) {
 							$result["type"]		= $field_data["type"];
 							$result["caption"] 	= $field_data["caption"];
 							$result["unit"] 	= $field_data["unit"];
-							$result["from"] 	= (!empty($data[$field]["values"][0]["from"]))? number_format($data[$field]["values"][0]["from"], 0, ",", "."):"";
-							$result["to"] 		= (!empty($data[$field]["values"][0]["to"]))? number_format($data[$field]["values"][0]["to"], 0, ",", "."):"";
+							$result["from"] 	= (!empty($data['offerdetails'][$field]["from"]))? number_format($data['offerdetails'][$field]["from"], 0, ",", "."):"";
+							$result["to"] 		= (!empty($data['offerdetails'][$field]["to"]))? number_format($data['offerdetails'][$field]["to"], 0, ",", "."):"";
 						} else {
 							$result["type"] 	= $field_data["type"];
 							$result["caption"] 	= $field_data["caption"];
 							$result["unit"] 	= $field_data["unit"];
-							$result["value"] 	= (!empty($data[$field]["values"][0]["from"]))?number_format($data[$field]["values"][0]["from"], 0, ",", "."):"";
+							$result["value"] 	= (!empty($data['offerdetails'][$field]["from"]))?number_format($data['offerdetails'][$field]["from"], 0, ",", "."):"";
 							
 						}
 					} else {
-						if (is_numeric($data[$field]["values"][0]) === true) {
+						if (is_numeric($data['offerdetails'][$field]) === true) {
 							$result["type"] 	= $field_data["type"];
 							$result["caption"] 	= $field_data["caption"];
 							$result["unit"] 	= $field_data["unit"];
-							$result["value"] 	= number_format($data[$field]["values"][0], 0, ",", ".");
+							$result["value"] 	= number_format($data['offerdetails'][$field], 0, ",", ".");
 						} else {
 							$result["type"] 	= $field_data["type"];
 							$result["caption"] 	= $field_data["caption"];
 							$result["unit"] 	= $field_data["unit"];
-							$result["value"]	= $data[$field]["values"][0];
+							$result["value"]	= $data['offerdetails'][$field];
 						}
 
 					}
 					break;
 
 				case "image":
-					foreach($data[$field]["values"] as $element => $element_value)
+					foreach($data['offerdetails'][$field]["values"] as $element => $element_value)
 					{
 						$result[$element]["type"] = $field_data["type"];
 						$result[$element]["caption"] = $field_data["caption"];
@@ -1167,63 +1177,63 @@ function filter_active_users($users){
 
 				case "currence":
 					
-					if(isset($data[$field]["values"][0]["from"])=== true)
+					if(isset($data['offerdetails'][$field]["from"])=== true)
 					{
-						if(empty($data[$field]["values"][0]["to"])or ($data[$field]["values"][0]["from"] == $data[$field]["values"][0]["to"]))
+						if(empty($data['offerdetails'][$field]["to"])or ($data['offerdetails'][$field]["from"] == $data['offerdetails'][$field]["to"]))
 						{
 							$result["type"] = $field_data["type"];
 							$result["caption"] = $field_data["caption"];
 							$result["unit"]    = $field_data["unit"];
-							$result["value"] = (!empty($data[$field]["values"][0]["from"]))?  number_format($data[$field]["values"][0]["from"],2,",","."):"";
+							$result["value"] = (!empty($data['offerdetails'][$field]["from"]))?  number_format($data['offerdetails'][$field]["from"],2,",","."):"";
 						}
 						else
 						{
 							$result["type"] = $field_data["type"];
 							$result["caption"] = $field_data["caption"];
 							$result["unit"]    = $field_data["unit"];
-							$result["from"] = (!empty($data[$field]["values"][0]["from"]))? number_format($data[$field]["values"][0]["from"],2,",","."):"";
-							$result["to"] = (!empty($data[$field]["values"][0]["to"]))? number_format($data[$field]["values"][0]["to"],2,",","."):"";
+							$result["from"] = (!empty($data['offerdetails'][$field]["from"]))? number_format($data['offerdetails'][$field]["from"],2,",","."):"";
+							$result["to"] = (!empty($data['offerdetails'][$field]["to"]))? number_format($data['offerdetails'][$field]["to"],2,",","."):"";
 						}
 					}
 					else
 					{
-						if(is_numeric($data[$field]["values"][0]) === true)
+						if(is_numeric($data['offerdetails'][$field]) === true)
 						{
 							$result["type"] = $field_data["type"];
 							$result["caption"] = $field_data["caption"];
 							$result["unit"]    = $field_data["unit"];
-							$result["value"] = number_format($data[$field]["values"][0],2,",",".");
+							$result["value"] = number_format($data['offerdetails'][$field],2,",",".");
 						}
 						else
 						{
 							$result["type"] = $field_data["type"];
 							$result["caption"] = $field_data["caption"];
 							$result["unit"]    = $field_data["unit"];
-							$result["value"] = $data[$field]["values"][0];
+							$result["value"] = $data['offerdetails'][$field];
 						}
 
 					}
 					break;
 
 				case "date":
-						if(!empty($data[$field]["values"][0]+7200))
+						if(!empty($data['offerdetails'][$field]+7200))
 						{
 							$result["type"] = $field_data["type"];
 							$result["caption"] = $field_data["caption"];
-							$result["value"] = gmdate("d.m.Y", (int)$data[$field]["values"][0]+7200);
+							$result["value"] = gmdate("d.m.Y", (int)$data['offerdetails'][$field]+7200);
 						}
 					break;
 
 				case "option":
-						if(!empty($data[$field]["values"][0]) or $data[$field]["values"][0] == "0")
+						if(!empty($data['offerdetails'][$field]) or $data['offerdetails'][$field] == "0")
 						{
-							foreach($data[$field]["values"] as $key => $val)
+							foreach($data['offerdetails'][$field]["values"] as $key => $val)
 							{
 								$result["type"] = $field_data["type"];
 								$result["caption"] = $field_data["caption"];
 
-                                if(!empty( $field_data["option"][$data[$field]["values"][$key]])) {
-                                    $result["value"][$key] =  $field_data["option"][$data[$field]["values"][$key]];
+                                if(!empty( $field_data["option"][$data['offerdetails'][$field]["values"][$key]])) {
+                                    $result["value"][$key] =  $field_data["option"][$data['offerdetails'][$field]["values"][$key]];
                                 } else {
                                     $result["value"][$key] =  "";
                                 }
@@ -1232,7 +1242,7 @@ function filter_active_users($users){
 					break;
 
 				case "yesno":
-					if($data[$field]["values"][0] == 1)
+					if($data['offerdetails'][$field] == 1)
 					{
 						$result["type"] = $field_data["type"];
 						$result["caption"] = $field_data["caption"];
@@ -1251,7 +1261,7 @@ function filter_active_users($users){
 
 					$result["type"] = $field_data["type"];
 					$result["caption"] = $field_data["caption"];
-					$result["value"] = $data[$field]["values"][0];
+					$result["value"] = $data['offerdetails'][$field];
 					break;
 
 				default:

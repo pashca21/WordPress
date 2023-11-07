@@ -44,12 +44,12 @@
 					}
 				},
 				"price": {
-					"purchaseprice": {
+					"immoprice": {
 						"caption":	"Kaufpreis",
 						"type":		"number",
 						"unit":		"€"
 					},
-					"rent": {
+					"baseRent": {
 						"caption":	"Miete",
 						"type":		"number",
 						"unit":		"€"
@@ -68,12 +68,12 @@
 					}
 				},
 				"details":{
-					"identifier": {
+					"name": {
 						"caption":	"Kennung",
 						"type":		"text",
 						"unit":		""
 					},
-					"livingarea": {
+					"livingSpace": {
 						"caption":	"Wohnfläche",
 						"type":		"number_formatted",
 						"unit":		"m²"
@@ -83,17 +83,17 @@
 						"type":		"area",
 						"unit":		"m²"
 					},
-					"totalarea": {
+					"totalFloorSpace": {
 						"caption":	"Gesamtfläche",
 						"type":		"area",
 						"unit":		"m²"
 					},
-					"rooms": {
+					"numbersOfRooms": {
 						"caption":	"Zimmer",
 						"type":		"number",
 						"unit":		""
 					},
-					"plotarea": {
+					"plotArea": {
 						"caption":	"Grundstück",
 						"type":		"number_formatted",
 						"unit":		"m²"

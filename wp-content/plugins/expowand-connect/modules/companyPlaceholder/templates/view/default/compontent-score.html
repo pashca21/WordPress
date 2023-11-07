@@ -20,7 +20,7 @@
 				<div class="FFvaluation-default-score-value">{{val_min|number_format(0, ',', '.')}}€ <b>bis</b> {{val_max|number_format(0, ',', '.')}}€<small>*</small></div>
 				<div>Möglicher Verkaufspreis</div>
 				
-				<div class="FFvaluation-default-score-value">{{(val_min/search.search.livingarea)|number_format(0, ',', '.')}}€ <b>bis</b> {{(val_max / search.search.livingarea)|number_format(0, ',', '.')}}€<small>*</small></div>
+				<div class="FFvaluation-default-score-value">{{(val_min/search.search.livingSpace)|number_format(0, ',', '.')}}€ <b>bis</b> {{(val_max / search.search.livingSpace)|number_format(0, ',', '.')}}€<small>*</small></div>
 				<div>Möglicher Verkaufspreis pro m²</div>
 
 				<div class="FFvaluation-default-score-value  estimation">
@@ -58,7 +58,7 @@
 					<div  class="FFvaluation-default-score-value">{{rent_min |number_format(0, ',', '.')}}€ <b>bis</b> {{rent_max|number_format(0, ',', '.')}}€<small>*</small></div>
 					<div>Mögliche monatliche Kaltmiete</div>
 					
-					<div  class="FFvaluation-default-score-value">{{(rent_min / search.search.livingarea)|round(2, 'floor')}}€ <b>bis</b> {{(rent_max / search.search.livingarea)|round(2, 'floor')}}€<small>*</small></div>
+					<div  class="FFvaluation-default-score-value">{{(rent_min / search.search.livingSpace)|round(2, 'floor')}}€ <b>bis</b> {{(rent_max / search.search.livingSpace)|round(2, 'floor')}}€<small>*</small></div>
 					<div>Mögliche monatliche Kaltmiete pro m²</div>
 					
 					<div  class="FFvaluation-default-score-value estimation">

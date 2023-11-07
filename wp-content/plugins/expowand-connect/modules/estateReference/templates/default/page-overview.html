@@ -37,7 +37,7 @@
 
 	<!-- estate list -->
 	<div class="FFestateReference-default-overview-list" data-width="250">
-		{% for id,estates in search.results %}
+		{% for estates in search.results %}
 			{% include 'compontent-estatereference-card.html' %}
 		{% endfor %}
 		

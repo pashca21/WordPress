@@ -2,7 +2,7 @@
 /*
  Plugin Name: expowand-connect
  Description: Verbinden Sie Ihr Wordpress mit Ihrem Expowand CRM.
- Version: 0.0.1
+ Version: 0.0.2
  Author: LeadValue GmbH
  Author URI: http://www.leadvalue.de
  Text Domain: expowand-connect
@@ -27,7 +27,7 @@
  */
 
 
- defined( 'ABSPATH' ) or exit('No script kiddies please!');
+ defined( 'ABSPATH' ) or exit('Error');
 
  class ExpowandConnect
  {
@@ -72,12 +72,12 @@
 		 //de-DE
 		 $lng = get_bloginfo('language');
 		 if($lng == 'de-DE') {
-			 echo '<div class="notice notice-info is-dismissible"><p>FlowFact WP Connector wurde auf die Version '.$plugin_data['Version'].' aktualisiert.<br>
+			 echo '<div class="notice notice-info is-dismissible"><p>Expowand WP Connect wurde auf die Version '.$plugin_data['Version'].' aktualisiert.<br>
 			 Bitte setzen Sie die Permalinks-Struktur auf "post-name" <a href="'. get_home_url() .'/wp-admin/options-permalink.php">hier</a> 
 			 </p></div>';
 		 } else {
 			 // en
-			 echo '<div class="notice notice-info is-dismissible"><p>FlowFact WP Connector has been updated to the version '.$plugin_data['Version'].'<br>Please set the permalinks structure to the "post-name" <a href="'. get_home_url() .'/wp-admin/options-permalink.php">here</a> 
+			 echo '<div class="notice notice-info is-dismissible"><p>Expowand WP Connect has been updated to the version '.$plugin_data['Version'].'<br>Please set the permalinks structure to the "post-name" <a href="'. get_home_url() .'/wp-admin/options-permalink.php">here</a> 
 			 </p></div>';
 		 }
 	 }
@@ -132,7 +132,7 @@
 	 {
 		 // extend DB
 		 global $wpdb;
-		 $schemaharset_collate = $wpdb->get_charset_collate();
+		 $schemacharset_collate = $wpdb->get_charset_collate();
  
 		 require_once ABSPATH.'wp-admin/includes/upgrade.php';
  
@@ -142,37 +142,37 @@
 			   created datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
 			   json text NOT NULL,
 			   PRIMARY KEY (entityId)
-			   ) {$schemaharset_collate};";
+			   ) {$schemacharset_collate};";
 		 dbDelta($sql);
  
-		 $sql = 'CREATE TABLE '.$wpdb->prefix."ff_schema_cache (
-			   schemaId varchar(80) NOT NULL,
-			   schemaName varchar(80) NOT NULL,
-			   created datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
-			   json text NOT NULL,
-			   PRIMARY KEY (schemaId)
-			   ) {$schemaharset_collate};";
-		 dbDelta($sql);
+		//  $sql = 'CREATE TABLE '.$wpdb->prefix."ff_schema_cache (
+		// 	   schemaId varchar(80) NOT NULL,
+		// 	   schemaName varchar(80) NOT NULL,
+		// 	   created datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+		// 	   json text NOT NULL,
+		// 	   PRIMARY KEY (schemaId)
+		// 	   ) {$schemacharset_collate};";
+		//  dbDelta($sql);
  
-		 $sql = 'CREATE TABLE '.$wpdb->prefix."ff_general_cache (
-			   name varchar(80) NOT NULL,
-			   created datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
-			   json text NOT NULL,
-			   PRIMARY KEY (name)
-			   ) {$schemaharset_collate};";
-		 dbDelta($sql);
+		//  $sql = 'CREATE TABLE '.$wpdb->prefix."ff_general_cache (
+		// 	   name varchar(80) NOT NULL,
+		// 	   created datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+		// 	   json text NOT NULL,
+		// 	   PRIMARY KEY (name)
+		// 	   ) {$schemacharset_collate};";
+		//  dbDelta($sql);
  
-		 $sql = 'CREATE TABLE '.$wpdb->prefix."ff_customer_cache (
-			   id varchar(80) NOT NULL,
-			   created datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
-			   customer varchar(80) NOT NULL,
-			   customerIp varchar(80) NOT NULL,
-			   schemaId varchar(80) NOT NULL,
-			   entityId varchar(80) NOT NULL,
-			   value varchar(80) NOT NULL,
-			   PRIMARY KEY (id)
-			   ) {$schemaharset_collate};";
-		 dbDelta($sql);
+		//  $sql = 'CREATE TABLE '.$wpdb->prefix."ff_customer_cache (
+		// 	   id varchar(80) NOT NULL,
+		// 	   created datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+		// 	   customer varchar(80) NOT NULL,
+		// 	   customerIp varchar(80) NOT NULL,
+		// 	   schemaId varchar(80) NOT NULL,
+		// 	   entityId varchar(80) NOT NULL,
+		// 	   value varchar(80) NOT NULL,
+		// 	   PRIMARY KEY (id)
+		// 	   ) {$schemacharset_collate};";
+		//  dbDelta($sql);
  
 		 // set rewrite
 		 set_transient('ff_flush', 1, 60);
@@ -182,21 +182,21 @@
 	 {
 		 // cleanup DB
 		 global $wpdb;
-		 $schemaharset_collate = $wpdb->get_charset_collate();
+		 $schemacharset_collate = $wpdb->get_charset_collate();
  
 		 require_once ABSPATH.'wp-admin/includes/upgrade.php';
  
-		 $sql = 'DROP TABLE IF EXISTS '.$wpdb->prefix.'ff_general_cache';
-		 $wpdb->query($sql);
+		//  $sql = 'DROP TABLE IF EXISTS '.$wpdb->prefix.'ff_general_cache';
+		//  $wpdb->query($sql);
  
-		 $sql = 'DROP TABLE IF EXISTS '.$wpdb->prefix.'ff_schema_cache';
-		 $wpdb->query($sql);
+		//  $sql = 'DROP TABLE IF EXISTS '.$wpdb->prefix.'ff_schema_cache';
+		//  $wpdb->query($sql);
  
 		 $sql = 'DROP TABLE IF EXISTS '.$wpdb->prefix.'ff_entity_cache';
 		 $wpdb->query($sql);
  
-		 $sql = 'DROP TABLE IF EXISTS '.$wpdb->prefix.'ff_customer_cache';
-		 $wpdb->query($sql);
+		//  $sql = 'DROP TABLE IF EXISTS '.$wpdb->prefix.'ff_customer_cache';
+		//  $wpdb->query($sql);
  
 		 // flush rewrite rules
 		 flush_rewrite_rules();
@@ -404,28 +404,28 @@
 		 });
  
 		 // init widgets FFvaluationWidget
-		//  add_action('widgets_init', function () {
-		// 	 require_once plugin_dir_path(__FILE__).'modules/valuation/config.php';
+		//   add_action('widgets_init', function () {
+		// 	 	 require_once plugin_dir_path(__FILE__).'modules/valuation/config.php';
  
-		// 	 require_once plugin_dir_path(__FILE__).'modules/valuation/widget.php';
-		// 	 register_widget('FFvaluationWidget');
-		//  });
+		// 	 	 require_once plugin_dir_path(__FILE__).'modules/valuation/widget.php';
+		// 	 	 register_widget('FFvaluationWidget');
+		//   });
  
 		 // init widgets FFestateViewWidget
-		//  add_action('widgets_init', function () {
-		// 	 require_once plugin_dir_path(__FILE__).'modules/teamOverview/config.php';
+		//   add_action('widgets_init', function () {
+		// 	 	 require_once plugin_dir_path(__FILE__).'modules/teamOverview/config.php';
  
-		// 	 require_once plugin_dir_path(__FILE__).'modules/teamOverview/widget.php';
-		// 	 register_widget('FFteamOverviewWidget');
-		//  });
+		// 	 	 require_once plugin_dir_path(__FILE__).'modules/teamOverview/widget.php';
+		// 	 	 register_widget('FFteamOverviewWidget');
+		//   });
  
 		 // init widgets FFFormIntegrationWidget
-		 add_action('widgets_init', function () {
-			 require_once plugin_dir_path(__FILE__).'modules/formIntegration/config.php';
+		//  add_action('widgets_init', function () {
+		// 	 require_once plugin_dir_path(__FILE__).'modules/formIntegration/config.php';
  
-			 require_once plugin_dir_path(__FILE__).'modules/formIntegration/widget.php';
-			 register_widget('FFFormIntegrationWidget');
-		 });
+		// 	 require_once plugin_dir_path(__FILE__).'modules/formIntegration/widget.php';
+		// 	 register_widget('FFFormIntegrationWidget');
+		//  });
  
 		 // init widgets FFcompanyPlaceholder
 		 require_once plugin_dir_path(__FILE__).'modules/companyPlaceholder/config.php';
@@ -433,20 +433,20 @@
 		 require_once plugin_dir_path(__FILE__).'modules/companyPlaceholder/core.php';
  
 		 // init widgets FFvaluationMasterWidget
-		 add_action('widgets_init', function () {
-			 require_once plugin_dir_path(__FILE__).'modules/valuationMaster/config.php';
+		//  add_action('widgets_init', function () {
+		// 	 require_once plugin_dir_path(__FILE__).'modules/valuationMaster/config.php';
  
-			 require_once plugin_dir_path(__FILE__).'modules/valuationMaster/widget.php';
-			 register_widget('FFvaluationMasterWidget');
-		 });
+		// 	 require_once plugin_dir_path(__FILE__).'modules/valuationMaster/widget.php';
+		// 	 register_widget('FFvaluationMasterWidget');
+		//  });
  
 		 // init widgets FFownerReportWidget
-		 add_action('widgets_init', function () {
-			 require_once plugin_dir_path(__FILE__).'modules/ownerReport/config.php';
+		//  add_action('widgets_init', function () {
+		// 	 require_once plugin_dir_path(__FILE__).'modules/ownerReport/config.php';
  
-			 require_once plugin_dir_path(__FILE__).'modules/ownerReport/widget.php';
-			 register_widget('FFownerReportWidget');
-		 });
+		// 	 require_once plugin_dir_path(__FILE__).'modules/ownerReport/widget.php';
+		// 	 register_widget('FFownerReportWidget');
+		//  });
 	 }
  }
  
