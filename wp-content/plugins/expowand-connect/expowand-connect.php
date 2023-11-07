@@ -294,22 +294,12 @@ class ExpowandConnect {
 			remove_filter('the_content', 'wpautop');
 			remove_filter('the_excerpt', 'wpautop');
 
-			if (!empty($_GET['iframe']) and '1' == $_GET['iframe']) {
-				wp_head();
-				echo $post->post_content;
-				wp_footer();
-
-				die();
-			} else {
-				return $posts;
-			}
-		} else {
-			return $posts;
 		}
+		
+		return $posts;
 	}
  
-	public function init_modules()
-	{
+	public function init_modules() {
 		// init widgets FFestateViewWidget
 		add_action('widgets_init', function () {
 			require_once plugin_dir_path(__FILE__).'modules/estateView/config.php';
@@ -326,11 +316,11 @@ class ExpowandConnect {
 			register_widget('EWestateReferenceWidget');
 		});
 
-	require_once plugin_dir_path(__FILE__).'modules/companyPlaceholder/config.php';
+		require_once plugin_dir_path(__FILE__).'modules/companyPlaceholder/config.php';
 
-	require_once plugin_dir_path(__FILE__).'modules/companyPlaceholder/core.php';
-
+		require_once plugin_dir_path(__FILE__).'modules/companyPlaceholder/core.php';
 	}
+
 }
 
 if (class_exists('ExpowandConnect')) {

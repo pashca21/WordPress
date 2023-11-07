@@ -1,6 +1,6 @@
 <?php
 
-include_once 'dict.php';
+include_once __DIR__."/../../core/dict.php";
 
 class EWestateReferenceCore extends API
 {
@@ -252,7 +252,7 @@ class EWestateReferenceCore extends API
             // set path
             $path = plugin_dir_path(__FILE__) . "templates/" . $template;
 
-            if (file_exists($path . '/' . $page . '.html')) {
+            if (file_exists($path . '/' . $page . '.php')) {
 				// print("<pre>".print_r($data,true)."</pre>");exit;
 				$html = '';
 				ob_start();
@@ -271,9 +271,7 @@ class EWestateReferenceCore extends API
     }
 		
     // load css for plugin
-    protected function loadCss($theme = 'default')
-    {
-
+    protected function loadCss($theme = 'default') {
 		// JS
 		wp_register_script('BS', 'https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js');
 		wp_enqueue_script('BS');

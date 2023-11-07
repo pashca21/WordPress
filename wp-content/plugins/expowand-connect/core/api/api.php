@@ -508,7 +508,7 @@ class API {
         }
 
         $token  = API::get_token();
-        $url    = FF_API_ENTITY_SERVICE_ENTITY.'/'.$schemaId.'/entities/'.$id;
+        $url    = FF_API_ENTITY_SERVICE_ENTITY.'/'.$id;
         $args = array(
             'timeout' => 60,
             'redirection' => 60,
@@ -526,10 +526,11 @@ class API {
         );
 
         $result = wp_remote_get($url, $args);
+        // print_r($result);exit;
         if (!empty($result) && $result['response']['code'] == 200) {
             $this->set_entity_cache($id,  $schemaId, $result['body']);
 
-            return json_decode($result['body'],true);
+            return json_decode($result['body']);
         }
 
         return false;

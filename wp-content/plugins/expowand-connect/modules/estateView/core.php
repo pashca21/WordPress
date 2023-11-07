@@ -1,7 +1,6 @@
 <?php
-// get config
-class FFestateViewCore extends API
-{
+include_once __DIR__."/../../core/dict.php";
+class FFestateViewCore extends API{
 	// load widget of estateview
 	public function widget()
 	{
@@ -37,13 +36,17 @@ class FFestateViewCore extends API
 		}
 	}
 
-	// get estate details
-	public function get_estate_details($schemaId, $id)
-	{
-		if (!empty($id) and !empty($schemaId))
-		{
+	// MAIN FUNCTION TO SHOW IMMO get estate details
+	public function get_estate_details($schemaId, $id) {
+		// print_r($schemaId);
+		// print('');
+		// print_r($id);
+		if (!empty($id) and !empty($schemaId)) {
 			// get estate details
 			$results[0] = $this->get_entity_by_id($schemaId, sanitize_key($id));
+			// print_r($results[0]->estates[0]->offer);exit;
+			$offer = $results[0]->estates[0]->offer;
+			$offerdetails = $results[0]->estates[0]->offerdetails;
 
 			// if(!empty($results[0]["securitydeposit"]["values"][0])) {
 			// 	// test if string contains 'letters'
@@ -109,156 +112,152 @@ class FFestateViewCore extends API
 			// 	$data["page"]["results"][$id]["related"] = array_intersect_key($data["page"]["results"][$id]["related"], $wordpress_estates["search"]["results"]);
 			// }
 
-			// check if estate is still published
-			$publshed = API::get_portals_publsidhed_estates(sanitize_key($id) , FF_ESTATEVIEW_PUBLISH);
+	// check if estate is still published /////////////////////////////////////////////
+	// $publshed = API::get_portals_publsidhed_estates(sanitize_key($id) , FF_ESTATEVIEW_PUBLISH);
 
 			// set seo slug
-			if (!empty(FF_ESTATEVIEW_SEO_SLUG))
-			{
-				foreach ($data["page"]["results"] as $key => $entity)
-				{
-					if (!empty($data["page"]["results"][$key]["related"]))
-					{
-						$data["page"]["results"][$key]["related"] = $this->add_seo_slug($data["page"]["results"][$key]["related"], FF_ESTATEVIEW_SEO_SLUG);
-					}
-				}
-			}
+			// if (!empty(FF_ESTATEVIEW_SEO_SLUG))
+			// {
+			// 	foreach ($data["page"]["results"] as $key => $entity)
+			// 	{
+			// 		if (!empty($data["page"]["results"][$key]["related"]))
+			// 		{
+			// 			$data["page"]["results"][$key]["related"] = $this->add_seo_slug($data["page"]["results"][$key]["related"], FF_ESTATEVIEW_SEO_SLUG);
+			// 		}
+			// 	}
+			// }
 
 			// attached new multimedia images to entity
-			$multimedia = API::get_estate_images(array_keys($data["page"]["results"]));
+			// $multimedia = API::get_estate_images(array_keys($data["page"]["results"]));
 
 			// TODO: DELETE WORKAROUND MAIN_IMAGE CHECK
-			if (!empty($multimedia["entities"]["0"]["assignments"]) && !empty($multimedia["entities"]["0"]["assignments"]["main_image"]))
-			{
-				foreach ($data["page"]["results"] as $key => $entity)
-				{
-					foreach ($multimedia["entities"] as $images)
-					{
-						if (!empty($images["assignments"]))
-						{
-							$data["page"]["results"][$key]["multimedia"] = $images["assignments"];
-						}
-					}
-				}
-			}
+			// if (!empty($multimedia["entities"]["0"]["assignments"]) && !empty($multimedia["entities"]["0"]["assignments"]["main_image"]))
+			// {
+			// 	foreach ($data["page"]["results"] as $key => $entity)
+			// 	{
+			// 		foreach ($multimedia["entities"] as $images)
+			// 		{
+			// 			if (!empty($images["assignments"]))
+			// 			{
+			// 				$data["page"]["results"][$key]["multimedia"] = $images["assignments"];
+			// 			}
+			// 		}
+			// 	}
+			// }
 
-			$viewedCookiePolicy = isset($_COOKIE["viewed_cookie_policy"]) && $_COOKIE["viewed_cookie_policy"] === "yes";
-			$acceptedNecessaryCookiePolicy = isset($_COOKIE['cookielawinfo-checkbox-necessary']) && $_COOKIE['cookielawinfo-checkbox-necessary'] === 'yes';
+			// $viewedCookiePolicy = isset($_COOKIE["viewed_cookie_policy"]) && $_COOKIE["viewed_cookie_policy"] === "yes";
+			// $acceptedNecessaryCookiePolicy = isset($_COOKIE['cookielawinfo-checkbox-necessary']) && $_COOKIE['cookielawinfo-checkbox-necessary'] === 'yes';
 
-			$data["isPolicyCookieAccepted"]   = $viewedCookiePolicy && $acceptedNecessaryCookiePolicy;
-			$data["page"]["url"]              = get_bloginfo('wpurl') . '/' . FF_PLUGIN_ROUTE . '/' . FF_ESTATEVIEW_ROUTE;
-			$data["page"]["schema"]           = $schema["name"];
-			$data["color"]["primary"]         = FF_PRIMARY_COLOR;
-			$data["color"]["secondary"]       = FF_SECONDARY_COLOR;
-			$data["api"]["cloudimage"]["url"] = FF_CLOUDIMAGE_IO_URL;
-			$data["api"]["maps"]["key"]       = FF_GG_API_MAPS;
-			$data["legal"]["imprint"]         = FF_IMPRINT_URL;
-			$data["legal"]["privacy"]         = FF_PRIVACY_URL;
-			$data["finance"]                  = get_option("ff-estateView-show-finance-calculator");
-			$data["socialmedia"]              = get_option('ff-estateView-show-socialmedia-links');
-			$data["imagepath"]                = plugin_dir_url(dirname(__FILE__)) . "/estateView/assets/img/" . FF_ESTATEVIEW_THEME;
-			$data["currentUrl"]               = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-			$data["company"]				    			= $this->get_company_data();
-			$data["property_slider"]		  		= get_option("ff-estateView-select-slider");
-			$data["property_headline"]        = get_option("ff-estateView-headline");
-			$data["privacy_page_url"]				  = get_option("ff-privacy-url");
-			$data["ff_maps_default_provider"]	= get_option("ff-maps-default");
+			// $data["isPolicyCookieAccepted"]   = $viewedCookiePolicy && $acceptedNecessaryCookiePolicy;
+			// $data["page"]["url"]              = get_bloginfo('wpurl') . '/' . FF_PLUGIN_ROUTE . '/' . FF_ESTATEVIEW_ROUTE;
+			// $data["page"]["schema"]           = $schema["name"];
+			// $data["color"]["primary"]         = FF_PRIMARY_COLOR;
+			// $data["color"]["secondary"]       = FF_SECONDARY_COLOR;
+			// $data["api"]["cloudimage"]["url"] = FF_CLOUDIMAGE_IO_URL;
+			// $data["api"]["maps"]["key"]       = FF_GG_API_MAPS;
+			// $data["legal"]["imprint"]         = FF_IMPRINT_URL;
+			// $data["legal"]["privacy"]         = FF_PRIVACY_URL;
+			// $data["finance"]                  = get_option("ff-estateView-show-finance-calculator");
+			// $data["socialmedia"]              = get_option('ff-estateView-show-socialmedia-links');
+			// $data["imagepath"]                = plugin_dir_url(dirname(__FILE__)) . "/estateView/assets/img/" . FF_ESTATEVIEW_THEME;
+			// $data["currentUrl"]               = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+			// $data["company"]				    			= $this->get_company_data();
+			// $data["property_slider"]		  		= get_option("ff-estateView-select-slider");
+			// $data["property_headline"]        = get_option("ff-estateView-headline");
+			// $data["privacy_page_url"]				  = get_option("ff-privacy-url");
+			// $data["ff_maps_default_provider"]	= get_option("ff-maps-default");
 
-			// delete street if not published
-			if (!empty($publshed) && (empty($publshed["showAddress"]) or $publshed["showAddress"] == 0))
-			{
-				unset($data["page"]["results"][$id]["facts"]["addresses"]["value"]["street"]);
-			}
+			// // delete street if not published
+			// if (!empty($publshed) && (empty($publshed["showAddress"]) or $publshed["showAddress"] == 0))
+			// {
+			// 	unset($data["page"]["results"][$id]["facts"]["addresses"]["value"]["street"]);
+			// }
 
-			if(!isset($data["page"]["results"][$id]["facts"]["addresses"]["value"]["street"])) {
-				// area highlight 
+			// if(!isset($data["page"]["results"][$id]["facts"]["addresses"]["value"]["street"])) {
+			// 	// area highlight 
 
-				if(isset($data["page"]["results"][$id]["facts"]["addresses"]["value"]["geolocation"]["latitude"])) {
-					$latitude = $data["page"]["results"][$id]["facts"]["addresses"]["value"]["geolocation"]["latitude"];
-				}
-				if(isset($data["page"]["results"][$id]["facts"]["addresses"]["value"]["geolocation"]["longitude"])) {
-					$longitude = $data["page"]["results"][$id]["facts"]["addresses"]["value"]["geolocation"]["longitude"];
-				}
+			// 	if(isset($data["page"]["results"][$id]["facts"]["addresses"]["value"]["geolocation"]["latitude"])) {
+			// 		$latitude = $data["page"]["results"][$id]["facts"]["addresses"]["value"]["geolocation"]["latitude"];
+			// 	}
+			// 	if(isset($data["page"]["results"][$id]["facts"]["addresses"]["value"]["geolocation"]["longitude"])) {
+			// 		$longitude = $data["page"]["results"][$id]["facts"]["addresses"]["value"]["geolocation"]["longitude"];
+			// 	}
 				
-				if(isset($latitude) && isset($longitude)) {
-					$estate_geo_shape = API::fetch_shape_data($latitude, $longitude);
-					$estate_geo_shape = json_decode($estate_geo_shape);
-				}
+			// 	if(isset($latitude) && isset($longitude)) {
+			// 		$estate_geo_shape = API::fetch_shape_data($latitude, $longitude);
+			// 		$estate_geo_shape = json_decode($estate_geo_shape);
+			// 	}
 
-				if(isset($estate_geo_shape)) {
-					if(!count($estate_geo_shape) > 0) {
-						// set new var to not display the map
-						$data["ff_maps_no_highlight"]	= 1;
-					}
-				}
-			}
+			// 	if(isset($estate_geo_shape)) {
+			// 		if(!count($estate_geo_shape) > 0) {
+			// 			// set new var to not display the map
+			// 			$data["ff_maps_no_highlight"]	= 1;
+			// 		}
+			// 	}
+			// }
 
-			// change view to frame if set
-			if (!empty($_GET["iframe"]) and $_GET["iframe"] == "1")
-			{
-				$data["frame"] = "1";
-			}
+			// // change view to frame if set
+			// if (!empty($_GET["iframe"]) and $_GET["iframe"] == "1")
+			// {
+			// 	$data["frame"] = "1";
+			// }
 
-			// adds contact form to estate details if SMTP Data avadible
-			if ((!empty(FF_MAIL_FROM) and !empty(FF_MAIL_SERVER) and !empty(FF_MAIL_USER) and !empty(FF_MAIL_PASS)) or (get_option("ff-nylas-account")))
-			{
-				$data["show"]["contactFrom"] = true;
-			}
-			else
-			{
-				$data["show"]["contactFrom"] = false;
-			}
+			// // adds contact form to estate details if SMTP Data avadible
+			// if ((!empty(FF_MAIL_FROM) and !empty(FF_MAIL_SERVER) and !empty(FF_MAIL_USER) and !empty(FF_MAIL_PASS)) or (get_option("ff-nylas-account")))
+			// {
+			// 	$data["show"]["contactFrom"] = true;
+			// }
+			// else
+			// {
+			// 	$data["show"]["contactFrom"] = false;
+			// }
 
-			if ($results[0]["status"]["values"][0] === "active" && !empty($publshed))
-			{
+			// if ($results[0]["status"]["values"][0] === "active" && !empty($publshed))
+			// {
 				// get html
-				if (!empty($results[0]["headline"]["values"][0]))
-				{
-					$result['title'] = $results[0]["headline"]["values"][0];
+				if (!empty($offer->name)) {
+					$result['title'] = $offer->name;
 				} else {
 					$result['title'] = "Immobilie";
 				}
 
-				$meta_title = API::get_company_data();
-				$meta_title = $meta_title['companyName'];
+				// $meta_title = API::get_company_data();
+				// $meta_title = $meta_title['companyName'];
+				$meta_title = $offer->name;
 
 				if($meta_title) {
 					define('FF_META_TITLE', $meta_title);
 				}
 				
-				$meta_description = $result['title'];
+				$meta_description = $offer->name;
 
 				if($meta_description) {
 					define('FF_META_DESCRIPTION', $meta_description);
 				}
 				
-				if(!empty($data['page']['results'][$id]['mainImage']['mainImage'][0]['value'])) {
-					$meta_image = $data['page']['results'][$id]['mainImage']['mainImage'][0]['value'];
-				} elseif (!empty($data['page']['results'][$id]['mainImage']['onlineImage'][0]['value'])) {
-					$meta_image = $data['page']['results'][$id]['mainImage']['onlineImage'][0]['value'];
-				}
+				$meta_image = $offerdetails->mainImgUrl;
 
 				if(!empty($meta_image)) {
 					define('FF_META_IMAGE', $meta_image);
 				}
 
-				if(defined('FF_META_TITLE') or defined('FF_META_DESCRIPTION') or define('FF_META_IMAGE')) {
+				if(defined('FF_META_TITLE') or defined('FF_META_DESCRIPTION') or defined('FF_META_IMAGE')) {
 					add_action('wp_head', array($this, 'ff_add_meta_to_header'), -1);
 				}
 
+				$data = $results[0]->estates[0];
 
 				$result['content'] = $this->get_html("page-details", FF_ESTATEVIEW_THEME, $data);
+				// print_r($result);exit;
 
 				return $result;
-			}
-			else
-			{
-				$result['title'] = "Fehler 404";
-				$this->show_404();
-			}
-		}
-		else
-		{
+			// }
+			// else
+			// {
+			// 	$result['title'] = "Fehler 404";
+			// 	$this->show_404();
+			// }
+		} else {
 			$result['title'] = "Fehler 404";
 			$this->show_404();
 		}
@@ -298,33 +297,6 @@ class FFestateViewCore extends API
 		if (!empty($data))
 		{
 			$result["content"] = $this->get_html("page-overview", FF_ESTATEVIEW_THEME, $data);
-		}
-
-		return $result;
-	}
-
-	public function get_estate_slider($attr = NULL)
-	{
-		$result['title'] = 'Immobilien Slider';
-		$data['mapping'] = json_decode(FF_ESTATEVIEW_SALESAUTOMATE_MAPPING, true);
-		$data = $this->get_search($data, $attr);
-
-		if (!empty($data['search']['results']))
-		{
-			$multimedia = API::get_estate_images(array_keys($data['search']['results']));
-			foreach ($multimedia['entities'] as $images)
-			{
-				if (!empty($images['assignments']) && !empty($images['assignments']['main_image']))
-				{
-					$data['search']['results'][$images['entityId']]['multimedia'] = $images['assignments']['main_image'];
-				}
-			}
-		}
-
-		$result['content'] = '';
-		if (!empty($data))
-		{
-			$result['content'] = $this->get_html('page-slider', FF_ESTATEVIEW_THEME, $data);
 		}
 
 		return $result;
@@ -1149,35 +1121,31 @@ class FFestateViewCore extends API
     }
 
     // return template
-    public function get_html($page = NULL, $template = "default", $data = NULL, $path = NULL)
-    {
-        // load module assets
-        $this->loadCss(FF_ESTATEVIEW_THEME);
+    public function get_html($page = NULL, $template = "default", $data = NULL, $path = NULL) {
+		// print_r($data);exit;
+        if (empty($data) && empty($page)) {
+			return false;
+		}
 
-        if (!empty($data) && !empty($page))
-        {
-            // set path
-            if (empty($path))
-            {
-                $path = plugin_dir_path(__FILE__) . "templates/view/" . $template;
-            }
+		if (empty($path)) {	
+			$path = plugin_dir_path(__FILE__) . "templates/view/" . $template; 
+		}
 
-            if (file_exists($path . '/' . $page . '.html'))
-            {
-                $loader = new Twig_Loader_Filesystem($path);
-                $twig = new \Twig\Environment($loader);
-                $html = $twig->render($page . '.html', $data);
-                return $html;
-            }
-            else
-            {
-                return false;
-            }
-        }
-        else
-        {
-            return false;
-        }
+		if (!file_exists($path . '/' . $page . '.php')) {
+			return false;
+		}				
+
+        $this->loadCss(FF_ESTATEVIEW_THEME);		
+
+		// print("<pre>".print_r($data,true)."</pre>");exit;
+		$html = '';
+		ob_start();
+		$results = $data;
+		include($path . '/' . $page . '.php');
+		$html = ob_get_contents();
+		ob_end_clean();
+		// print("<pre>".print_r($html,true)."</pre>");exit;
+		return $html;
     }
 
     // send Mail
@@ -1326,62 +1294,69 @@ class FFestateViewCore extends API
     }
 
     // load css for plugin
-    protected function loadCss($theme = 'default')
-    {
-        // load slick css
-        wp_register_style('FF-EstateView-slick-' . $theme, plugins_url('/assets/css/' . $theme . '/slick.css', __FILE__) , '', '1.0.0', false);
-        wp_enqueue_style('FF-EstateView-slick-' . $theme);
+    protected function loadCss($theme = 'default') {
+		// JS
+		wp_register_script('BS', 'https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js');
+		wp_enqueue_script('BS');
 
-        // load icons css
-        wp_register_style('FF-EstateView-icons-' . $theme, plugins_url('/assets/css/' . $theme . '/flaticon.css', __FILE__) , '', '1.0.0', false);
-        wp_enqueue_style('FF-EstateView-icons-' . $theme);
+		// CSS
+		wp_register_style('BS', 'https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css');
+		wp_enqueue_style('BS');
 
-        // load chosen css
-        wp_register_style('FF-EstateView-chosen-' . $theme, plugins_url('/assets/css/' . $theme . '/chosen.min.css', __FILE__) , '', '1.0.0', false);
-        wp_enqueue_style('FF-EstateView-chosen-' . $theme);
+        // // load slick css
+        // wp_register_style('FF-EstateView-slick-' . $theme, plugins_url('/assets/css/' . $theme . '/slick.css', __FILE__) , '', '1.0.0', false);
+        // wp_enqueue_style('FF-EstateView-slick-' . $theme);
 
-        // load slick theme css
-        wp_register_style('FF-EstateView-slick-theme-' . $theme, plugins_url('/assets/css/' . $theme . '/slick-theme.css', __FILE__) , '', '1.0.0', false);
-        wp_enqueue_style('FF-EstateView-slick-theme-' . $theme);
+        // // load icons css
+        // wp_register_style('FF-EstateView-icons-' . $theme, plugins_url('/assets/css/' . $theme . '/flaticon.css', __FILE__) , '', '1.0.0', false);
+        // wp_enqueue_style('FF-EstateView-icons-' . $theme);
 
-        // load thickbox from wp
-        wp_enqueue_style('thickbox', '/' . WPINC . '/js/thickbox/thickbox.css', null, '1.0');
-        wp_enqueue_script('thickbox');
-        wp_enqueue_style('thickbox');
+        // // load chosen css
+        // wp_register_style('FF-EstateView-chosen-' . $theme, plugins_url('/assets/css/' . $theme . '/chosen.min.css', __FILE__) , '', '1.0.0', false);
+        // wp_enqueue_style('FF-EstateView-chosen-' . $theme);
 
-        // load default css
-        wp_register_style('FF-EstateView-Styles-' . $theme, plugins_url('/assets/css/' . $theme . '/ff-estateview-styles.css', __FILE__) , '', '1.0.2', false);
-        wp_enqueue_style('FF-EstateView-Styles-' . $theme);
+        // // load slick theme css
+        // wp_register_style('FF-EstateView-slick-theme-' . $theme, plugins_url('/assets/css/' . $theme . '/slick-theme.css', __FILE__) , '', '1.0.0', false);
+        // wp_enqueue_style('FF-EstateView-slick-theme-' . $theme);
 
-        // load google maps js
-        if (!empty(FF_GG_API_MAPS))
-        {
-            // load google maps cluster js
-            wp_register_script('FF-EstateView-mapscluster-' . $theme, plugins_url('/assets/js/' . $theme . '/markerclusterer.js', __FILE__) , '', '1.0.0', true);
-            wp_enqueue_script('FF-EstateView-mapscluster-' . $theme);
+        // // load thickbox from wp
+        // wp_enqueue_style('thickbox', '/' . WPINC . '/js/thickbox/thickbox.css', null, '1.0');
+        // wp_enqueue_script('thickbox');
+        // wp_enqueue_style('thickbox');
 
-            wp_register_script('FF-EstateView-maps-' . $theme, 'https://maps.googleapis.com/maps/api/js?key=' . FF_GG_API_MAPS . '&libraries=places&callback=initMap', '', '1.0.0', true);
-            wp_enqueue_script('FF-EstateView-maps-' . $theme);
+        // // load default css
+        // wp_register_style('FF-EstateView-Styles-' . $theme, plugins_url('/assets/css/' . $theme . '/ff-estateview-styles.css', __FILE__) , '', '1.0.2', false);
+        // wp_enqueue_style('FF-EstateView-Styles-' . $theme);
 
-            wp_register_script('FF-EstateView-maps-script' . $theme, plugins_url('/assets/js/' . $theme . '/map-scripts.js', __FILE__) , '', '1.0.0', true);
-            wp_enqueue_script('FF-EstateView-maps-script' . $theme);
-        }
+        // // load google maps js
+        // if (!empty(FF_GG_API_MAPS))
+        // {
+        //     // load google maps cluster js
+        //     wp_register_script('FF-EstateView-mapscluster-' . $theme, plugins_url('/assets/js/' . $theme . '/markerclusterer.js', __FILE__) , '', '1.0.0', true);
+        //     wp_enqueue_script('FF-EstateView-mapscluster-' . $theme);
 
-        // load slick js
-        wp_register_script('FF-EstateView-slick-' . $theme, plugins_url('/assets/js/' . $theme . '/slick.js', __FILE__) , '', '1.0.0', true);
-        wp_enqueue_script('FF-EstateView-slick-' . $theme);
+        //     wp_register_script('FF-EstateView-maps-' . $theme, 'https://maps.googleapis.com/maps/api/js?key=' . FF_GG_API_MAPS . '&libraries=places&callback=initMap', '', '1.0.0', true);
+        //     wp_enqueue_script('FF-EstateView-maps-' . $theme);
 
-        // load chosen
-        wp_register_script('FF-EstateView-chosen-' . $theme, plugins_url('/assets/js/' . $theme . '/chosen.jquery.min.js', __FILE__) , '', '1.0.0', true);
-        wp_enqueue_script('FF-EstateView-chosen-' . $theme);
+        //     wp_register_script('FF-EstateView-maps-script' . $theme, plugins_url('/assets/js/' . $theme . '/map-scripts.js', __FILE__) , '', '1.0.0', true);
+        //     wp_enqueue_script('FF-EstateView-maps-script' . $theme);
+        // }
 
-        // load default js
-        wp_register_script('FF-EstateView-Script-' . $theme, plugins_url('/assets/js/' . $theme . '/ff-estateview-script.js', __FILE__) , '', '1.0.2', true);
-        wp_enqueue_script('FF-EstateView-Script-' . $theme);
+        // // load slick js
+        // wp_register_script('FF-EstateView-slick-' . $theme, plugins_url('/assets/js/' . $theme . '/slick.js', __FILE__) , '', '1.0.0', true);
+        // wp_enqueue_script('FF-EstateView-slick-' . $theme);
 
-        wp_localize_script('FF-EstateView-Script-' . $theme, 'ffdata', array(
-            'ajaxurl' => admin_url('admin-ajax.php')
-        ));
+        // // load chosen
+        // wp_register_script('FF-EstateView-chosen-' . $theme, plugins_url('/assets/js/' . $theme . '/chosen.jquery.min.js', __FILE__) , '', '1.0.0', true);
+        // wp_enqueue_script('FF-EstateView-chosen-' . $theme);
+
+        // // load default js
+        // wp_register_script('FF-EstateView-Script-' . $theme, plugins_url('/assets/js/' . $theme . '/ff-estateview-script.js', __FILE__) , '', '1.0.2', true);
+        // wp_enqueue_script('FF-EstateView-Script-' . $theme);
+
+        // wp_localize_script('FF-EstateView-Script-' . $theme, 'ffdata', array(
+        //     'ajaxurl' => admin_url('admin-ajax.php')
+        // ));
 
         // load Slider Pro
         // css 
@@ -1389,7 +1364,7 @@ class FFestateViewCore extends API
         wp_enqueue_style('FF-EstateView-slider-pro');
 
         // JS
-				wp_register_script('FF-EstateView-slider-pro-js', plugins_url('/assets/js/slider-pro-master/jquery.sliderPro.min.js', __FILE__) , '', '1.0.0', true);
+		wp_register_script('FF-EstateView-slider-pro-js', plugins_url('/assets/js/slider-pro-master/jquery.sliderPro.min.js', __FILE__) , '', '1.0.0', true);
         wp_enqueue_script('FF-EstateView-slider-pro-js');
 
         // Leaflet Maps

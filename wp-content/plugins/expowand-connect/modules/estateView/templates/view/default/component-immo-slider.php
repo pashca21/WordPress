@@ -7,9 +7,4 @@
   </div>
 </div>
 
-{% include 'component-estate-slider-modal.html' %}
-
-<!-- load facts -->
-{% if estates.facts %}
-  {% include 'compontent-estate-details-facts-noagent.html'%}
-{% endif %}
+<?php include 'component-estate-slider-modal.html'; ?>

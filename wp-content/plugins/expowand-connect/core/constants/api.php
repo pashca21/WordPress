@@ -62,7 +62,7 @@ define('FF_API_SCHEMA_SERVICE', EW_API_BASE_URL . '/schemas');
 define('FF_API_SCHEMA_SERVICE_BASE_PATH', EW_API_BASE_URL . '/schema-service/' . EW_API_ENVIORMENT);
 define('FF_API_USER_SERVICE', EW_API_BASE_URL . '/user-service/' . EW_API_ENVIORMENT .'/users');
 define('FF_API_VIEW_DEFINITION_SERVICE', EW_API_BASE_URL . '/view-definition-service/' . EW_API_ENVIORMENT .'/views');
-define('FF_API_ENTITY_SERVICE_ENTITY', EW_API_BASE_URL . '/entity-service/' . EW_API_ENVIORMENT .'/schemas');
+define('FF_API_ENTITY_SERVICE_ENTITY', EW_API_BASE_URL . '/offers');
 define('FF_API_SEARCH_SERVICE', EW_API_BASE_URL . '/offers');
 define('FF_API_ESTATE_VALIDATION', EW_API_BASE_URL . '/sprengnetter-service/' . EW_API_ENVIORMENT .'/api/valuation');
 define('FF_API_ESTATE_VALIDATION_RENT', EW_API_BASE_URL . '/sprengnetter-service/' . EW_API_ENVIORMENT .'/api/rent');

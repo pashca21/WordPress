@@ -58,20 +58,3 @@
 		return $data['content'];
 	}
 	add_shortcode( 'ff_estateview_shortcode', 'FFestateViewShortcode' );
-
-
-	
-	// create Shortcode
-	function FFestateViewSliderShortcode( $atts ) {
-		// defaults
-		$atts = shortcode_atts( array(
-		  'schema' => false
-	    ), $atts );
-	   
-	    // get addin
-		$FFestateViewCore = new FFestateViewCore();
-		$data = $FFestateViewCore->get_estate_slider($atts);
-		return $data['content'];
-
-	}
-	add_shortcode( 'ff_estateview_slider_shortcode', 'FFestateViewSliderShortcode' );

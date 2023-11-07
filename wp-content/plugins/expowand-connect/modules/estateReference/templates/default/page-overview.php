@@ -2,7 +2,7 @@
 
 ?>
 
-<div class="row">
+<div class="row w-100">
 	<?php // print("<pre>".print_r($results)."</pre>"); ?>
 	<!-- sorting -->
 	<?php foreach($results->estates as $estate){ 

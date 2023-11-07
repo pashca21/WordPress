@@ -349,4 +349,26 @@ class ExpowandDictionary{
 		'WITHOUT'           => 'Ohne Bodenbelag'
 	);
 
+	public static $firingTypes_options = 
+	[ 'NO_INFORMATION'   => 'Keine Angabe'
+	, 'GEOTHERMAL'       => 'Erdwärme'
+	, 'SOLAR_HEATING'    => 'Solarheizung'
+	, 'PELLET_HEATING'   => 'Pelletheizung'
+	, 'GAS'              => 'Gas'
+	, 'OIL'              => 'Öl'
+	, 'DISTRICT_HEATING' => 'Fernwärme'
+	, 'ELECTRICITY'      => 'Strom'
+	, 'COAL'             => 'Kohle'
+	, 'ACID_GAS'		 => 'Erdgas leicht'
+	, 'SOUR_GAS' 		 => 'Erdgas schwer'
+	, 'LIQUID_GAS' 		 => 'Flüssiggas'
+	, 'STEAM_DISTRICT_HEATING' => 'Fernwärme Dampf'
+	, 'WOOD' 			 => 'Holz'
+	, 'WOOD_CHIPS' 		 => 'Holz-Hackschnitzel'
+	, 'COAL_COKE'        => 'Kohle/Koks'
+	, 'LOCAL_HEATING' 	 => 'Nahwärme'
+	, 'HEAT_SUPPLY'		 => 'Wärmelieferung'
+	];
+
+
 }
