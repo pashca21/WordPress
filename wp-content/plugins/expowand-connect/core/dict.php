@@ -159,7 +159,7 @@ class ExpowandDictionary{
 	public static $energyCertificateAvailability_options = array(
 		'NO_INFORMATION'    => 'Keine Angabe',
 		'AVAILABLE'         => 'Endenergiebedarf',
-		'NOT_AVAILABLE_YET' => 'Energieverbrauchskennwert',
+		'NOT_AVAILABLE_YET' => 'Endenergieverbrauch',
 		'NOT_REQUIRED'      => 'Dieses Gebäude unterliegt nicht den Anforderungen der EnEV'
 	);
 
