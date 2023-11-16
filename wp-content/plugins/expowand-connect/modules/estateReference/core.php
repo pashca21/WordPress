@@ -8,7 +8,7 @@ class EWestateReferenceCore extends API {
 		return FF_ESTATEREFERENCE_SALESAUTOMATE_MAPPING;
 	}
 	
-	// get overview
+	// get Immo List
 	public function get_estate_reference_overview(){
 		$data["mapping"] = json_decode(FF_ESTATEREFERENCE_SALESAUTOMATE_MAPPING, true);
 	
@@ -19,23 +19,21 @@ class EWestateReferenceCore extends API {
 	}
 	
 	// get search	
-	protected function get_search($data = NULL, $page = 1, $max_results = FF_ESTATEREFERENCE_MAX_RESULT) {
+	protected function get_search($data = NULL, $page = 1, $max_results = EW_ESTATEREFERENCE_MAX_RESULT) {
 		if(!empty($data)) {		
 			// default
 			$data["search"]["search"]["schema"] = "default";
 	
-			// get search params
 			if( !empty($_GET))	{	
 				foreach($_GET as $key => $value){
 					$data["search"]["search"][sanitize_text_field($key)] = esc_html(sanitize_text_field($value));
 				}
 			}
-			// get list
+			// print_r($data);exit;
 			$data = $this->get_search_result($data);
 			// $data['list']['type'] = 0;
 			// $data['list']['category'] = 'APARTMENT';
-			// get html
-			return $this->get_html("page-overview", FF_ESTATEVIEW_THEME, $data);
+			return $this->render_html("page-overview", EW_ESTATEVIEW_THEME, $data);
 
 		}else{
 			return;
@@ -43,22 +41,23 @@ class EWestateReferenceCore extends API {
 	}
 	
 	// return search
-    protected function get_search_result($data = NULL, $page = 1, $max_results = FF_ESTATEREFERENCE_MAX_RESULT) {
+    protected function get_search_result($data = NULL, $page = 1, $max_results = EW_ESTATEREFERENCE_MAX_RESULT) {
 		// print("<pre>".print_r($data,true)."</pre>");exit;
+
 		if (!empty($data["search"]["search"])){
-
-				$schemaId = "estates";
-
-				// set page
-				if(!empty($data["search"]["search"]["ffpage"]))
-				{
-					$page = $data["search"]["search"]["ffpage"];
+				if(!empty($data["search"]["search"]["page"])){
+					$page = $data["search"]["search"]["page"];
 				}
 				
 				// get search query
 				$search = $this->get_search_query($data);
 
-				$result = API::get_entities_by_search($schemaId , $search ,$max_results, $page);
+				$lastChangeDateEW = API::get_last_change_date();
+				$lastChangeDateWP = '2023-01-21 01:02:03'; // TODO: save and get from DB
+
+				// print("<pre>".print_r($lastChangeDateEW,true)."</pre>");exit;
+
+				$result = API::get_entities_by_search($search, $max_results, $page);
 				// print_r($result); exit;
 
 				$data["search"]["total_count"]	= $result->totalCount;
@@ -93,19 +92,13 @@ class EWestateReferenceCore extends API {
 				// }
 					
 				$data["search"]["results"]			= $result;
-				$data["search"]["path"]		    	= get_bloginfo('wpurl') . '/' . FF_PLUGIN_ROUTE . '/' . FF_ESTATEREFERENCE_ROUTE;
+				$data["search"]["path"]		    	= get_bloginfo('wpurl') . '/' . EW_PLUGIN_ROUTE . '/' . EW_ESTATEREFERENCE_ROUTE;
 				$data["color"]["primary"]			= FF_PRIMARY_COLOR;
 				$data["color"]["secondary"]			= FF_SECONDARY_COLOR;
 				$data["api"]["cloudimage"]["url"] 	= FF_CLOUDIMAGE_IO_URL;
 				$data["api"]["maps"]["key"]			= FF_GG_API_MAPS;
-				$data["api"]["maps"]["path"]		= plugin_dir_url( dirname( __FILE__ ) )."/estateView/assets/img/".FF_ESTATEVIEW_THEME."/";
+				$data["api"]["maps"]["path"]		= plugin_dir_url( dirname( __FILE__ ) )."/estateView/assets/img/".EW_ESTATEVIEW_THEME."/";
 				
-				// change view to frame if set
-				// if(!empty($_GET["iframe"]) and $_GET["iframe"] == "1")
-				// {
-				// 	$data["frame"]	== "1";
-				// }
-
 				// print("<pre>".print_r($data,true)."</pre>");exit;
 				
 				return $data; 
@@ -114,8 +107,7 @@ class EWestateReferenceCore extends API {
 	
 	 // return search_query
     protected function get_search_query($data = NULL){
-		if(!empty($data))
-		{
+		if(!empty($data)) {
 			$search["target"] = "ENTITY";
 			$search["fetch"] = array();
 			
@@ -197,74 +189,22 @@ class EWestateReferenceCore extends API {
 		}
     }
 
-	protected function getFields($data = NULL, $schema = NULL, $results = NULL){
-		if(!empty($data) && !empty($schema) && !empty($results))
-		{
-			foreach($data as $key => $row)
-			{
-				foreach ($results as $result)
-				{			
-					//  print_r($result['offerdetails']);exit;
-					if($schema == $key)
-					{
-						foreach($row as $key2 => $row2)
-						{
-							// print_r($key2);
-							foreach($row2 as $key3 => $row3)
-							{
-								// print_r($key3);
-								// print_r($row3);exit;
-								if(!empty($row3["type"]))
-								{	
-									if(isset($result['offerdetails'][$key3])){
-										if(!empty($result['offerdetails'][$key3]))
-										{
-										// print_r($key3);
-										// print_r($row3);
-										// print_r($result);
-										// print_r($key2);
-											$field[$result["offer"]['id']][$key2][$key3] = API::get_formated_fields($key3,$row3, $result, $key2);
-										}
-									}
-									else if(isset($result['offer'][$key3]))
-									{
-										if(!empty($result['offer'][$key3]))
-										{
-											$field[$result["offer"]['id']][$key2][$key3] = API::get_formated_fields($key3,$row3, $result, $key2);
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-			return $field;
-		}
-		return null;
-	}
-	
-	// render template
-    protected function get_html($page = NULL, $template = "default", $data = NULL) {
-		// load module assets
-        $this->loadCss($template);
-		
+    protected function render_html($page = NULL, $template = "default", $data = NULL) {
         if (!empty($data) && !empty($page)) {
-            // set path
-            $path = plugin_dir_path(__FILE__) . "templates/" . $template;
+			$this->loadCss($template);
+			$path = plugin_dir_path(__FILE__) . "templates/" . $template;
 
             if (file_exists($path . '/' . $page . '.php')) {
-				// print("<pre>".print_r($data,true)."</pre>");exit;
 				$html = '';
 				ob_start();
 				$results = $data['search']['results'];
+				$search = $data['search']['search'];
 				$list = new stdClass();
-				$list->type = 0;
-				$list->category = 'APARTMENT';
+				$list->type = $search['type'];
+				$list->category = $search['category'];
 				include($path . '/' . $page . '.php');
 				$html = ob_get_contents();
 				ob_end_clean();
-				// print("<pre>".print_r($html,true)."</pre>");exit;
                 return $html;
             } else {
                 return false;
@@ -287,7 +227,7 @@ class EWestateReferenceCore extends API {
 		// load default css	
 		// wp_register_style('FF-EstateReference-Styles-' . $theme, plugins_url('/assets/css/' . $theme . '/ff-estatereference-styles.css', __FILE__),'','1.0.0', false);
 		// wp_enqueue_style('FF-EstateReference-Styles-' . $theme);
-			
+
 		// force load Jquery
 		wp_enqueue_script( 'jquery');    
 			

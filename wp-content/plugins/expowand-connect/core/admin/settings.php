@@ -17,6 +17,8 @@
 		wp_register_script('FF-admin-scripts', plugins_url('/ff-admin-scripts.js', __FILE__), '', '1.0.0', true);
 		wp_enqueue_script('FF-admin-scripts');
 
+		// force load Jquery
+		wp_enqueue_script( 'jquery');    
 
 		wp_localize_script('FF-admin-scripts', 'ffdata', array(
                 'ajaxurl' => admin_url('admin-ajax.php')
@@ -263,7 +265,7 @@
 											if(!empty(get_option('ff-'.$key.'-route') or !empty(defined('FF_'.strtoupper($key).'_ROUTE'))))
 											{
 												$ffmodule_url = get_home_url()."/";
-												$ffmodule_url .= (!empty(get_option('ff-plugin-route')))? get_option('ff-plugin-route'): constant('FF_PLUGIN_ROUTE');
+												$ffmodule_url .= (!empty(get_option('ff-plugin-route')))? get_option('ff-plugin-route'): constant('EW_PLUGIN_ROUTE');
 												$ffmodule_url .="/";
 												$ffmodule_url .= (!empty(get_option('ff-'.$key.'-route')))? get_option('ff-'.$key.'-route'):constant('FF_'.strtoupper($key).'_ROUTE');
 											}

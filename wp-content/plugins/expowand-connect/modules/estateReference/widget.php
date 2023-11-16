@@ -10,7 +10,7 @@
 		public function __construct() {
 			$widgetOps = array(
 				'classname' 	=> 'FFestateReference',
-				'description' 	=> 'Zur Einbindung von Immobilien Referencen aus dem FLOWFACT Saleautomat',
+				'description' 	=> 'Zur Einbindung von Immobilien Referencen aus dem Expowand',
 			);
 			parent::__construct('FFestateReference', 'FLOWFACT - Immobilien Referenzen', $widgetOps );
 		}

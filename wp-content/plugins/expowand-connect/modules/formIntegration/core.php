@@ -85,6 +85,9 @@ class FFformIntegrationCore extends API
         wp_register_script('FF-formIntegration-Script-' . $theme, plugins_url('/assets/js/' . $theme . '/ff-formIntegration-script.js', __FILE__) , '', '1.0.0', true);
         wp_enqueue_script('FF-formIntegration-Script-' . $theme);
 
+		// force load Jquery
+		wp_enqueue_script( 'jquery');    
+		
         // load WPADMIN js
         wp_localize_script('FF-formIntegration-Script-' . $theme, 'ffdata', array(
             'ajaxurl' => admin_url('admin-ajax.php')

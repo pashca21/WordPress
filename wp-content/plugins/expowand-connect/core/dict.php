@@ -49,7 +49,6 @@ class ExpowandDictionary{
 		, 'NOT_APPLICABLE' => 'Keine Angabe'
 		];
 
-	//verkaufen wohnimmobilie
 	public static $thirdStepSelection_options_buy =
 		[ 'APARTMENT_BUY'       => 'Wohnung'
 		, 'HOUSE_BUY'           => 'Haus'
@@ -60,7 +59,6 @@ class ExpowandDictionary{
 		, 'LIVING_BUY_SITE_INT' => 'Wohngrundstück (Ausland)'
 		];
 
-	//rent wohnimmobilie
 	public static $thirdStepSelection_options_rent =
 		[ 'APARTMENT_RENT'           => 'Wohnung'
 		, 'HOUSE_RENT'               => 'Haus'
@@ -104,50 +102,29 @@ class ExpowandDictionary{
 		, 'RIPE_FOR_DEMOLITION'                => 'Abbruchreif'
 		];
 
-	public static $interiorQuality_options = array(
-		'NO_INFORMATION' => 'Keine Angabe',
-		'LUXURY'         => 'luxus',
-		'SOPHISTICATED'  => 'gehoben',
-		'NORMAL'         => 'normal',
-		'SIMPLE'         => 'einfach'
-	);
+	public static $interiorQuality_options = 
+		[ 'NO_INFORMATION' => 'Keine Angabe'
+		, 'LUXURY'         => 'luxus'
+		, 'SOPHISTICATED'  => 'gehoben'
+		, 'NORMAL'         => 'normal'
+		, 'SIMPLE'         => 'einfach'
+		];
 
-	public static $heatingType_options = array(
-		'NO_INFORMATION'                 => 'Keine Angabe',
-		'SELF_CONTAINED_CENTRAL_HEATING' => 'Etagenheizung',
-		'STOVE_HEATING'                  => 'Ofenheizung',
-		'CENTRAL_HEATING'                => 'Zentralheizung',
-		'COMBINED_HEAT_AND_POWER_PLANT'  => 'Blockheizkraftwerk',
-		'ELECTRIC_HEATING'               => 'Elektro-Heizung',
-		'DISTRICT_HEATING'               => 'Fernwärme',
-		'FLOOR_HEATING'                  => 'Fußbodenheizung',
-		'GAS_HEATING'                    => 'Gas-Heizung',
-		'WOOD_PELLET_HEATING'            => 'Holz-Pelletheizung',
-		'NIGHT_STORAGE_HEATER'           => 'Nachtspeicherofen',
-		'OIL_HEATING'                    => 'Öl-Heizung',
-		'SOLAR_HEATING'                  => 'Solar-Heizung',
-		'HEAT_PUMP'                      => 'Wärmepumpe'
-	);
-
-	const FIRINGTYPE_OPTIONS =
-		[ 'NO_INFORMATION'   => 'Keine Angabe'
-		, 'GEOTHERMAL'       => 'Erdwärme'
-		, 'SOLAR_HEATING'    => 'Solarheizung'
-		, 'PELLET_HEATING'   => 'Pelletheizung'
-		, 'GAS'              => 'Gas'
-		, 'OIL'              => 'Öl'
-		, 'DISTRICT_HEATING' => 'Fernwärme'
-		, 'ELECTRICITY'      => 'Strom'
-		, 'COAL'             => 'Kohle'
-		, 'ACID_GAS'		 => 'Erdgas leicht'
-		, 'SOUR_GAS' 		 => 'Erdgas schwer'
-		, 'LIQUID_GAS' 		 => 'Flüssiggas'
-		, 'STEAM_DISTRICT_HEATING' => 'Fernwärme Dampf'
-		, 'WOOD' 			 => 'Holz'
-		, 'WOOD_CHIPS' 		 => 'Holz-Hackschnitzel'
-		, 'COAL_COKE'        => 'Kohle/Koks'
-		, 'LOCAL_HEATING' 	 => 'Nahwärme'
-		, 'HEAT_SUPPLY'		 => 'Wärmelieferung'
+	public static $heatingType_options = 
+		[ 'NO_INFORMATION'                 => 'Keine Angabe'
+		, 'SELF_CONTAINED_CENTRAL_HEATING' => 'Etagenheizung'
+		, 'STOVE_HEATING'                  => 'Ofenheizung'
+		, 'CENTRAL_HEATING'                => 'Zentralheizung'
+		, 'COMBINED_HEAT_AND_POWER_PLANT'  => 'Blockheizkraftwerk'
+		, 'ELECTRIC_HEATING'               => 'Elektro-Heizung'
+		, 'DISTRICT_HEATING'               => 'Fernwärme'
+		, 'FLOOR_HEATING'                  => 'Fußbodenheizung'
+		, 'GAS_HEATING'                    => 'Gas-Heizung'
+		, 'WOOD_PELLET_HEATING'            => 'Holz-Pelletheizung'
+		, 'NIGHT_STORAGE_HEATER'           => 'Nachtspeicherofen'
+		, 'OIL_HEATING'                    => 'Öl-Heizung'
+		, 'SOLAR_HEATING'                  => 'Solar-Heizung'
+		, 'HEAT_PUMP'                      => 'Wärmepumpe'
 		];
 
 	public static $buildingEnergyRatingType_options = array(
@@ -222,7 +199,6 @@ class ExpowandDictionary{
 		'NOT_DEVELOPED' 		=> 'Unerschlossen'
 	];
 
-	public $siteConstructibleType = 'NO_INFORMATION'; // enum
 	public static $siteConstructibleType_options = [
 		'NO_INFORMATION'		=> 'Keine Angabe',
 		'CONSTRUCTIONPLAN'		=> 'Bebauung nach Bebauungsplan',
@@ -278,10 +254,10 @@ class ExpowandDictionary{
 	);
 
 	public static $officeRentDuration_options = array(
-		'LONG_TERM'	=> 'länger als 2 Jahre', // category Office Rent
-		'WEEKLY'	=> 'wochenweise', // new category short term rent
-		'MONTHLY'	=> 'monatsweise', // new category short term rent
-		'YEARLY'	=> '1-2 Jahre' // new category short term rent
+		'LONG_TERM'	=> 'länger als 2 Jahre',
+		'WEEKLY'	=> 'wochenweise',
+		'MONTHLY'	=> 'monatsweise',
+		'YEARLY'	=> '1-2 Jahre'
 	);
 
 	public static $storeType_options = array(
@@ -350,25 +326,24 @@ class ExpowandDictionary{
 	);
 
 	public static $firingTypes_options = 
-	[ 'NO_INFORMATION'   => 'Keine Angabe'
-	, 'GEOTHERMAL'       => 'Erdwärme'
-	, 'SOLAR_HEATING'    => 'Solarheizung'
-	, 'PELLET_HEATING'   => 'Pelletheizung'
-	, 'GAS'              => 'Gas'
-	, 'OIL'              => 'Öl'
-	, 'DISTRICT_HEATING' => 'Fernwärme'
-	, 'ELECTRICITY'      => 'Strom'
-	, 'COAL'             => 'Kohle'
-	, 'ACID_GAS'		 => 'Erdgas leicht'
-	, 'SOUR_GAS' 		 => 'Erdgas schwer'
-	, 'LIQUID_GAS' 		 => 'Flüssiggas'
-	, 'STEAM_DISTRICT_HEATING' => 'Fernwärme Dampf'
-	, 'WOOD' 			 => 'Holz'
-	, 'WOOD_CHIPS' 		 => 'Holz-Hackschnitzel'
-	, 'COAL_COKE'        => 'Kohle/Koks'
-	, 'LOCAL_HEATING' 	 => 'Nahwärme'
-	, 'HEAT_SUPPLY'		 => 'Wärmelieferung'
-	];
-
+		[ 'NO_INFORMATION'   => 'Keine Angabe'
+		, 'GEOTHERMAL'       => 'Erdwärme'
+		, 'SOLAR_HEATING'    => 'Solarheizung'
+		, 'PELLET_HEATING'   => 'Pelletheizung'
+		, 'GAS'              => 'Gas'
+		, 'OIL'              => 'Öl'
+		, 'DISTRICT_HEATING' => 'Fernwärme'
+		, 'ELECTRICITY'      => 'Strom'
+		, 'COAL'             => 'Kohle'
+		, 'ACID_GAS'		 => 'Erdgas leicht'
+		, 'SOUR_GAS' 		 => 'Erdgas schwer'
+		, 'LIQUID_GAS' 		 => 'Flüssiggas'
+		, 'STEAM_DISTRICT_HEATING' => 'Fernwärme Dampf'
+		, 'WOOD' 			 => 'Holz'
+		, 'WOOD_CHIPS' 		 => 'Holz-Hackschnitzel'
+		, 'COAL_COKE'        => 'Kohle/Koks'
+		, 'LOCAL_HEATING' 	 => 'Nahwärme'
+		, 'HEAT_SUPPLY'		 => 'Wärmelieferung'
+		];
 
 }

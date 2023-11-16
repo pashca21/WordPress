@@ -11,7 +11,7 @@
 	(!empty(get_option('ff-estatereference-sa-version')))? define('FF_ESTATEREFERENCE_SALESAUTOMATE_VIEW', get_option('ff-estatereference-sa-version') ) : define('FF_ESTATEREFERENCE_SALESAUTOMATE_VIEW', '1.0.0' ) ;
 	
 	// estatereference search setting
-	(!empty(get_option('ff-estatereference-max-result')))? define('FF_ESTATEREFERENCE_MAX_RESULT', get_option('ff-estatereference-max-result') ) : define('FF_ESTATEREFERENCE_MAX_RESULT', 9 ) ;
+	(!empty(get_option('ff-estatereference-max-result')))? define('EW_ESTATEREFERENCE_MAX_RESULT', get_option('ew-estatereference-max-result') ) : define('EW_ESTATEREFERENCE_MAX_RESULT', 9 ) ;
 	
 	// estatereference salesautomat setting
 	$mapping = '{

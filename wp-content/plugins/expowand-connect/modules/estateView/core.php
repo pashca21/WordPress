@@ -6,11 +6,11 @@ class FFestateViewCore extends API{
 	{
 		// get mapping
 		$data["mapping"] = json_decode(FF_ESTATEVIEW_SALESAUTOMATE_MAPPING, true);
-		$data["search"]["path"] = get_bloginfo('wpurl') . '/' . FF_PLUGIN_ROUTE . '/' . FF_ESTATEVIEW_ROUTE;
+		$data["search"]["path"] = get_bloginfo('wpurl') . '/' . EW_PLUGIN_ROUTE . '/' . FF_ESTATEVIEW_ROUTE;
 
 		// get set title
 		$result['title'] = "Immobilien Suche";
-		$result['content'] = $this->get_html("widget", FF_ESTATEVIEW_THEME, $data);
+		$result['content'] = $this->get_html("widget", EW_ESTATEVIEW_THEME, $data);
 
 		return $result;
 	}
@@ -149,7 +149,7 @@ class FFestateViewCore extends API{
 			// $acceptedNecessaryCookiePolicy = isset($_COOKIE['cookielawinfo-checkbox-necessary']) && $_COOKIE['cookielawinfo-checkbox-necessary'] === 'yes';
 
 			// $data["isPolicyCookieAccepted"]   = $viewedCookiePolicy && $acceptedNecessaryCookiePolicy;
-			// $data["page"]["url"]              = get_bloginfo('wpurl') . '/' . FF_PLUGIN_ROUTE . '/' . FF_ESTATEVIEW_ROUTE;
+			// $data["page"]["url"]              = get_bloginfo('wpurl') . '/' . EW_PLUGIN_ROUTE . '/' . FF_ESTATEVIEW_ROUTE;
 			// $data["page"]["schema"]           = $schema["name"];
 			// $data["color"]["primary"]         = FF_PRIMARY_COLOR;
 			// $data["color"]["secondary"]       = FF_SECONDARY_COLOR;
@@ -159,7 +159,7 @@ class FFestateViewCore extends API{
 			// $data["legal"]["privacy"]         = FF_PRIVACY_URL;
 			// $data["finance"]                  = get_option("ff-estateView-show-finance-calculator");
 			// $data["socialmedia"]              = get_option('ff-estateView-show-socialmedia-links');
-			// $data["imagepath"]                = plugin_dir_url(dirname(__FILE__)) . "/estateView/assets/img/" . FF_ESTATEVIEW_THEME;
+			// $data["imagepath"]                = plugin_dir_url(dirname(__FILE__)) . "/estateView/assets/img/" . EW_ESTATEVIEW_THEME;
 			// $data["currentUrl"]               = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 			// $data["company"]				    			= $this->get_company_data();
 			// $data["property_slider"]		  		= get_option("ff-estateView-select-slider");
@@ -247,7 +247,7 @@ class FFestateViewCore extends API{
 
 				$data = $results[0]->estates[0];
 
-				$result['content'] = $this->get_html("page-details", FF_ESTATEVIEW_THEME, $data);
+				$result['content'] = $this->get_html("page-details", EW_ESTATEVIEW_THEME, $data);
 				// print_r($result);exit;
 
 				return $result;
@@ -296,7 +296,7 @@ class FFestateViewCore extends API{
 
 		if (!empty($data))
 		{
-			$result["content"] = $this->get_html("page-overview", FF_ESTATEVIEW_THEME, $data);
+			$result["content"] = $this->get_html("page-overview", EW_ESTATEVIEW_THEME, $data);
 		}
 
 		return $result;
@@ -329,7 +329,7 @@ class FFestateViewCore extends API{
 			// get HTML
 			if (!empty($data))
 			{
-				$result['content'] = $this->get_html("page-sitemap-" . $type, FF_ESTATEVIEW_THEME, $data);
+				$result['content'] = $this->get_html("page-sitemap-" . $type, EW_ESTATEVIEW_THEME, $data);
 			}
 			else
 			{
@@ -573,13 +573,13 @@ class FFestateViewCore extends API{
 			$data["search"]["total_count"] = $totalCount;
 			$data["search"]["page"] = $page;
 			$data["search"]["page_max"] = ceil($totalCount / $max_results);
-			$data["search"]["path"] = get_bloginfo('wpurl') . '/' . FF_PLUGIN_ROUTE . '/' . FF_ESTATEVIEW_ROUTE;
+			$data["search"]["path"] = get_bloginfo('wpurl') . '/' . EW_PLUGIN_ROUTE . '/' . FF_ESTATEVIEW_ROUTE;
 			$data["search"]["schema"] = $schemaId;
 			$data["color"]["primary"] = FF_PRIMARY_COLOR;
 			$data["color"]["secondary"] = FF_SECONDARY_COLOR;
 			$data["api"]["cloudimage"]["url"] = FF_CLOUDIMAGE_IO_URL;
 			$data["api"]["maps"]["key"] = FF_GG_API_MAPS;
-			$data["api"]["maps"]["path"] = plugin_dir_url(dirname(__FILE__)) . "/estateView/assets/img/" . FF_ESTATEVIEW_THEME . "/";
+			$data["api"]["maps"]["path"] = plugin_dir_url(dirname(__FILE__)) . "/estateView/assets/img/" . EW_ESTATEVIEW_THEME . "/";
  
 			// change view to frame if set
 			if (!empty($_GET["iframe"]) && $_GET["iframe"] == "1")
@@ -1135,7 +1135,7 @@ class FFestateViewCore extends API{
 			return false;
 		}				
 
-        $this->loadCss(FF_ESTATEVIEW_THEME);		
+        $this->loadCss(EW_ESTATEVIEW_THEME);		
 
 		// print("<pre>".print_r($data,true)."</pre>");exit;
 		$html = '';
@@ -1303,6 +1303,9 @@ class FFestateViewCore extends API{
 		wp_register_style('BS', 'https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css');
 		wp_enqueue_style('BS');
 
+		// force load Jquery
+		wp_enqueue_script( 'jquery');    
+		
         // // load slick css
         // wp_register_style('FF-EstateView-slick-' . $theme, plugins_url('/assets/css/' . $theme . '/slick.css', __FILE__) , '', '1.0.0', false);
         // wp_enqueue_style('FF-EstateView-slick-' . $theme);
@@ -1505,8 +1508,8 @@ function ajaxcontactfunctiont()
             $ffphpmailer->CharSet = 'utf-8';
             $ffphpmailer->ClearAllRecipients();
             $ffphpmailer->AddAddress($_POST["ffreply"]);
-            $ffphpmailer->Body = $FFestateViewCore->get_html("email-estate-contact", FF_ESTATEVIEW_THEME, $data, plugin_dir_path(__FILE__) . "/templates/email/" . FF_ESTATEVIEW_THEME . "/");
-            $ffphpmailer->addStringAttachment($FFestateViewCore->get_html("openimmofeedback", FF_ESTATEVIEW_THEME, $data, plugin_dir_path(__FILE__) . "templates/xml/") , 'feedback.xml');
+            $ffphpmailer->Body = $FFestateViewCore->get_html("email-estate-contact", EW_ESTATEVIEW_THEME, $data, plugin_dir_path(__FILE__) . "/templates/email/" . EW_ESTATEVIEW_THEME . "/");
+            $ffphpmailer->addStringAttachment($FFestateViewCore->get_html("openimmofeedback", EW_ESTATEVIEW_THEME, $data, plugin_dir_path(__FILE__) . "templates/xml/") , 'feedback.xml');
 
             if (!$ffphpmailer->send())
             {
@@ -1530,7 +1533,7 @@ function ajaxcontactfunctiont()
             $content["from"][0]["email"] = get_option("ff-nylas-account");
             $content["to"][0]["name"] = $_POST["ffreply"];
             $content["to"][0]["email"] = $_POST["ffreply"];
-            $content["body"] = $FFestateViewCore->get_html("email-estate-contact", FF_ESTATEVIEW_THEME, $data, plugin_dir_path(__FILE__) . "/templates/email/" . FF_ESTATEVIEW_THEME . "/");
+            $content["body"] = $FFestateViewCore->get_html("email-estate-contact", EW_ESTATEVIEW_THEME, $data, plugin_dir_path(__FILE__) . "/templates/email/" . EW_ESTATEVIEW_THEME . "/");
 
             return $FFestateViewCore->send_mail($content);
         }

@@ -60,11 +60,11 @@
 	/*********************
 	 *   routes
 	 *********************/
-	(!empty(get_option('ff-routing-page-type')))? define('FF_PLUGIN_ROUTE_PAGE_TYPE', get_option('ff-routing-page-type') ) : define('FF_PLUGIN_ROUTE_PAGE_TYPE', 'page' ) ;
-	(!empty(get_option('ff-plugin-url')))? define('FF_PLUGIN_ROUTE', get_option('ff-plugin-url') ) : define('FF_PLUGIN_ROUTE', 'ff' );
+	(!empty(get_option('ff-routing-page-type')))? define('EW_PLUGIN_ROUTE_PAGE_TYPE', get_option('ff-routing-page-type') ) : define('EW_PLUGIN_ROUTE_PAGE_TYPE', 'page' ) ;
+	(!empty(get_option('ff-plugin-url')))? define('EW_PLUGIN_ROUTE', get_option('ff-plugin-url') ) : define('EW_PLUGIN_ROUTE', 'ff' );
 	(!empty(get_option('ff-recommendation-route')))? define('FF_RECOMMENDATION_ROUTE', get_option('ff-recommendation-route') ) : define('FF_RECOMMENDATION_ROUTE', 'videobewertungen' ) ;
 	(!empty(get_option('ff-estateview-route')))? define('FF_ESTATEVIEW_ROUTE', get_option('ff-estateview-route') ) : define('FF_ESTATEVIEW_ROUTE', 'immobilien' ) ;
-	(!empty(get_option('ff-estatereference-route')))? define('FF_ESTATEREFERENCE_ROUTE', get_option('ff-estatereference-route') ) : define('FF_ESTATEREFERENCE_ROUTE', 'immobilienreferenzen' ) ;
+	(!empty(get_option('ff-estatereference-route')))? define('EW_ESTATEREFERENCE_ROUTE', get_option('ff-estatereference-route') ) : define('EW_ESTATEREFERENCE_ROUTE', 'immobilienreferenzen' ) ;
 	(!empty(get_option('ff-estateTracking-route')))? define('FF_ESTATETRACKING_ROUTE', get_option('ff-estateTracking-route') ) : define('FF_ESTATETRACKING_ROUTE', 'immobilientracking' ) ;
 	(!empty(get_option('ff-ownerreport-route')))? define('FF_OWNERREPORT_ROUTE', get_option('ff-ownerreport-route') ) : define('FF_OWNERREPORT_ROUTE', 'objekttracking' );
 

@@ -4,13 +4,13 @@ class FFownerReportCore extends API{
 
 
 	protected function get_page($page,$data){
-		$data['path'] = get_bloginfo('wpurl') . '/' . FF_PLUGIN_ROUTE . '/' . FF_OWNERREPORT_ROUTE;
+		$data['path'] = get_bloginfo('wpurl') . '/' . EW_PLUGIN_ROUTE . '/' . FF_OWNERREPORT_ROUTE;
 		return $this->get_html("page-{$page}", 'default', $data);
 	}
 
 	public function get_login_page($data=array('logged_out'=>false, 'failed'=>false)){
 		$data['title'] = 'Login';
-		$data['path'] = get_bloginfo('wpurl') . '/' . FF_PLUGIN_ROUTE . '/' . FF_OWNERREPORT_ROUTE;
+		$data['path'] = get_bloginfo('wpurl') . '/' . EW_PLUGIN_ROUTE . '/' . FF_OWNERREPORT_ROUTE;
 		$data['content']=$this->get_page('login', $data);
 		
 		if($this->is_user_logged_in()){

@@ -116,7 +116,7 @@ class ExpowandConnect {
 	public function ew_init() {
 		$uriSegments = explode('/', parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
 		foreach ($uriSegments as $segment) {
-			if (FF_PLUGIN_ROUTE == $segment) {
+			if (EW_PLUGIN_ROUTE == $segment) {
 				add_filter('the_posts', [$this, 'get_vitual_page_detect'], 1);
 			}
 		}
@@ -209,7 +209,7 @@ class ExpowandConnect {
 				</script>";
 		}
 
-		if (!empty($plugin) and FF_PLUGIN_ROUTE == $plugin and !defined('FF_VIRTUAL_PAGE')) {
+		if (!empty($plugin) and EW_PLUGIN_ROUTE == $plugin and !defined('FF_VIRTUAL_PAGE')) {
 			define( 'FF_VIRTUAL_PAGE', true );
 
 			// create a fake virtual page
@@ -218,7 +218,7 @@ class ExpowandConnect {
 			$post->post_name = $get_vitual_page_url;
 			$post->guid = get_bloginfo('wpurl').'/'.$get_vitual_page_url;
 
-			if (!empty($plugin) && FF_PLUGIN_ROUTE == $plugin) {
+			if (!empty($plugin) && EW_PLUGIN_ROUTE == $plugin) {
 				if (FF_ESTATEVIEW_ROUTE == $module) {
 					// Substing added to allow to add time stamp to xml url to protect caching
 					if ((((!empty($slug) and '.xml' === substr($slug, -4) and 'sitemap' === substr($slug, 0, 7)) or (!empty($schema) and '.xml' === substr($schema, -4) and 'sitemap' === substr($schema, 0, 7))) or ((!empty($slug) and '.txt' === substr($slug, -4) and 'sitemap' === substr($slug, 0, 7)) or (!empty($schema) and '.txt' === substr($schema, -4) and 'sitemap' === substr($schema, 0, 7)))) and FF_ESTATEVIEW_SEO == 'on') {
@@ -248,7 +248,7 @@ class ExpowandConnect {
 						$post->post_title = $data['title'];
 						$post->post_content = $data['content'];
 					}
-				} elseif (FF_ESTATEREFERENCE_ROUTE == $module) {
+				} elseif (EW_ESTATEREFERENCE_ROUTE == $module) {
 					$EWestateReferenceCore = new EWestateReferenceCore();
 					$data = $EWestateReferenceCore->get_estate_reference_overview();
 					$post->post_title = $data['title'];

@@ -1,10 +1,10 @@
 <?php
-
+$searchPath = get_bloginfo('wpurl') . '/' . EW_PLUGIN_ROUTE . '/' . EW_ESTATEREFERENCE_ROUTE;
 ?>
 
 <h1 class="mb-3">Immobilien</h1>
 
-<form id="form_search_offers" autocomplete="off" action="offers/list/search" method="post" >
+<form id="form_search_offers" autocomplete="off" action="<?=$searchPath; ?>" method="get" >
 	<input type="hidden" name="do_filter" id="do_filter" value="" />
 
 	<div class="row w-100 g-3 mb-5">
@@ -63,7 +63,7 @@
 			$mainImgUrl = $offerdetails->mainImgUrl;
 		}
 
-		$url = get_bloginfo('wpurl') . '/' . FF_PLUGIN_ROUTE . '/' . FF_ESTATEVIEW_ROUTE . '/' . '/estates/' . $offer->id;
+		$url = get_bloginfo('wpurl') . '/' . EW_PLUGIN_ROUTE . '/' . FF_ESTATEVIEW_ROUTE . '/' . '/estates/' . $offer->id;
 		?>
 
 		<div class="col-md-6 mb-3">
