@@ -2,8 +2,7 @@
 
 include_once __DIR__."/../../core/dict.php";
 
-class EWestateReferenceCore extends API
-{
+class EWestateReferenceCore extends API {
 	// get widget
     public function widget(){
 		return FF_ESTATEREFERENCE_SALESAUTOMATE_MAPPING;
@@ -33,6 +32,8 @@ class EWestateReferenceCore extends API
 			}
 			// get list
 			$data = $this->get_search_result($data);
+			// $data['list']['type'] = 0;
+			// $data['list']['category'] = 'APARTMENT';
 			// get html
 			return $this->get_html("page-overview", FF_ESTATEVIEW_THEME, $data);
 
@@ -257,6 +258,9 @@ class EWestateReferenceCore extends API
 				$html = '';
 				ob_start();
 				$results = $data['search']['results'];
+				$list = new stdClass();
+				$list->type = 0;
+				$list->category = 'APARTMENT';
 				include($path . '/' . $page . '.php');
 				$html = ob_get_contents();
 				ob_end_clean();

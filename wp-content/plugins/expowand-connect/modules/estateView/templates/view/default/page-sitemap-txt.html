@@ -1,5 +1,0 @@
-{% if search.results %}{% for id,estates in search.results %}{{ search.path }}/{%if estates.seo.slug.value %}{{ estates.seo.slug.value }}/{% endif %}{{ search.schema }}/{{ id }}
-{% endfor %}{% endif %}
-
-
-

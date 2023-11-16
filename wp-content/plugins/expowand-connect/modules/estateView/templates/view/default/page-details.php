@@ -371,6 +371,10 @@ if($typestr != ''){
 				<th scope="row" style="text-align: left;">Notarkosten/ Grundbucheintrag</th>
 				<td><?=number_format($offer->notargebuhren,1,",","."); ?> %</td>
 			</tr>	
+			<tr>
+				<th scope="row" style="text-align: left;">Käuferprovision</th>
+				<td><?=str_replace('.',',',$offer->maklerprovision+0) ?> % (inkl. MwSt.) vom Kaufpreis</td>
+			</tr>
 		</tbody>
 	</table>
 
@@ -381,22 +385,6 @@ if($typestr != ''){
 		Dies ist der aktuelle Angebotskaufpreis. Wir weisen darauf hin, dass dieser Angebotskaufpreis 
 		fallen oder bei erheblicher Nachfrage nach Objekten dieser Art auch steigen kann.
 	</p>
-
-	<table class="table mt-1 w-100" style="width: 100%!important;">
-		<thead>
-			<tr>
-				<th class="w-50" style="width: 50%;"></th>
-				<th class="w-50" style="width: 50%"></th>
-			</tr>
-		</thead>
-
-		<tbody>
-			<tr>
-				<th scope="row" style="text-align: left;">Käuferprovision</th>
-				<td><?=str_replace('.',',',$offer->maklerprovision+0) ?> % (inkl. MwSt.) vom Kaufpreis</td>
-			</tr>
-		</tbody>
-	</table>
 	<p class="text-700 fs-6" style="text-align: justify!important;">
 		Die Maklercourtage beträgt <?=str_replace('.',',',$offer->maklerprovision+0) ?> % inkl. der gesetzlichen Mehrwertsteuer.
 		Sie ist verdient und fällig bei Abschluss eines notariellen Kaufvertrages und vom Käufer zu zahlen.
@@ -407,9 +395,9 @@ if($typestr != ''){
 	</p>
 <?php } ?>
 
-<?php if(!empty($offerdetails->furnishingNote)){ ?>
+<?php //if(!empty($offerdetails->furnishingNote)){ ?>
 	<h3 class="">Ausstattung</h3>
-<?php } ?>
+<?php //} ?>
 <div class="row mt-1 mb-3 g-3">
 
 	<?php if($offerdetails->balcony != 0){ ?>
@@ -553,17 +541,31 @@ if($typestr != ''){
 <table class="table mt-1 w-100" style="width: 100%!important;">
     <thead>
         <tr>
-            <th class="w-50" style="width: 50%;"></th>
-            <th class="w-50" style="width: 50%"></th>
+            <th style="width: 40%;"></th>
+            <th style="width: 60%;"></th>
         </tr>
     </thead>
 
     <tbody>
 
 		<tr>
-			<th scope="row" style="text-align: left;">Gesetzliche Pflichtangaben Energieausweis</th>
+			<th scope="row" style="text-align: left;">Energieausweis</th>
 			<td><?=ExpowandDictionary::$energyCertificateAvailability_options[$offerdetails->energyCertificateAvailability]; ?></td>
 		</tr>
+
+		<?php if($offerdetails->energyCertificateCreationDate != 'NO_INFORMATION'){ ?>
+			<tr>
+				<th scope="row" style="text-align: left;">Erstellungsdatum</th>
+				<td><?=ExpowandDictionary::$energyCertificateCreationDate_options[$offerdetails->energyCertificateCreationDate]; ?></td>
+			</tr>
+		<?php } ?>
+
+		<?php if($offerdetails->energyCertificateValidTill != '' && $offerdetails->energyCertificateValidTill != '0000-00-00'){ ?>
+			<tr>
+				<th scope="row" style="text-align: left;">Gültig bis</th>
+				<td><?=date('d.m.Y', strtotime($offerdetails->energyCertificateValidTill)); ?></td>
+			</tr>
+		<?php } ?>
 
 		<?php if($offerdetails->energyCertificateAvailability == 'AVAILABLE' && $offerdetails->buildingEnergyRatingType != 'NO_INFORMATION'){ ?>
 			<tr>

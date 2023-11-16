@@ -1,9 +1,0 @@
-<div id="ff-default" class="FFteamOverview-default-overview">
-	<div test class="FFteamOverview-default-overview-list" data-width="300">
-		{% for user in users %}
-			{% if user.lastname not in "Exporter" %}
-				{% include 'user-element.html' %}
-			{% endif %}
-		{% endfor %}
-	</div>
-</div>
