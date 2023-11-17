@@ -93,8 +93,11 @@ class EWestateReferenceCore extends API {
 					$offerdetails = str_replace("\r\n", '\r\n', $offerdetails);
 					$offerdetails = str_replace("\n", '\n', $offerdetails);
 					$offerdetails = str_replace("\r", '\r', $offerdetails);
-					// $offerdetails = preg_replace('/[[:cntrl:]]/', '', $offerdetails);
-					$estate->offerdetails = json_decode($offerdetails);
+					$offerdetails = preg_replace('/[[:cntrl:]]/', '', $offerdetails);
+					$estate->offerdetails = json_decode($offerdetails, false, 512, JSON_UNESCAPED_UNICODE);
+					// if($estate->offer->id == 1388) {
+					// 	print("<pre>".print_r($estate->offerdetails,true)."</pre>");exit;
+					// }
 					// if(empty($estate->offerdetails)) {
 					// 	echo $estate->offer->id;
 					// 	print_r($offerdetails);

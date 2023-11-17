@@ -294,7 +294,7 @@ class API {
         $json = str_replace("\n", '\n', $json);
         $json = str_replace("\r", '\r', $json);
         $json = preg_replace('/[[:cntrl:]]/', '', $json);
-        return json_decode($json);
+        return json_decode($json, false, 512, JSON_UNESCAPED_UNICODE);
     } 
 
 	protected function delete_entity_cache($entityId = NULL){

@@ -36,12 +36,13 @@ class FFestateViewCore extends API{
 
 		$offer = $this->get_entity_cache('offer_'.$id);
 		$offerdetails = $this->get_entity_cache('offerdetails_'.$id);
+
 		//print("<pre>".print_r($offerdetails,true)."</pre>");exit;
 
-		$results[0] = $this->get_entity_by_id($schemaId, sanitize_key($id));
+		// $results[0] = $this->get_entity_by_id($schemaId, sanitize_key($id));
 		// print_r($results[0]->estates[0]->offer);exit;
-		$offer = $results[0]->estates[0]->offer;
-		$offerdetails = $results[0]->estates[0]->offerdetails;
+		// $offer = $results[0]->estates[0]->offer;
+		// $offerdetails = $results[0]->estates[0]->offerdetails;
 
 		if (!empty($offer->name)) {
 			$result['title'] = $offer->name;
@@ -71,7 +72,9 @@ class FFestateViewCore extends API{
 			add_action('wp_head', array($this, 'ff_add_meta_to_header'), -1);
 		}
 
-		$data = $results[0]->estates[0];
+		$data = new stdClass();
+		$data->offer = $offer;
+		$data->offerdetails = $offerdetails;
 
 		$result['content'] = $this->get_html("page-details", EW_ESTATEVIEW_THEME, $data);
 		// print_r($result);exit;
