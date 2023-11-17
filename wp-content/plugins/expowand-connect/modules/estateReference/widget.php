@@ -12,7 +12,7 @@
 				'classname' 	=> 'FFestateReference',
 				'description' 	=> 'Zur Einbindung von Immobilien Referencen aus dem Expowand',
 			);
-			parent::__construct('FFestateReference', 'FLOWFACT - Immobilien Referenzen', $widgetOps );
+			parent::__construct('FFestateReference', 'Expowand - Immobilien Referenzen', $widgetOps );
 		}
 
 		// output the widget content on the front-end

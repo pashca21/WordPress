@@ -209,8 +209,8 @@ class ExpowandConnect {
 				</script>";
 		}
 
-		if (!empty($plugin) and EW_PLUGIN_ROUTE == $plugin and !defined('FF_VIRTUAL_PAGE')) {
-			define( 'FF_VIRTUAL_PAGE', true );
+		if (!empty($plugin) and EW_PLUGIN_ROUTE == $plugin and !defined('EW_VIRTUAL_PAGE')) {
+			define( 'EW_VIRTUAL_PAGE', true );
 
 			// create a fake virtual page
 			$post = new stdClass();
@@ -220,33 +220,18 @@ class ExpowandConnect {
 
 			if (!empty($plugin) && EW_PLUGIN_ROUTE == $plugin) {
 				if (FF_ESTATEVIEW_ROUTE == $module) {
-					// Substing added to allow to add time stamp to xml url to protect caching
-					if ((((!empty($slug) and '.xml' === substr($slug, -4) and 'sitemap' === substr($slug, 0, 7)) or (!empty($schema) and '.xml' === substr($schema, -4) and 'sitemap' === substr($schema, 0, 7))) or ((!empty($slug) and '.txt' === substr($slug, -4) and 'sitemap' === substr($slug, 0, 7)) or (!empty($schema) and '.txt' === substr($schema, -4) and 'sitemap' === substr($schema, 0, 7)))) and FF_ESTATEVIEW_SEO == 'on') {
-						if ('.xml' === substr($slug, -4) or '.xml' === substr($schema, -4)) {
-							$type = 'xml';
-						} elseif ('.txt' === substr($slug, -4) or '.txt' === substr($schema, -4)) {
-							$type = 'txt';
-						} else {
-							$type = 'xml';
-						}
-
-						$FFestateViewCore = new FFestateViewCore();
-						$data = $FFestateViewCore->get_estate_sitemap($type);
-						header('Content-type: text/plain');
-						echo $data['content'];
-
-						exit;
-					}
 					if (!empty($identifier)) {
-						$FFestateViewCore = new FFestateViewCore();
-						$data = $FFestateViewCore->get_estate_details($schema, $identifier);
+						$EWestateViewCore = new EWestateViewCore();
+						$data = $EWestateViewCore->get_estate_details($schema, $identifier);
 						$post->post_title = $data['title'];
 						$post->post_content = $data['content'];
 					} else {
-						$FFestateViewCore = new FFestateViewCore();
-						$data = $FFestateViewCore->get_estate_overview();
-						$post->post_title = $data['title'];
-						$post->post_content = $data['content'];
+						global $wp_query;
+						$wp_query->set_404();
+						status_header(404);
+						get_template_part(404);
+	
+						exit;
 					}
 				} elseif (EW_ESTATEREFERENCE_ROUTE == $module) {
 					$EWestateReferenceCore = new EWestateReferenceCore();
@@ -300,12 +285,12 @@ class ExpowandConnect {
 	}
  
 	public function init_modules() {
-		// init widgets FFestateViewWidget
+		// init widgets EWestateViewWidget
 		add_action('widgets_init', function () {
 			require_once plugin_dir_path(__FILE__).'modules/estateView/config.php';
 
 			require_once plugin_dir_path(__FILE__).'modules/estateView/widget.php';
-			register_widget('FFestateViewWidget');
+			register_widget('EWestateViewWidget');
 		});
 
 		// init widgets EWestateReferenceWidget
@@ -316,9 +301,6 @@ class ExpowandConnect {
 			register_widget('EWestateReferenceWidget');
 		});
 
-		require_once plugin_dir_path(__FILE__).'modules/companyPlaceholder/config.php';
-
-		require_once plugin_dir_path(__FILE__).'modules/companyPlaceholder/core.php';
 	}
 
 }

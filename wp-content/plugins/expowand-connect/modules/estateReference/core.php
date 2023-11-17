@@ -112,8 +112,8 @@ class EWestateReferenceCore extends API {
 				$data["search"]["page_max"] 	= ceil(777/$max_results);
 				$data["search"]["page"] 		= $page;
 				$data["search"]["path"]		    = get_bloginfo('wpurl') . '/' . EW_PLUGIN_ROUTE . '/' . EW_ESTATEREFERENCE_ROUTE;
-				$data["color"]["primary"]		= FF_PRIMARY_COLOR;
-				$data["color"]["secondary"]		= FF_SECONDARY_COLOR;
+				$data["color"]["primary"]		= EW_PRIMARY_COLOR;
+				$data["color"]["secondary"]		= EW_SECONDARY_COLOR;
 				// print("<pre>".print_r($data,true)."</pre>");exit;
 				return $data; 
       }
@@ -152,14 +152,14 @@ class EWestateReferenceCore extends API {
 		wp_enqueue_style('BS');
 
 		// load default css	
-		// wp_register_style('FF-EstateReference-Styles-' . $theme, plugins_url('/assets/css/' . $theme . '/ff-estatereference-styles.css', __FILE__),'','1.0.0', false);
-		// wp_enqueue_style('FF-EstateReference-Styles-' . $theme);
+		wp_register_style('FF-EstateReference-Styles-' . $theme, plugins_url('/assets/css/' . $theme . '/ff-estatereference-styles.css', __FILE__),'','1.0.0', false);
+		wp_enqueue_style('FF-EstateReference-Styles-' . $theme);
 
 		// force load Jquery
 		wp_enqueue_script( 'jquery');    
 			
 		// load default js
-		// wp_register_script('FF-EstateReference-Script-' . $theme, plugins_url('/assets/js/' . $theme . '/ff-estatereference-script.js', __FILE__),'','1.0.0', true);
-		// wp_enqueue_script( 'FF-EstateReference-Script-' . $theme );
+		wp_register_script('FF-EstateReference-Script-' . $theme, plugins_url('/assets/js/' . $theme . '/ff-estatereference-script.js', __FILE__),'','1.0.0', true);
+		wp_enqueue_script( 'FF-EstateReference-Script-' . $theme );
     }
 }

@@ -19,22 +19,22 @@
 	*    Default colors
 	*********************/
 
-	(!empty(get_option('ff-primary-color')))? define('FF_PRIMARY_COLOR', get_option('ff-primary-color') ) : define('FF_PRIMARY_COLOR', 'rgba(0,0,0,.8)' ) ;
-	(!empty(get_option('ff-secondary-color')))? define('FF_SECONDARY_COLOR', get_option('ff-secondary-color') ) : define('FF_SECONDARY_COLOR', 'rgba(255,255,255,.8)' ) ;
+	(!empty(get_option('ff-primary-color')))? define('EW_PRIMARY_COLOR', get_option('ff-primary-color') ) : define('EW_PRIMARY_COLOR', 'rgba(0,0,0,.8)' ) ;
+	(!empty(get_option('ff-secondary-color')))? define('EW_SECONDARY_COLOR', get_option('ff-secondary-color') ) : define('EW_SECONDARY_COLOR', 'rgba(255,255,255,.8)' ) ;
 	
-	list($r, $g, $b) = sscanf(FF_PRIMARY_COLOR, "#%02x%02x%02x");
-	define('FF_PRIMARY_COLOR_TRANS', 'rgba('.$r.','.$g.','.$b.',.5)' ) ;
+	list($r, $g, $b) = sscanf(EW_PRIMARY_COLOR, "#%02x%02x%02x");
+	define('EW_PRIMARY_COLOR_TRANS', 'rgba('.$r.','.$g.','.$b.',.5)' ) ;
 	
 	
 	// set color classes by css by inline css
 	add_action( 'wp_head', 'add_stylesheet_to_head' );
 	function add_stylesheet_to_head() {
 		echo "<style type='text/css'>
-				.ff-bg-primary {background:".FF_PRIMARY_COLOR." !important;}
-				.ff-bg-secondary {background:".FF_SECONDARY_COLOR." !important;}	
-				.ff-color-primary {color:".FF_PRIMARY_COLOR." !important;}
-				.ff-color-secondary {color:".FF_SECONDARY_COLOR." !important;}
-				.ff-border-color-primary {border-color:".FF_PRIMARY_COLOR." !important;}
+				.ff-bg-primary {background:".EW_PRIMARY_COLOR." !important;}
+				.ff-bg-secondary {background:".EW_SECONDARY_COLOR." !important;}	
+				.ff-color-primary {color:".EW_PRIMARY_COLOR." !important;}
+				.ff-color-secondary {color:".EW_SECONDARY_COLOR." !important;}
+				.ff-border-color-primary {border-color:".EW_PRIMARY_COLOR." !important;}
 			</style>";
 	}
 

@@ -5,7 +5,7 @@
 	require_once( plugin_dir_path(__FILE__) .'/core.php');
 
 	// Widget View Functions
-	class FFestateViewWidget extends WP_Widget  {
+	class EWestateViewWidget extends WP_Widget  {
 
 		// class constructor
 		public function __construct() {
@@ -19,8 +19,8 @@
 		// output the widget content on the front-end
 		public function widget( $args, $instance ) {
 			// init module core
-			$FFestateViewCore = new FFestateViewCore();
-			$result = $FFestateViewCore->widget();
+			$EWestateViewCore = new EWestateViewCore();
+			$result = $EWestateViewCore->widget();
 			
 			// wrap widget
 			extract($args, EXTR_SKIP);
@@ -40,21 +40,3 @@
 		public function update( $new_instance, $old_instance )
 		{}
 	}
-	
-		
-	// create Shortcode
-	function FFestateViewShortcode( $atts ) {
-		
-		// defaults
-		$atts = shortcode_atts( array(
-		  'schema' => false,
-		  'show_search' => "on",
-		  'location' => false
-	    ), $atts );
-	   
-	    // get addin
-		$FFestateViewCore = new FFestateViewCore();
-		$data = $FFestateViewCore->get_estate_overview($atts);
-		return $data['content'];
-	}
-	add_shortcode( 'ff_estateview_shortcode', 'FFestateViewShortcode' );
