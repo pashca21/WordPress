@@ -1,6 +1,8 @@
 <?php
 define( 'EW_API_DEV_MODE', true );
 
+define('EW_BASE_URL', 	'http://work-expowand-dev.local' );
+
 if(EW_API_DEV_MODE === true) {
     define('EW_API_BASE_URL', 	'http://work-expowand-dev.local/api' );
     define('EW_API_ENVIORMENT', 'latest' );
@@ -13,8 +15,9 @@ if(EW_API_DEV_MODE === true) {
 define('FF_API_ADMIN_TOKEN_SERVICE_AUTH', EW_API_BASE_URL . '/authenticate');
 define('FF_API_ENTITY_SERVICE_ENTITY', EW_API_BASE_URL . '/offers');
 define('FF_API_SEARCH_SERVICE', EW_API_BASE_URL . '/offers');
-define('EW_API_OFFERS_SYNC_LIST', EW_API_BASE_URL . '/offers');
-define('EW_API_OFFERS_LAST_CHANGE', EW_API_BASE_URL . '/GetOffersLastChange');
+define('EW_API_OFFERS_LAST_CHANGE', EW_API_BASE_URL . '/getOffersLastChange');
+define('EW_API_OFFERS_LIST', EW_API_BASE_URL . '/offers');
+define('EW_API_OFFERS_LIST_SYNC', EW_API_BASE_URL . '/getOffersListChangedFromDate');
 
 // define('FF_API_ADMIN_TOKEN_SERVICE_AUTH', EW_API_BASE_URL . '/admin-token-service/' . EW_API_ENVIORMENT .'/public/adminUser/authenticate');
 define('FF_API_SCHEMA_SERVICE_INTIGRATION', EW_API_BASE_URL . '/schema-service/' . EW_API_ENVIORMENT .'/integrations');

@@ -1,21 +1,16 @@
 <?php
 include_once __DIR__."/../../core/dict.php";
 class FFestateViewCore extends API{
-	// load widget of estateview
-	public function widget()
-	{
-		// get mapping
+
+	public function widget() {
 		$data["mapping"] = json_decode(FF_ESTATEVIEW_SALESAUTOMATE_MAPPING, true);
 		$data["search"]["path"] = get_bloginfo('wpurl') . '/' . EW_PLUGIN_ROUTE . '/' . FF_ESTATEVIEW_ROUTE;
 
-		// get set title
 		$result['title'] = "Immobilien Suche";
 		$result['content'] = $this->get_html("widget", EW_ESTATEVIEW_THEME, $data);
-
 		return $result;
 	}
 
-	// Add meta tags to single property header
 	public function ff_add_meta_to_header() {
 		if(defined('FF_META_TITLE')) {
 			echo '<meta property="og:title" content="'.FF_META_TITLE.'">';
@@ -36,231 +31,53 @@ class FFestateViewCore extends API{
 		}
 	}
 
-	// MAIN FUNCTION TO SHOW IMMO get estate details
 	public function get_estate_details($schemaId, $id) {
-		// print_r($schemaId);
-		// print('');
-		// print_r($id);
-		if (!empty($id) and !empty($schemaId)) {
-			// get estate details
-			$results[0] = $this->get_entity_by_id($schemaId, sanitize_key($id));
-			// print_r($results[0]->estates[0]->offer);exit;
-			$offer = $results[0]->estates[0]->offer;
-			$offerdetails = $results[0]->estates[0]->offerdetails;
+		if (empty($id) || empty($schemaId)) { return false; }
 
-			// if(!empty($results[0]["securitydeposit"]["values"][0])) {
-			// 	// test if string contains 'letters'
-			// 	if(!preg_match("#[^0-9.,]#", $results[0]["securitydeposit"]["values"][0])){
-			// 		$results[0]["securitydeposit"]["values"][0] .= " €";
-			// 	}
-			// }
+		$offer = $this->get_entity_cache('offer_'.$id);
+		$offerdetails = $this->get_entity_cache('offerdetails_'.$id);
+		//print("<pre>".print_r($offerdetails,true)."</pre>");exit;
 
-			// if (isset($results[0]['onlineImage']) && isset($results[0]['onlineImage']['values']))
-			// {
-			// 	$results[0]['onlineImage']['values'] = $this->sortOnlineImages($results[0]['onlineImage']['values']);
-			// }
-			// $schema = $this->get_schemas_by_name($results[0]['_metadata']['documentType']);
+		$results[0] = $this->get_entity_by_id($schemaId, sanitize_key($id));
+		// print_r($results[0]->estates[0]->offer);exit;
+		$offer = $results[0]->estates[0]->offer;
+		$offerdetails = $results[0]->estates[0]->offerdetails;
 
-			// $data["mapping"] = json_decode(FF_ESTATEVIEW_SALESAUTOMATE_MAPPING, true);
-
-			// // Schemas mapping for fields with different captions but the same field names
-			// if($schema["name"] == "office_surgery_rent") {
-			// 	$data["mapping"]["details"]["default"]["details"]["pricesqm"]["caption"] = "Mietpreis pro m²";
-			// 	$data["mapping"]["details"]["default"]["details"]["securitydeposit"]["unit"] = "";
-			// }
-
-			// if($schema["name"] == "flat_rent") {
-			// 	$data["mapping"]["details"]["default"]["details"]["completiondate"]["caption"] = "Verfügbar ab";
-			// }
-
-			// // check if data for availableFrom field is a date string
-			// if(!empty($results[0]['availableFrom']['values'][0]) && is_numeric( strtotime( $results[0]['availableFrom']['values'][0] ) )) {
-			// 	//if so trim it and change field type to text
-			// 	$results[0]['availableFrom']['values'][0] = substr($results[0]['availableFrom']['values'][0], 0, 10);
-			// 	$data["mapping"]["details"]["default"]["details"]["availableFrom"]["type"] = "text";
-			// }
-			
-			// get fields
-			// $fields = $this->getFields($data["mapping"]["details"], $schema["name"], $results, false);
-
-			// if (!empty($fields))
-			// {
-			// 	$data["page"]["results"] = $fields;
-			// }
-			// else
-			// {
-			// 	$fields = $this->getFields($data["mapping"]["details"], "default", $results, false);
-			// 	if (!empty($fields))
-			// 	{
-			// 		$data["page"]["results"] = $fields;
-			// 	}
-			// 	else
-			// 	{
-			// 		$result['title'] = "Fehler 404";
-			// 		$this->show_404();
-			// 	}
-			// }
-
-			// remove related estates which are not included in the WordPress portal
-			// if(!empty($data["page"]["results"][$id]["related"])) {
-			// 	// fetch properties
-			// 	$data["mapping"] = json_decode(FF_ESTATEVIEW_SALESAUTOMATE_MAPPING, true);
-			// 	$data["estatesorting"] = get_option("ff-estateView-estate-sorting");
-			// 	$wordpress_estates = $this->get_search($data, $attr);
-
-			// 	// remove properties which are not included
-			// 	$data["page"]["results"][$id]["related"] = array_intersect_key($data["page"]["results"][$id]["related"], $wordpress_estates["search"]["results"]);
-			// }
-
-	// check if estate is still published /////////////////////////////////////////////
-	// $publshed = API::get_portals_publsidhed_estates(sanitize_key($id) , FF_ESTATEVIEW_PUBLISH);
-
-			// set seo slug
-			// if (!empty(FF_ESTATEVIEW_SEO_SLUG))
-			// {
-			// 	foreach ($data["page"]["results"] as $key => $entity)
-			// 	{
-			// 		if (!empty($data["page"]["results"][$key]["related"]))
-			// 		{
-			// 			$data["page"]["results"][$key]["related"] = $this->add_seo_slug($data["page"]["results"][$key]["related"], FF_ESTATEVIEW_SEO_SLUG);
-			// 		}
-			// 	}
-			// }
-
-			// attached new multimedia images to entity
-			// $multimedia = API::get_estate_images(array_keys($data["page"]["results"]));
-
-			// TODO: DELETE WORKAROUND MAIN_IMAGE CHECK
-			// if (!empty($multimedia["entities"]["0"]["assignments"]) && !empty($multimedia["entities"]["0"]["assignments"]["main_image"]))
-			// {
-			// 	foreach ($data["page"]["results"] as $key => $entity)
-			// 	{
-			// 		foreach ($multimedia["entities"] as $images)
-			// 		{
-			// 			if (!empty($images["assignments"]))
-			// 			{
-			// 				$data["page"]["results"][$key]["multimedia"] = $images["assignments"];
-			// 			}
-			// 		}
-			// 	}
-			// }
-
-			// $viewedCookiePolicy = isset($_COOKIE["viewed_cookie_policy"]) && $_COOKIE["viewed_cookie_policy"] === "yes";
-			// $acceptedNecessaryCookiePolicy = isset($_COOKIE['cookielawinfo-checkbox-necessary']) && $_COOKIE['cookielawinfo-checkbox-necessary'] === 'yes';
-
-			// $data["isPolicyCookieAccepted"]   = $viewedCookiePolicy && $acceptedNecessaryCookiePolicy;
-			// $data["page"]["url"]              = get_bloginfo('wpurl') . '/' . EW_PLUGIN_ROUTE . '/' . FF_ESTATEVIEW_ROUTE;
-			// $data["page"]["schema"]           = $schema["name"];
-			// $data["color"]["primary"]         = FF_PRIMARY_COLOR;
-			// $data["color"]["secondary"]       = FF_SECONDARY_COLOR;
-			// $data["api"]["cloudimage"]["url"] = FF_CLOUDIMAGE_IO_URL;
-			// $data["api"]["maps"]["key"]       = FF_GG_API_MAPS;
-			// $data["legal"]["imprint"]         = FF_IMPRINT_URL;
-			// $data["legal"]["privacy"]         = FF_PRIVACY_URL;
-			// $data["finance"]                  = get_option("ff-estateView-show-finance-calculator");
-			// $data["socialmedia"]              = get_option('ff-estateView-show-socialmedia-links');
-			// $data["imagepath"]                = plugin_dir_url(dirname(__FILE__)) . "/estateView/assets/img/" . EW_ESTATEVIEW_THEME;
-			// $data["currentUrl"]               = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-			// $data["company"]				    			= $this->get_company_data();
-			// $data["property_slider"]		  		= get_option("ff-estateView-select-slider");
-			// $data["property_headline"]        = get_option("ff-estateView-headline");
-			// $data["privacy_page_url"]				  = get_option("ff-privacy-url");
-			// $data["ff_maps_default_provider"]	= get_option("ff-maps-default");
-
-			// // delete street if not published
-			// if (!empty($publshed) && (empty($publshed["showAddress"]) or $publshed["showAddress"] == 0))
-			// {
-			// 	unset($data["page"]["results"][$id]["facts"]["addresses"]["value"]["street"]);
-			// }
-
-			// if(!isset($data["page"]["results"][$id]["facts"]["addresses"]["value"]["street"])) {
-			// 	// area highlight 
-
-			// 	if(isset($data["page"]["results"][$id]["facts"]["addresses"]["value"]["geolocation"]["latitude"])) {
-			// 		$latitude = $data["page"]["results"][$id]["facts"]["addresses"]["value"]["geolocation"]["latitude"];
-			// 	}
-			// 	if(isset($data["page"]["results"][$id]["facts"]["addresses"]["value"]["geolocation"]["longitude"])) {
-			// 		$longitude = $data["page"]["results"][$id]["facts"]["addresses"]["value"]["geolocation"]["longitude"];
-			// 	}
-				
-			// 	if(isset($latitude) && isset($longitude)) {
-			// 		$estate_geo_shape = API::fetch_shape_data($latitude, $longitude);
-			// 		$estate_geo_shape = json_decode($estate_geo_shape);
-			// 	}
-
-			// 	if(isset($estate_geo_shape)) {
-			// 		if(!count($estate_geo_shape) > 0) {
-			// 			// set new var to not display the map
-			// 			$data["ff_maps_no_highlight"]	= 1;
-			// 		}
-			// 	}
-			// }
-
-			// // change view to frame if set
-			// if (!empty($_GET["iframe"]) and $_GET["iframe"] == "1")
-			// {
-			// 	$data["frame"] = "1";
-			// }
-
-			// // adds contact form to estate details if SMTP Data avadible
-			// if ((!empty(FF_MAIL_FROM) and !empty(FF_MAIL_SERVER) and !empty(FF_MAIL_USER) and !empty(FF_MAIL_PASS)) or (get_option("ff-nylas-account")))
-			// {
-			// 	$data["show"]["contactFrom"] = true;
-			// }
-			// else
-			// {
-			// 	$data["show"]["contactFrom"] = false;
-			// }
-
-			// if ($results[0]["status"]["values"][0] === "active" && !empty($publshed))
-			// {
-				// get html
-				if (!empty($offer->name)) {
-					$result['title'] = $offer->name;
-				} else {
-					$result['title'] = "Immobilie";
-				}
-
-				// $meta_title = API::get_company_data();
-				// $meta_title = $meta_title['companyName'];
-				$meta_title = $offer->name;
-
-				if($meta_title) {
-					define('FF_META_TITLE', $meta_title);
-				}
-				
-				$meta_description = $offer->name;
-
-				if($meta_description) {
-					define('FF_META_DESCRIPTION', $meta_description);
-				}
-				
-				$meta_image = $offerdetails->mainImgUrl;
-
-				if(!empty($meta_image)) {
-					define('FF_META_IMAGE', $meta_image);
-				}
-
-				if(defined('FF_META_TITLE') or defined('FF_META_DESCRIPTION') or defined('FF_META_IMAGE')) {
-					add_action('wp_head', array($this, 'ff_add_meta_to_header'), -1);
-				}
-
-				$data = $results[0]->estates[0];
-
-				$result['content'] = $this->get_html("page-details", EW_ESTATEVIEW_THEME, $data);
-				// print_r($result);exit;
-
-				return $result;
-			// }
-			// else
-			// {
-			// 	$result['title'] = "Fehler 404";
-			// 	$this->show_404();
-			// }
+		if (!empty($offer->name)) {
+			$result['title'] = $offer->name;
 		} else {
-			$result['title'] = "Fehler 404";
-			$this->show_404();
+			$result['title'] = "Immobilie";
 		}
+
+		$meta_title = $offer->name;
+
+		if($meta_title) {
+			define('FF_META_TITLE', $meta_title);
+		}
+		
+		$meta_description = $offer->name;
+
+		if($meta_description) {
+			define('FF_META_DESCRIPTION', $meta_description);
+		}
+		
+		$meta_image = $offerdetails->mainPic;
+
+		if(!empty($meta_image)) {
+			define('FF_META_IMAGE', $meta_image);
+		}
+
+		if(defined('FF_META_TITLE') or defined('FF_META_DESCRIPTION') or defined('FF_META_IMAGE')) {
+			add_action('wp_head', array($this, 'ff_add_meta_to_header'), -1);
+		}
+
+		$data = $results[0]->estates[0];
+
+		$result['content'] = $this->get_html("page-details", EW_ESTATEVIEW_THEME, $data);
+		// print_r($result);exit;
+
+		return $result;
+
 	}
 
 	// get overview / estate list
@@ -300,146 +117,6 @@ class FFestateViewCore extends API{
 		}
 
 		return $result;
-	}
-
-	// get sitemap
-	public function get_estate_sitemap($type = NULL)
-	{
-		if (!empty($type))
-		{
-			// get mapping
-			$data["mapping"] = json_decode(FF_ESTATEVIEW_SALESAUTOMATE_MAPPING, true);
-
-			// get set title
-			$result['title'] = "Immobilien Suche";
-
-			// get content
-			if (!empty($data))
-			{
-				$data = $this->get_search($data);
-				$data['SEO'] = FF_ESTATEVIEW_SEO_SITEMAP;
-			}
-
-			// set seo slug
-			if (!empty(FF_ESTATEVIEW_SEO_SLUG))
-			{
-				$data["search"]["results"] = $this->add_seo_slug($data["search"]["results"], FF_ESTATEVIEW_SEO_SLUG);
-			}
-
-			// get HTML
-			if (!empty($data))
-			{
-				$result['content'] = $this->get_html("page-sitemap-" . $type, EW_ESTATEVIEW_THEME, $data);
-			}
-			else
-			{
-				$result['content'] = "";
-			}
-			return $result;
-		}
-		else
-		{
-			$this->show_404();
-		}
-	}
-
-	// get agent for spesific estate
-	public function get_estate_agent($id = NULL)
-	{
-		// get contact data form API
-		if (!empty($id))
-		{
-
-			$data = $this->get_entity_by_id('contacts', sanitize_key($id));
-
-			// attached new multimedia images to entity
-			$multimedia = API::get_estate_images([$id], "contacts?albumName=flowfact_client&showEmptyCategories=false&short=false");
-
-			// TODO: DELETE WORKAROUND MAIN_IMAGE CHECK
-			if (!empty($multimedia["entities"]["0"]["assignments"]["main_image"]))
-			{
-				foreach ($multimedia["entities"] as $images)
-				{
-					if (!empty($images["assignments"]))
-					{
-						$data["multimedia"] = $images["assignments"];
-					}
-				}
-			}
-			return $data;
-		}
-
-		return null;
-	}
-
-	// get related estate for spesific estate
-	public function get_estate_related_estates($id = NULL, $fields = NULL)
-	{
-		// get contact data form API
-		if (!empty($id))
-		{
-
-			//build Query
-			$search["target"] = "ENTITY";
-			$search["fetch"] = array();
-			array_push($search["fetch"], "id");
-			array_push($search["fetch"], "_metadata");
-			foreach ($fields as $key => $schema)
-			{
-				array_push($search["fetch"], $key);
-			}
-
-			if (!empty(FF_ESTATEVIEW_SEO_SLUG))
-			{
-				$mapping = json_decode(FF_ESTATEVIEW_SALESAUTOMATE_MAPPING, true);
-				foreach ($mapping["seo"]["default"]["data"] as $key => $schema)
-				{
-					array_push($search["fetch"], $key);
-				}
-			}
-
-			$search["conditions"][0]["type"] = "HASFIELDWITHVALUE";
-			$search["conditions"][0]["field"] = "parent";
-			$search["conditions"][0]["value"] = $id;
-
-			//call API
-			$result = API::get_entities_by_search("estates", $search, 50, 1);
-
-			foreach ($result["entries"] as $row => $estate)
-			{
-				foreach ($fields as $key => $field)
-				{
-					if (!empty($field))
-					{
-						if (!empty($estate["_metadata"]["id"]) && ($id != $estate["_metadata"]["id"]))
-						{
-							$estate_list[$estate["_metadata"]["id"]][$key] = API::get_formated_fields($key, $field, $estate);
-						}
-					}
-				}
-			}
-
-			if (!empty(FF_ESTATEVIEW_SEO_SLUG) && !empty($result["entries"]))
-			{
-
-				foreach ($result["entries"] as $estate)
-				{
-					foreach ($estate as $row => $field)
-					{
-						if (!empty($field["values"][0]))
-						{
-							$estate_list[$estate["_metadata"]["id"]]["seo"][$row]["value"] = $field["values"][0];
-						}
-					}
-
-				}
-
-				$estate_list = $this->add_seo_slug($estate_list, FF_ESTATEVIEW_SEO_SLUG);
-			}
-
-			return $estate_list;
-		}
-		return null;
 	}
 
 	// get search query for dsl
@@ -1148,153 +825,8 @@ class FFestateViewCore extends API{
 		return $html;
     }
 
-    // send Mail
-    public function send_mail($content)
-    {
-        return API::send_mail_by_nylas(get_option("ff-nylas-account") , $content);
-    }
-
-
-    // add  seo slug to url
-    public function add_seo_slug($data = NULL, $slug = NULL)
-    {
-
-        if (!empty($data) && !empty($slug))
-        {
-            foreach ($data as $id => $estate)
-            {
-                $search = array();
-
-                foreach ($estate as $category)
-                {
-                    foreach ($category as $key => $field)
-                    {
-                        if (!empty($field["value"]))
-                        {
-                            $search += array("{" . $key . "}" => $field["value"]);
-                        }
-                    }
-                }
-
-                foreach($search as $key => $item) {
-                    if($key == "{identifier}") {
-                        $prop_id = $item; 
-                    }
-
-                    if($key == "{headline}") {
-                        $prop_headline = $item; 
-                    }
-                }
-
-                if($slug == "{identifier}-{headline}") {
-                    if(!empty($prop_id)) {
-                        $str = $prop_id;
-                    }
-                    if(!empty($prop_headline)) {
-                        $str = $prop_id .'-'. $prop_headline;
-                    }
-                } elseif ($slug == "{headline}") {
-                    if(!empty($prop_headline)) {
-                        $str = $prop_headline;
-                    } else {
-                        if(!empty($prop_id)) {
-                            $str = $prop_id;
-                        }
-                    }
-                }
-
-                $str = preg_replace('/[^A-Za-z0-9_äÄöÖüÜß\-\s]/', '', $str);
-
-                // str replace to ö ä ü ß
-                $find = array(
-                    "ä",
-                    "Ä",
-                    "ö",
-                    "Ö",
-                    "ü",
-                    "Ü",
-                    "ß"
-                );
-                $replace = array(
-                    "ae",
-                    "Ae",
-                    "oe",
-                    "Oe",
-                    "ue",
-                    "Ue",
-                    "ss"
-                );
-                $str = strtolower(str_replace($find, $replace, $str));
-
-                $data[$id]["seo"]["slug"]["value"] = $str = str_replace("+", "-", urlencode($str));
-            }
-        }
-        return $data;
-
-    }
-
-    // get portal ID
-    public function get_portal_data($id = NULL)
-    {
-        if (!empty($id))
-        {
-            $portal = API::get_portals_data($id);
-            return $portal["portalKey"];
-        }
-        else
-        {
-            return false;
-        }
-
-    }
-
-    // get blocked estates from DB
-    /*protected function get_blocked_estates()
-    {
-        // get IP
-        $ip = $this->get_IP();
-    
-        if (!empty($ip)) {
-            global $wpdb;
-            $sql = "select entityId from {$wpdb->prefix}ff_customer_cache where customerIp ='" . md5($ip) . "' and value='blocked' ";
-            return $wpdb->get_results($sql);
-    
-        } else {
-            return false;
-        }
-    
-    }*/
-
-    // get IP
-    protected function get_IP($ip = "")
-    {
-        if (!empty($_SERVER['HTTP_CLIENT_IP']))
-        {
-            $ip = $_SERVER['HTTP_CLIENT_IP'];
-        }
-        elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR']))
-        {
-            $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
-        }
-        else
-        {
-            $ip = $_SERVER['REMOTE_ADDR'];
-        }
-        return $ip;
-    }
-
-    // show 404
-    protected function show_404()
-    {
-        global $wp_query;
-        $wp_query->set_404();
-        status_header(404);
-        get_template_part(404);
-        exit();
-    }
-
-    // load css for plugin
-    protected function loadCss($theme = 'default') {
+   
+	protected function loadCss($theme = 'default') {
 		// JS
 		wp_register_script('BS', 'https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js');
 		wp_enqueue_script('BS');

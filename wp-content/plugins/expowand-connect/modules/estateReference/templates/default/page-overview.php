@@ -1,5 +1,8 @@
 <?php
 $searchPath = get_bloginfo('wpurl') . '/' . EW_PLUGIN_ROUTE . '/' . EW_ESTATEREFERENCE_ROUTE;
+$upload_dir = wp_upload_dir();
+$pics_url = $upload_dir['baseurl'] . '/estates/';
+// echo $pics_url;
 ?>
 
 <h1 class="mb-3">Immobilien</h1>
@@ -52,15 +55,15 @@ $searchPath = get_bloginfo('wpurl') . '/' . EW_PLUGIN_ROUTE . '/' . EW_ESTATEREF
 </form>
 
 <div class="row w-100">
-	<?php // print("<pre>".print_r($results)."</pre>"); ?>
-
-	<?php foreach($results->estates as $estate){ 
+	<?php // print("<pre>".print_r($estates)."</pre>"); ?>
+	<?php foreach($estates as $estate){ 
+		// print("<pre>".print_r($estate,true)."</pre>");continue;
 		$offer = $estate->offer;
 		$offerdetails = $estate->offerdetails;
-		if(empty($offerdetails->mainImgUrl)){
+		if(empty($offerdetails->mainPic)){
 			$mainImgUrl = 'http://work-expowand-dev.local/www/static/noimage.jpg';
 		}else{
-			$mainImgUrl = $offerdetails->mainImgUrl;
+			$mainImgUrl = $pics_url.$offer->id.'/'.$offerdetails->mainPic;
 		}
 
 		$url = get_bloginfo('wpurl') . '/' . EW_PLUGIN_ROUTE . '/' . FF_ESTATEVIEW_ROUTE . '/' . '/estates/' . $offer->id;

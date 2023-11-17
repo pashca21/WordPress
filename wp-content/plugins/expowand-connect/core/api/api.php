@@ -33,6 +33,32 @@ class API {
         if (empty($result) || $result['response']['code'] != 200) { return false; }
         return json_decode($result['body']);
     }
+
+    protected function get_offers_list_sync($lastChangeDateWP) {
+        $token  = API::get_token();
+        $url    = EW_API_OFFERS_LIST_SYNC;
+        if (empty($token) || empty($url)) { return false; }
+		$url .= '/'.strtotime($lastChangeDateWP);
+        $args = array(
+            'timeout' => 60,
+            'redirection' => 60,
+            'httpversion' => '1.0',
+            'user-agent' => 'FF SA WEBMODULE -' . home_url(),
+            'blocking' => true,
+            'headers' => array("cognitoToken" => $token, "Content-Type" => "application/json"),
+            'cookies' => array(),
+            'body' => '',
+            'compress' => false,
+            'decompress' => true,
+            'sslverify' => true, 
+            'stream' => false,
+            'filename' => null
+        );
+        $result = wp_remote_post($url, $args);
+        // print_r($result);exit;
+        if (empty($result) || $result['response']['code'] != 200) { return false; }
+        return json_decode($result['body']);
+    }
 		
     protected function get_entities_by_search($search = NULL,$max_results = NULL, $page = 1) {
         $token  = API::get_token();
@@ -234,6 +260,21 @@ class API {
         $wpdb->query($sql);
         return;
     }
+
+	protected function get_general_cache($name = NULL){
+        if (empty($name)) { return false; }
+		global $wpdb;
+		$result = $wpdb->get_results("SELECT json FROM {$wpdb->prefix}ew_general_cache WHERE name = '".$name."' ");
+        if (empty($result)) { return false; }
+        return ($result[0]->json);
+    }
+
+	protected function delete_general_cache($name = NULL){
+		if (empty($name)) { return false; }
+		global $wpdb;
+		$wpdb->delete( $wpdb->prefix.'ew_general_cache', array( 'name' => $name ) );
+		return;
+	}
 	
     protected function set_entity_cache($entityId = NULL, $schemaId = NULL, $data = NULL) {
         if (empty($entityId) || empty($schemaId) || empty($data)) { return false; }
@@ -242,246 +283,25 @@ class API {
         $wpdb->query($sql);
         return;
     }
-		
-    // TODO: to delete
-	function get_formated_fields($field = NULL, $field_data = NULL, $data = NULL, $estateId = NULL) {
-		
-		if(!empty($field_data["type"]))
-		{
 
-			switch ($field_data["type"]) {
+	protected function get_entity_cache($entityId = NULL){
+        if (empty($entityId)) { return false; }
+		global $wpdb;
+		$result = $wpdb->get_results("SELECT json FROM {$wpdb->prefix}ew_entity_cache WHERE entityId = '".$entityId."' ");
+        if (empty($result)) { return false; }
+        $json = $result[0]->json;
+        $json = str_replace("\r\n", '\r\n', $json);
+        $json = str_replace("\n", '\n', $json);
+        $json = str_replace("\r", '\r', $json);
+        $json = preg_replace('/[[:cntrl:]]/', '', $json);
+        return json_decode($json);
+    } 
 
-				case "text":
-					$result["type"]    = $field_data["type"];
-					$result["caption"] = $field_data["caption"];
-					$result["unit"]    = $field_data["unit"];
-                    if(isset($data['offer'][$field])) $source_value = $data['offer'][$field];
-                    else if(isset($data['offerdetails'][$field])) $source_value = $data['offerdetails'][$field];
-					$result["value"]   = $source_value;
-					break;
-
-				case "number":
-					if(isset($data['offerdetails'][$field]["from"])=== true)
-					{
-						if( empty($data['offerdetails'][$field]["to"]) or ($data['offerdetails'][$field]["from"] == $data['offerdetails'][$field]["to"]))
-						{
-							$result["type"]    = $field_data["type"];
-							$result["caption"] = $field_data["caption"];
-							$result["unit"]    = $field_data["unit"];
-							$result["value"]   = $data['offerdetails'][$field]["from"];
-						}
-						else
-						{
-							$result["type"]    = $field_data["type"];
-							$result["caption"] = $field_data["caption"];
-							$result["unit"]    = $field_data["unit"];
-							$result["from"]    = $data['offerdetails'][$field]["from"];
-							$result["to"]      = $data['offerdetails'][$field]["to"];
-						}
-					}
-					else
-					{
-						$result["type"] 	= $field_data["type"];
-						$result["caption"] 	= $field_data["caption"];
-						$result["unit"]    	= $field_data["unit"];
-                        if(isset($data['offerdetails'][$field]))
-						    $result["value"] 	= $data['offerdetails'][$field];
-                        if(isset($data['offer'][$field]))
-                            $result["value"] 	= $data['offer'][$field];
-                        
-					}
-
-					break;
-
-				case "number_formatted":
-					if(isset($data['offerdetails'][$field]["from"])=== true && (!empty($data['offerdetails'][$field]["from"]) OR !empty($data['offerdetails'][$field]["to"])))
-					{
-						if(empty($data['offerdetails'][$field]["to"])or ($data['offerdetails'][$field]["from"] == $data['offerdetails'][$field]["to"]))
-						{
-							$result["type"] = $field_data["type"];
-							$result["caption"] = $field_data["caption"];
-							$result["unit"]    = $field_data["unit"];
-							$result["value"] = number_format($data['offerdetails'][$field]["from"],0,",",".");
-						}
-						else
-						{
-							$result["type"] = $field_data["type"];
-							$result["caption"] = $field_data["caption"];
-							$result["unit"]    = $field_data["unit"];
-							$result["from"] = number_format($data['offerdetails'][$field]["from"],0,",",".");
-							$result["to"] = number_format($data['offerdetails'][$field]["to"],0,",",".");
-						}
-					}
-					else
-					{
-						if(!empty($data['offerdetails'][$field]))
-						{
-							if(is_numeric($data['offerdetails'][$field]) === true)
-							{
-								$result["type"] 	= $field_data["type"];
-								$result["caption"] 	= $field_data["caption"];
-								$result["unit"]    	= $field_data["unit"];
-								$result["value"] 	= number_format($data['offerdetails'][$field],0,",",".");
-							}
-							else
-							{
-								$result["type"] 	= $field_data["type"];
-								$result["caption"] 	= $field_data["caption"];
-								$result["unit"]    	= $field_data["unit"];
-								$result["value"] 	= $data['offerdetails'][$field];
-							}
-						}	
-					}
-					break;
-				case "area":
-					if (isset($data['offerdetails'][$field]["from"]) === true) {
-						if (!empty($data['offerdetails'][$field]["from"]) OR !empty($data['offerdetails'][$field]["to"]) AND ($data['offerdetails'][$field]["to"] != $data['offerdetails'][$field]["from"])) {
-							$result["type"]		= $field_data["type"];
-							$result["caption"] 	= $field_data["caption"];
-							$result["unit"] 	= $field_data["unit"];
-							$result["from"] 	= (!empty($data['offerdetails'][$field]["from"]))? number_format($data['offerdetails'][$field]["from"], 0, ",", "."):"";
-							$result["to"] 		= (!empty($data['offerdetails'][$field]["to"]))? number_format($data['offerdetails'][$field]["to"], 0, ",", "."):"";
-						} else {
-							$result["type"] 	= $field_data["type"];
-							$result["caption"] 	= $field_data["caption"];
-							$result["unit"] 	= $field_data["unit"];
-							$result["value"] 	= (!empty($data['offerdetails'][$field]["from"]))?number_format($data['offerdetails'][$field]["from"], 0, ",", "."):"";
-							
-						}
-					} else {
-						if (is_numeric($data['offerdetails'][$field]) === true) {
-							$result["type"] 	= $field_data["type"];
-							$result["caption"] 	= $field_data["caption"];
-							$result["unit"] 	= $field_data["unit"];
-							$result["value"] 	= number_format($data['offerdetails'][$field], 0, ",", ".");
-						} else {
-							$result["type"] 	= $field_data["type"];
-							$result["caption"] 	= $field_data["caption"];
-							$result["unit"] 	= $field_data["unit"];
-							$result["value"]	= $data['offerdetails'][$field];
-						}
-
-					}
-					break;
-
-				case "image":
-					foreach($data['offerdetails'][$field]["values"] as $element => $element_value)
-					{
-						$result[$element]["type"] = $field_data["type"];
-						$result[$element]["caption"] = $field_data["caption"];
-						$result[$element]["value"] = $element_value["uri"];
-					}
-					break;
-
-				case "currence":
-					
-					if(isset($data['offerdetails'][$field]["from"])=== true)
-					{
-						if(empty($data['offerdetails'][$field]["to"])or ($data['offerdetails'][$field]["from"] == $data['offerdetails'][$field]["to"]))
-						{
-							$result["type"] = $field_data["type"];
-							$result["caption"] = $field_data["caption"];
-							$result["unit"]    = $field_data["unit"];
-							$result["value"] = (!empty($data['offerdetails'][$field]["from"]))?  number_format($data['offerdetails'][$field]["from"],2,",","."):"";
-						}
-						else
-						{
-							$result["type"] = $field_data["type"];
-							$result["caption"] = $field_data["caption"];
-							$result["unit"]    = $field_data["unit"];
-							$result["from"] = (!empty($data['offerdetails'][$field]["from"]))? number_format($data['offerdetails'][$field]["from"],2,",","."):"";
-							$result["to"] = (!empty($data['offerdetails'][$field]["to"]))? number_format($data['offerdetails'][$field]["to"],2,",","."):"";
-						}
-					}
-					else
-					{
-						if(is_numeric($data['offerdetails'][$field]) === true)
-						{
-							$result["type"] = $field_data["type"];
-							$result["caption"] = $field_data["caption"];
-							$result["unit"]    = $field_data["unit"];
-							$result["value"] = number_format($data['offerdetails'][$field],2,",",".");
-						}
-						else
-						{
-							$result["type"] = $field_data["type"];
-							$result["caption"] = $field_data["caption"];
-							$result["unit"]    = $field_data["unit"];
-							$result["value"] = $data['offerdetails'][$field];
-						}
-
-					}
-					break;
-
-				case "date":
-						if(!empty($data['offerdetails'][$field]+7200))
-						{
-							$result["type"] = $field_data["type"];
-							$result["caption"] = $field_data["caption"];
-							$result["value"] = gmdate("d.m.Y", (int)$data['offerdetails'][$field]+7200);
-						}
-					break;
-
-				case "option":
-						if(!empty($data['offerdetails'][$field]) or $data['offerdetails'][$field] == "0")
-						{
-							foreach($data['offerdetails'][$field]["values"] as $key => $val)
-							{
-								$result["type"] = $field_data["type"];
-								$result["caption"] = $field_data["caption"];
-
-                                if(!empty( $field_data["option"][$data['offerdetails'][$field]["values"][$key]])) {
-                                    $result["value"][$key] =  $field_data["option"][$data['offerdetails'][$field]["values"][$key]];
-                                } else {
-                                    $result["value"][$key] =  "";
-                                }
-							}
-						}
-					break;
-
-				case "yesno":
-					if($data['offerdetails'][$field] == 1)
-					{
-						$result["type"] = $field_data["type"];
-						$result["caption"] = $field_data["caption"];
-						$result["value"] = "ja";
-					}
-					else
-					{
-						$result["type"] = $field_data["type"];
-						$result["caption"] = $field_data["caption"];
-						$result["value"] = "nein";
-					}
-
-					break;
-
-				case "addresses":
-
-					$result["type"] = $field_data["type"];
-					$result["caption"] = $field_data["caption"];
-					$result["value"] = $data['offerdetails'][$field];
-					break;
-
-				default:
-			
-			}	
-
-			// return
-			if(!empty($result))
-			{
-				return $result;
-			}
-			else
-			{
-				return NULL;
-			}	
-			
-		}
-		else
-		{
-			return NULL;
-		}
-		
+	protected function delete_entity_cache($entityId = NULL){
+		if (empty($entityId)) { return false; }
+		global $wpdb;
+		$wpdb->delete( $wpdb->prefix.'ew_entity_cache', array( 'entityId' => $entityId ) );
+		return;
 	}
 
 }

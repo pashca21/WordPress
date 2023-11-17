@@ -25,6 +25,9 @@ if($offerdetails->lat != '' && $offerdetails->lon != ''){
 			. ' ' . $offerdetails->city
 		);
 }
+
+$upload_dir = wp_upload_dir();
+$pics_url = $upload_dir['baseurl'] . '/estates/';
 ?>
 
 <?php if(count((array) $offerdetails->pictures) > 0){ ?>
@@ -39,7 +42,7 @@ if($offerdetails->lat != '' && $offerdetails->lon != ''){
 			foreach($offerdetails->pictures as $pic){ 
 				$filename = $pic->filename;
 				// $filename = str_replace('.jpg', '_gal.jpg', $filename);
-				$pic_url = 'http://work-expowand-dev.local/www/pictures/'.$offer->id.'/'.$filename;
+				$pic_url = $pics_url.$offer->id.'/'.$filename;
 				?>
 				<div class="carousel-item <?=($i==0?'active':''); ?>">
 					<img src="<?=$pic_url; ?>" class="d-block w-100" alt="<?=$pic->caption; ?>">

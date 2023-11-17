@@ -3,218 +3,142 @@
 include_once __DIR__."/../../core/dict.php";
 
 class EWestateReferenceCore extends API {
-	// get widget
-    public function widget(){
+
+	public function widget(){
 		return FF_ESTATEREFERENCE_SALESAUTOMATE_MAPPING;
 	}
 	
-	// get Immo List
 	public function get_estate_reference_overview(){
-		$data["mapping"] = json_decode(FF_ESTATEREFERENCE_SALESAUTOMATE_MAPPING, true);
-	
-		// get html
+		// check if need to sync database
+		$lastChangeDateEW = API::get_last_change_date();
+		$lastChangeDateWP = $this->get_general_cache('lastChangeDateWP');
+		// print("<pre>".print_r($lastChangeDateWP,true)."</pre>");exit;
+
+		if($lastChangeDateWP == false || $lastChangeDateWP == '0000-00-00 00:00:00' || $lastChangeDateWP < $lastChangeDateEW){
+			$response = API::get_offers_list_sync($lastChangeDateWP);
+			// print("<pre>".print_r($response,true)."</pre>");exit;
+			if(isset($response->estates)){
+				foreach($response->estates as $key => $estate){
+					$offer = $estate->offer;
+					$offerdetails = $estate->offerdetails;
+					$upload_dir = wp_upload_dir();
+					$upload_path = $upload_dir['basedir'];
+					if($offer->active == 0) {
+						$this->delete_entity_cache('offer_'.$offer->id);
+						$this->delete_entity_cache('offerdetails_'.$offer->id);	
+						if(is_dir($upload_path . '/estates/' . $offer->id)){
+							$files = glob($upload_path . '/estates/' . $offer->id . '/*'); // get all file names
+							foreach($files as $file){ // iterate files
+								if(is_file($file))
+									unlink($file); // delete file
+							}
+							rmdir($upload_path . '/estates/' . $offer->id);
+						}
+						continue;
+					}
+					$this->set_entity_cache('offer_'.$offer->id, 'offer', json_encode($offer));
+					$this->set_entity_cache('offerdetails_'.$offer->id, 'offerdetails', json_encode($offerdetails));
+					if(is_dir($upload_path . '/estates/' . $offer->id)){
+						$files = glob($upload_path . '/estates/' . $offer->id . '/*'); // get all file names
+						foreach($files as $file){ // iterate files
+							if(is_file($file))
+								unlink($file); // delete file
+						}
+					}else{
+						mkdir($upload_path . '/estates/' . $offer->id, 0777, true);
+					}
+					foreach($offerdetails->pictures as $pic){
+						$pic_url = EW_BASE_URL.'/www/pictures/'.$offer->id.'/'.$pic->filename;
+						$pic_path = $upload_path . '/estates/' . $offer->id . '/' . $pic->filename;
+						file_put_contents($pic_path, file_get_contents($pic_url));
+					}
+
+				}
+			}
+		}
+		$this->set_general_cache('lastChangeDateWP', date('Y-m-d H:i:s'));
+
+		$data = [];
 		$result['title'] 	= "Immobilien Referenzen";
 		$result['content'] 	= $this->get_search($data);
 		return $result;
 	}
 	
-	// get search	
 	protected function get_search($data = NULL, $page = 1, $max_results = EW_ESTATEREFERENCE_MAX_RESULT) {
-		if(!empty($data)) {		
-			// default
-			$data["search"]["search"]["schema"] = "default";
-	
-			if( !empty($_GET))	{	
-				foreach($_GET as $key => $value){
-					$data["search"]["search"][sanitize_text_field($key)] = esc_html(sanitize_text_field($value));
-				}
-			}
-			// print_r($data);exit;
-			$data = $this->get_search_result($data);
-			// $data['list']['type'] = 0;
-			// $data['list']['category'] = 'APARTMENT';
-			return $this->render_html("page-overview", EW_ESTATEVIEW_THEME, $data);
-
+		if(empty($_GET)){	
+			$data["search"]['type'] 	= -1;
+			$data["search"]['category'] = '';
 		}else{
-			return;
-		}	
+			foreach($_GET as $key => $value){
+				$data["search"][sanitize_text_field($key)] = esc_html(sanitize_text_field($value));
+			}
+		}
+		$data = $this->get_search_result($data);
+		return $this->render_html("page-overview", EW_ESTATEVIEW_THEME, $data);
 	}
 	
-	// return search
     protected function get_search_result($data = NULL, $page = 1, $max_results = EW_ESTATEREFERENCE_MAX_RESULT) {
 		// print("<pre>".print_r($data,true)."</pre>");exit;
-
-		if (!empty($data["search"]["search"])){
-				if(!empty($data["search"]["search"]["page"])){
-					$page = $data["search"]["search"]["page"];
+		if (!empty($data["search"])){
+				if(!empty($data["search"]["page"])){
+					$page = $data["search"]["page"];
 				}
-				
-				// get search query
-				$search = $this->get_search_query($data);
+				global $wpdb;
+				$results_offers = $wpdb->get_results("SELECT json FROM {$wpdb->prefix}ew_entity_cache WHERE schemaId='offer' "); //AND json LIKE '%\"type\":1%'
+				$estates = [];
+				foreach($results_offers as $key => $value){
+					$estate = new stdClass();
+					$estate->offer = json_decode($value->json);
+					$offerdetails = $wpdb->get_var("SELECT json FROM {$wpdb->prefix}ew_entity_cache WHERE schemaId='offerdetails' AND entityId='offerdetails_".$estate->offer->id."'");
+					$offerdetails = str_replace("\r\n", '\r\n', $offerdetails);
+					$offerdetails = str_replace("\n", '\n', $offerdetails);
+					$offerdetails = str_replace("\r", '\r', $offerdetails);
+					// $offerdetails = preg_replace('/[[:cntrl:]]/', '', $offerdetails);
+					$estate->offerdetails = json_decode($offerdetails);
+					// if(empty($estate->offerdetails)) {
+					// 	echo $estate->offer->id;
+					// 	print_r($offerdetails);
+					// 	exit;
+					// }
+					$estates[] = $estate;
+				}
+				// print("<pre>".print_r($estates,true)."</pre>");exit;
 
-				$lastChangeDateEW = API::get_last_change_date();
-				$lastChangeDateWP = '2023-01-21 01:02:03'; // TODO: save and get from DB
-
-				// print("<pre>".print_r($lastChangeDateEW,true)."</pre>");exit;
-
-				$result = API::get_entities_by_search($search, $max_results, $page);
-				// print_r($result); exit;
-
-				$data["search"]["total_count"]	= $result->totalCount;
-				$data["search"]["page_max"] 	= ceil($result->totalCount/$max_results);
+				$data["search"]["estates"]		= $estates;
+				$data["search"]["total_count"]	= 777;
+				$data["search"]["page_max"] 	= ceil(777/$max_results);
 				$data["search"]["page"] 		= $page;
-				
-				// get immos
+				$data["search"]["path"]		    = get_bloginfo('wpurl') . '/' . EW_PLUGIN_ROUTE . '/' . EW_ESTATEREFERENCE_ROUTE;
+				$data["color"]["primary"]		= FF_PRIMARY_COLOR;
+				$data["color"]["secondary"]		= FF_SECONDARY_COLOR;
 				// print("<pre>".print_r($data,true)."</pre>");exit;
-				// $result = $this->getFields($data["mapping"]["list"], $data["search"]["search"]["schema"], $result["immos"]);
-				// $multimedia = array("entities" => array("0" => array("assignments" => array())));
-
-				// print("<pre>".print_r($result,true)."</pre>");exit;
-				// if (!empty($result)) {
-				// 		// attached new multimedia images to entity
-				// 		$multimedia = API::get_estate_images(array_keys($result));
-				// }
-
-				// // create new multimedia array with main images & IDs
-				// $main_imageArray = [];
-				// foreach($multimedia["entities"] as $entity) {
-				// 	if(!empty($entity["assignments"]["main_image"][0]["multimedia"]["entityId"])) {
-				// 		$id = $entity["assignments"]["main_image"][0]["multimedia"]["entityId"];
-				// 	}
-				// 	if(!empty($entity["assignments"]["main_image"][0]["multimedia"]["fileReference"])) {
-				// 		$main_imageArray[$id] = $entity["assignments"]["main_image"][0]["multimedia"]["fileReference"];
-				// 	}					
-				// };
-
-				// // assign main image url to results
-				// foreach($main_imageArray as $key => $mainImage) {
-				// 	$result[$key]["mainImage"]["mainImage"][0]["value"] = $mainImage;
-				// }
-					
-				$data["search"]["results"]			= $result;
-				$data["search"]["path"]		    	= get_bloginfo('wpurl') . '/' . EW_PLUGIN_ROUTE . '/' . EW_ESTATEREFERENCE_ROUTE;
-				$data["color"]["primary"]			= FF_PRIMARY_COLOR;
-				$data["color"]["secondary"]			= FF_SECONDARY_COLOR;
-				$data["api"]["cloudimage"]["url"] 	= FF_CLOUDIMAGE_IO_URL;
-				$data["api"]["maps"]["key"]			= FF_GG_API_MAPS;
-				$data["api"]["maps"]["path"]		= plugin_dir_url( dirname( __FILE__ ) )."/estateView/assets/img/".EW_ESTATEVIEW_THEME."/";
-				
-				// print("<pre>".print_r($data,true)."</pre>");exit;
-				
 				return $data; 
       }
     }
 	
-	 // return search_query
-    protected function get_search_query($data = NULL){
-		if(!empty($data)) {
-			$search["target"] = "ENTITY";
-			$search["fetch"] = array();
-			
-			foreach ($data["mapping"]["list"] as $key => $schema) {
-				
-				if($key == $data["search"]["search"]["schema"]) 
-				{
-					array_push($search["fetch"], "id");
-					array_push($search["fetch"], "_metadata");
-					
-					foreach ( $schema as $fields) {
-						foreach ( $fields as $key2 => $field) 
-						{
-							array_push($search["fetch"], $key2);
-						}
-					}
-				}	
-			}
-
-			// check if publish flag set
-			$search["conditions"][0]["type"] = "HASFIELDWITHVALUE";
-			$search["conditions"][0]["field"] = FF_ESTATEREFERENCE_SALESAUTOMATE_PUBLISH_FLAG;
-			$search["conditions"][0]["value"] = true;
-			
-			// sorting search 
-			if(!empty($data["mapping"]["sort"])) 
-			{
-			    // if array element does not exist, initialize it as empty array
-			    if(!isset( $data["search"]["search"]["sort"])) {
-                     $data["search"]["search"]["sort"] =  array();
-                }
-			
-				$sort = $data["search"]["search"]["sort"];
-
-				if(!empty($sort))
-				{
-					if(!empty($data["mapping"]["sort"]["default"][$sort]))
-					{	
-						$a = 0;
-						foreach($data["mapping"]["sort"]["default"][$sort]["fields"] as $field)
-						{
-							$search["sorts"][$a]["field"] 		= $field["field"];		
-							$search["sorts"][$a]["direction"] 	= $field["sort"];	
-							
-							$a++;
-						}	
-					}
-				}
-				else
-				{
-
-					if(!empty($data["mapping"]["sort"]["default"]))
-					{	
-						$a = 0;
-						$sort = $data["search"]["search"]["sort"];
-						if(!empty($data["search"]["search"]["sort"]))
-						{
-							$element = $data["mapping"]["sort"]["default"][$sort];
-						}
-						else
-						{
-						    // avoiding notice ('Notice: Only variables should be passed by reference')
-						    $tmp23 = array_slice($data["mapping"]["sort"]["default"], 0, 1);
-							$element = array_shift($tmp23);
-						}	
-						
-						foreach($element["fields"] as $field)
-						{
-							$search["sorts"][$a]["field"] 		= $field["field"];		
-							$search["sorts"][$a]["direction"] 	= $field["sort"];	
-							
-							$a++;
-						}	
-					}
-				}	
-				
-			}
-			return $search;
-		}
-    }
-
     protected function render_html($page = NULL, $template = "default", $data = NULL) {
-        if (!empty($data) && !empty($page)) {
-			$this->loadCss($template);
-			$path = plugin_dir_path(__FILE__) . "templates/" . $template;
+		// print("<pre>".print_r($data,true)."</pre>");exit;
 
-            if (file_exists($path . '/' . $page . '.php')) {
-				$html = '';
-				ob_start();
-				$results = $data['search']['results'];
-				$search = $data['search']['search'];
-				$list = new stdClass();
-				$list->type = $search['type'];
-				$list->category = $search['category'];
-				include($path . '/' . $page . '.php');
-				$html = ob_get_contents();
-				ob_end_clean();
-                return $html;
-            } else {
-                return false;
-            }
-        } else {
-            return false;
-        }
+        if (empty($data) || empty($page)) { return false; }
+
+		$this->loadCss($template);
+		$path = plugin_dir_path(__FILE__) . "templates/" . $template;
+
+        if (!file_exists($path . '/' . $page . '.php')) { return false; }
+
+		$html = '';
+		ob_start();
+		$estates = $data['search']['estates'];
+		$search = $data['search'];
+		$list = new stdClass();
+		$list->type = $search['type'];
+		$list->category = $search['category'];
+		include($path . '/' . $page . '.php');
+		$html = ob_get_contents();
+		ob_end_clean();
+		return $html;
     }
 		
-    // load css for plugin
     protected function loadCss($theme = 'default') {
 		// JS
 		wp_register_script('BS', 'https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js');
