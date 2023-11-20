@@ -1,6 +1,58 @@
 <?php
 
 class API {	 
+
+    protected function sync_db(){
+        // check if need to sync database
+		$lastChangeDateEW = API::get_last_change_date();
+		$lastChangeDateWP = $this->get_general_cache('lastChangeDateWP');
+		// print("<pre>".print_r($lastChangeDateWP,true)."</pre>");exit;
+
+		if($lastChangeDateWP == false || $lastChangeDateWP == '0000-00-00 00:00:00' || $lastChangeDateWP < $lastChangeDateEW){
+			$response = API::get_offers_list_sync($lastChangeDateWP);
+			// print("<pre>".print_r($response,true)."</pre>");exit;
+			if(isset($response->estates)){
+				foreach($response->estates as $key => $estate){
+					$offer = $estate->offer;
+					$offerdetails = $estate->offerdetails;
+					$upload_dir = wp_upload_dir();
+					$upload_path = $upload_dir['basedir'];
+					if($offer->active == 0) {
+						$this->delete_entity_cache('offer_'.$offer->id);
+						$this->delete_entity_cache('offerdetails_'.$offer->id);	
+						if(is_dir($upload_path . '/estates/' . $offer->id)){
+							$files = glob($upload_path . '/estates/' . $offer->id . '/*'); // get all file names
+							foreach($files as $file){ // iterate files
+								if(is_file($file))
+									unlink($file); // delete file
+							}
+							rmdir($upload_path . '/estates/' . $offer->id);
+						}
+						continue;
+					}
+					$this->set_entity_cache('offer_'.$offer->id, 'offer', json_encode($offer));
+					$this->set_entity_cache('offerdetails_'.$offer->id, 'offerdetails', json_encode($offerdetails));
+					if(is_dir($upload_path . '/estates/' . $offer->id)){
+						$files = glob($upload_path . '/estates/' . $offer->id . '/*'); // get all file names
+						foreach($files as $file){ // iterate files
+							if(is_file($file))
+								unlink($file); // delete file
+						}
+					}else{
+						mkdir($upload_path . '/estates/' . $offer->id, 0777, true);
+					}
+					foreach($offerdetails->pictures as $pic){
+						$pic_url = EW_BASE_URL.'/www/pictures/'.$offer->id.'/'.$pic->filename;
+						$pic_path = $upload_path . '/estates/' . $offer->id . '/' . $pic->filename;
+						file_put_contents($pic_path, file_get_contents($pic_url));
+					}
+
+				}
+			}
+		}
+		$this->set_general_cache('lastChangeDateWP', date('Y-m-d H:i:s'));
+    }
+
     public function get_company_data() {
 		$token = API::get_token();
 		$url = FF_API_COMPANY_SERVICE ;
@@ -30,6 +82,7 @@ class API {
             'filename' => null
         );
         $result = wp_remote_post($url, $args);
+        if($result instanceof WP_Error) { return false; }
         if (empty($result) || $result['response']['code'] != 200) { return false; }
         return json_decode($result['body']);
     }

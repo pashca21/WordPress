@@ -9,55 +9,8 @@ class EWestateReferenceCore extends API {
 	}
 	
 	public function get_estate_reference_overview(){
-		// check if need to sync database
-		$lastChangeDateEW = API::get_last_change_date();
-		$lastChangeDateWP = $this->get_general_cache('lastChangeDateWP');
-		// print("<pre>".print_r($lastChangeDateWP,true)."</pre>");exit;
-
-		if($lastChangeDateWP == false || $lastChangeDateWP == '0000-00-00 00:00:00' || $lastChangeDateWP < $lastChangeDateEW){
-			$response = API::get_offers_list_sync($lastChangeDateWP);
-			// print("<pre>".print_r($response,true)."</pre>");exit;
-			if(isset($response->estates)){
-				foreach($response->estates as $key => $estate){
-					$offer = $estate->offer;
-					$offerdetails = $estate->offerdetails;
-					$upload_dir = wp_upload_dir();
-					$upload_path = $upload_dir['basedir'];
-					if($offer->active == 0) {
-						$this->delete_entity_cache('offer_'.$offer->id);
-						$this->delete_entity_cache('offerdetails_'.$offer->id);	
-						if(is_dir($upload_path . '/estates/' . $offer->id)){
-							$files = glob($upload_path . '/estates/' . $offer->id . '/*'); // get all file names
-							foreach($files as $file){ // iterate files
-								if(is_file($file))
-									unlink($file); // delete file
-							}
-							rmdir($upload_path . '/estates/' . $offer->id);
-						}
-						continue;
-					}
-					$this->set_entity_cache('offer_'.$offer->id, 'offer', json_encode($offer));
-					$this->set_entity_cache('offerdetails_'.$offer->id, 'offerdetails', json_encode($offerdetails));
-					if(is_dir($upload_path . '/estates/' . $offer->id)){
-						$files = glob($upload_path . '/estates/' . $offer->id . '/*'); // get all file names
-						foreach($files as $file){ // iterate files
-							if(is_file($file))
-								unlink($file); // delete file
-						}
-					}else{
-						mkdir($upload_path . '/estates/' . $offer->id, 0777, true);
-					}
-					foreach($offerdetails->pictures as $pic){
-						$pic_url = EW_BASE_URL.'/www/pictures/'.$offer->id.'/'.$pic->filename;
-						$pic_path = $upload_path . '/estates/' . $offer->id . '/' . $pic->filename;
-						file_put_contents($pic_path, file_get_contents($pic_url));
-					}
-
-				}
-			}
-		}
-		$this->set_general_cache('lastChangeDateWP', date('Y-m-d H:i:s'));
-
+		// syncronize database if needed
+		$this->sync_db();
 		$data = [];
 		$result['title'] 	= "Immobilien Referenzen";
 		$result['content'] 	= $this->get_search($data);
@@ -65,10 +18,11 @@ class EWestateReferenceCore extends API {
 	}
 	
 	protected function get_search($data = NULL, $page = 1, $max_results = EW_ESTATEREFERENCE_MAX_RESULT) {
-		if(empty($_GET)){	
-			$data["search"]['type'] 	= -1;
-			$data["search"]['category'] = '';
-		}else{
+		$data["search"]['type'] 	= -1;
+		$data["search"]['category'] = '';
+		$data["search"]['sort'] 	= 'ID_DESC';
+		$data["search"]['page_number'] 	= 1;
+		if(!empty($_GET)){	
 			foreach($_GET as $key => $value){
 				$data["search"][sanitize_text_field($key)] = esc_html(sanitize_text_field($value));
 			}
@@ -80,43 +34,88 @@ class EWestateReferenceCore extends API {
     protected function get_search_result($data = NULL, $page = 1, $max_results = EW_ESTATEREFERENCE_MAX_RESULT) {
 		// print("<pre>".print_r($data,true)."</pre>");exit;
 		if (!empty($data["search"])){
-				if(!empty($data["search"]["page"])){
-					$page = $data["search"]["page"];
-				}
-				global $wpdb;
-				$results_offers = $wpdb->get_results("SELECT json FROM {$wpdb->prefix}ew_entity_cache WHERE schemaId='offer' "); //AND json LIKE '%\"type\":1%'
-				$estates = [];
-				foreach($results_offers as $key => $value){
-					$estate = new stdClass();
-					$estate->offer = json_decode($value->json);
-					$offerdetails = $wpdb->get_var("SELECT json FROM {$wpdb->prefix}ew_entity_cache WHERE schemaId='offerdetails' AND entityId='offerdetails_".$estate->offer->id."'");
-					$offerdetails = str_replace("\r\n", '\r\n', $offerdetails);
-					$offerdetails = str_replace("\n", '\n', $offerdetails);
-					$offerdetails = str_replace("\r", '\r', $offerdetails);
-					$offerdetails = preg_replace('/[[:cntrl:]]/', '', $offerdetails);
-					$estate->offerdetails = json_decode($offerdetails, false, 512, JSON_UNESCAPED_UNICODE);
-					// if($estate->offer->id == 1388) {
-					// 	print("<pre>".print_r($estate->offerdetails,true)."</pre>");exit;
-					// }
-					// if(empty($estate->offerdetails)) {
-					// 	echo $estate->offer->id;
-					// 	print_r($offerdetails);
-					// 	exit;
-					// }
-					$estates[] = $estate;
-				}
-				// print("<pre>".print_r($estates,true)."</pre>");exit;
+			if(!empty($data["search"]["page_number"])){
+				$page = $data["search"]["page_number"];
+			}
+			global $wpdb;
+			$query = "SELECT json FROM {$wpdb->prefix}ew_entity_cache WHERE schemaId='offer' ";
+			if($data["search"]["type"] != -1){
+				$query .= "AND json LIKE '%\"type\":\"".$data["search"]["type"]."\"%' ";
+			}
+			if($data["search"]["category"] != ''){
+				$query .= "AND json LIKE '%\"category\":\"".$data["search"]["category"]."\"%' ";
+			}
+			// print_r($query);exit;
+			$results_offers = $wpdb->get_results($query); //AND json LIKE '%\"type\":1%'
+			$estates = [];
+			$sort = $data["search"]["sort"];
+			foreach($results_offers as $key => $value){
+				$estate = new stdClass();
+				$estate->offer = json_decode($value->json);
+				$offerdetails = $wpdb->get_var("SELECT json FROM {$wpdb->prefix}ew_entity_cache WHERE schemaId='offerdetails' AND entityId='offerdetails_".$estate->offer->id."'");
+				$offerdetails = str_replace("\r\n", '\r\n', $offerdetails);
+				$offerdetails = str_replace("\n", '\n', $offerdetails);
+				$offerdetails = str_replace("\r", '\r', $offerdetails);
+				$offerdetails = preg_replace('/[[:cntrl:]]/', '', $offerdetails);
+				$estate->offerdetails = json_decode($offerdetails, false, 512, JSON_UNESCAPED_UNICODE);
 
-				$data["search"]["estates"]		= $estates;
-				$data["search"]["total_count"]	= 777;
-				$data["search"]["page_max"] 	= ceil(777/$max_results);
-				$data["search"]["page"] 		= $page;
-				$data["search"]["path"]		    = get_bloginfo('wpurl') . '/' . EW_PLUGIN_ROUTE . '/' . EW_ESTATEREFERENCE_ROUTE;
-				$data["color"]["primary"]		= EW_PRIMARY_COLOR;
-				$data["color"]["secondary"]		= EW_SECONDARY_COLOR;
-				// print("<pre>".print_r($data,true)."</pre>");exit;
-				return $data; 
-      }
+				if($sort == 'PRICE_ASC' || $sort == 'PRICE_DESC'){
+					if($estate->offer->type == 1){
+						$estate->sort_field = $estate->offerdetails->baseRent;
+					}else{
+						$estate->sort_field = $estate->offer->immoprice;
+					}
+				}elseif($sort == 'AREA_ASC' || $sort == 'AREA_DESC'){
+					if($estate->offer->category=='APARTMENT' || $estate->offer->category=='HOUSE' || $estate->offer->category=='APARTMENT_INT' || $estate->offer->category=='HOUSE_INT'){
+						$estate->sort_field = $estate->offerdetails->livingSpace;
+					}elseif($estate->offer->category=='LIVING_SITE' || $estate->offer->category=='LIVING_SITE_INT'){
+						$estate->sort_field = $estate->offerdetails->plotArea;
+					}elseif($estate->offer->category=='OFFICE'){
+						$estate->sort_field = $estate->offerdetails->netFloorSpace;
+					}else{ // all other Business Categories
+						$estate->sort_field = $estate->offerdetails->totalFloorSpace;
+					}
+				}
+
+				// if($estate->offer->id == 1388) {
+				// 	print("<pre>".print_r($estate->offerdetails,true)."</pre>");exit;
+				// }
+				// if(empty($estate->offerdetails)) {
+				// 	echo $estate->offer->id;
+				// 	print_r($offerdetails);
+				// 	exit;
+				// }
+				$estates[] = $estate;
+			}
+			if($sort == 'PRICE_ASC' || $sort == 'AREA_ASC'){
+				usort($estates, function($a, $b) {
+					return $a->sort_field <=> $b->sort_field;
+				});
+			}elseif($sort == 'PRICE_DESC' || $sort == 'AREA_DESC'){
+				usort($estates, function($a, $b) {
+					return $b->sort_field <=> $a->sort_field;
+				});
+			}elseif($sort == 'ID_DESC'){
+				usort($estates, function($a, $b) {
+					return $b->offer->id <=> $a->offer->id;
+				});
+			}else{					
+				usort($estates, function($a, $b) {
+					return $a->offer->id <=> $b->offer->id;
+				});
+			}
+			// print("<pre>".print_r($estates,true)."</pre>");exit;
+
+			$data["search"]["estates"]		= $estates;
+			$data["search"]["total_count"]	= count((array) $estates);
+			$data["search"]["page_max"] 	= ceil(count((array) $estates)/$max_results);
+			$data["search"]["page"] 		= $page;
+			$data["search"]["path"]		    = get_bloginfo('wpurl') . '/' . EW_PLUGIN_ROUTE . '/' . EW_ESTATEREFERENCE_ROUTE;
+			$data["color"]["primary"]		= EW_PRIMARY_COLOR;
+			$data["color"]["secondary"]		= EW_SECONDARY_COLOR;
+			// print("<pre>".print_r($data,true)."</pre>");exit;
+			return $data; 
+      	}
     }
 	
     protected function render_html($page = NULL, $template = "default", $data = NULL) {
@@ -131,11 +130,24 @@ class EWestateReferenceCore extends API {
 
 		$html = '';
 		ob_start();
-		$estates = $data['search']['estates'];
+		$rows_per_page = EW_ESTATEREFERENCE_MAX_RESULT;
+		$estates_total = $data['search']['estates'];
 		$search = $data['search'];
 		$list = new stdClass();
-		$list->type = $search['type'];
+		$list->type 	= $search['type'];
 		$list->category = $search['category'];
+		$list->sort		= $search['sort'];
+		$list->rows 	= count((array) $estates_total);
+		$list->page		= $search['page'];
+		$list->pages 	= ceil(count((array) $estates_total)/$rows_per_page);
+		$list->records	= count((array) $estates_total);
+		$offset = ($list->page - 1) * $rows_per_page ;
+		if($offset < 0){
+			$offset = 0;
+		}
+		$list->record_from = $offset + 1;
+		$list->record_to = $list->record_from + $rows_per_page - 1;
+		$estates = array_slice($estates_total, $list->record_from-1, $rows_per_page);
 		include($path . '/' . $page . '.php');
 		$html = ob_get_contents();
 		ob_end_clean();

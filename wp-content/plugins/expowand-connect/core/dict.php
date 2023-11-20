@@ -1,5 +1,14 @@
 <?php
 class ExpowandDictionary{
+
+	public static $sort_options = 
+		[ 'ID_DESC'  => 'Datum absteigend'
+		, 'ID_ASC'   => 'Datum aufsteigend'
+		, 'PRICE_DESC' => 'Preis absteigend'
+		, 'PRICE_ASC'  => 'Preis aufsteigend'
+		, 'AREA_DESC'  => 'Fläche absteigend'
+		, 'AREA_ASC'   => 'Fläche aufsteigend'
+		];
     
 	public static $purpose_options =
 		[ 'RENT_LIVING'     => 'Wohnimmobilie/Wohngrundstück'

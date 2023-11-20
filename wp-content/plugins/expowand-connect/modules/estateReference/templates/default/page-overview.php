@@ -2,6 +2,16 @@
 $searchPath = get_bloginfo('wpurl') . '/' . EW_PLUGIN_ROUTE . '/' . EW_ESTATEREFERENCE_ROUTE;
 $upload_dir = wp_upload_dir();
 $pics_url = $upload_dir['baseurl'] . '/estates/';
+
+function getPrevPage($page = 1){
+	if($page>1){return ($page - 1);}else{return 1;}
+}	
+
+function getNextPage($page = 1, $pages =1){
+	if($page<=$pages){return ($page+1);}else{return $pages;}
+}	
+
+$list->action = $searchPath;
 // echo $pics_url;
 ?>
 
@@ -9,6 +19,7 @@ $pics_url = $upload_dir['baseurl'] . '/estates/';
 
 <form id="form_search_offers" autocomplete="off" action="<?=$searchPath; ?>" method="get" >
 	<input type="hidden" name="do_filter" id="do_filter" value="" />
+	<input type="hidden" name="page_number" id="page_number" value="<?=$list->page; ?>" />
 
 	<div class="row w-100 g-3 mb-5">
 		<div class="col-6">
@@ -45,8 +56,19 @@ $pics_url = $upload_dir['baseurl'] . '/estates/';
 			</select>
 		</div>
 
-		<div class="col-12 text-end">
-			<a class="btn btn-phoenix-primary px-4 my-0" type="button" href="offers">Alle</a>
+		<div class="col-6">
+			<label class="fw-bold mb-2 text-1000" for="sort">Sortierung</label>
+			<select class="form-select" id="sort" name="sort">
+				<?php foreach(ExpowandDictionary::$sort_options as $key => $val){ ?>
+					<option value="<?=$key; ?>" <?=( $list->sort==$key)?"selected='selected'":""; ?>>
+						<?=$val; ?>
+					</option>
+				<?php } ?>
+			</select>
+		</div>
+
+		<div class="col-6 text-end">
+			<a class="btn btn-phoenix-primary px-4 my-0" type="button" href="<?=$searchPath; ?>">Alle</a><br />
 			<button class="btn btn-primary px-9 my-0" type="submit">Suchen</button>
 		</div>
 	
@@ -56,6 +78,13 @@ $pics_url = $upload_dir['baseurl'] . '/estates/';
 
 <div class="row w-100">
 	<?php // print("<pre>".print_r($estates)."</pre>"); ?>
+	<?php if(empty($estates)){ ?>
+		<div class="col-12">
+			<div class="alert alert-info" role="alert">
+				Es wurden keine Immobilien gefunden.
+			</div>
+		</div>
+	<?php } ?>
 	<?php foreach($estates as $estate){ 
 		// print("<pre>".print_r($estate,true)."</pre>");continue;
 		$offer = $estate->offer;
@@ -175,3 +204,70 @@ $pics_url = $upload_dir['baseurl'] . '/estates/';
 	<?php } ?>
 
 </div>
+
+<div class="row align-items-center justify-content-end py-4 pe-0 fs--1">
+    <div class="col-auto d-flex">
+      <span class="pagination_descr">
+        <?php if($list->rows==0){ ?>
+          
+        <?php }else{ ?>
+			Einträge <strong><?=$list->record_from; ?> 
+          	bis <?=($list->record_to>$list->rows)?$list->rows:$list->record_to; ?></strong> 
+          	von <strong><?=$list->rows; ?></strong> 
+          	Treffern
+        <?php } ?>
+      </span>
+    </div>
+
+    <div class="col-auto d-flex">
+
+      <?php if($list->pages > 1){ ?>
+        <nav aria-label="Pagination">
+          <ul class="pagination ">
+              <?php if((getPrevPage($list->page)) >= 1){ ?>
+              <li class="page-item">
+                <button type="button" class="page-link" onclick="switch_page(<?=getPrevPage($list->page); ?>);"> <</button>
+              </li>
+              <?php } ?>
+              <?php if((getPrevPage($list->page)-1) >= 1){ ?>
+              <li class="page-item">
+                <button type="button" class="page-link" onclick="switch_page(<?=(getPrevPage($list->page)-1); ?>);"><?=(getPrevPage($list->page)-1); ?></button>
+              </li>
+              <?php } ?>
+              <?php if(((getPrevPage($list->page)) >= 1) && ($list->page != 1)){ ?>
+              <li class="page-item">
+                <button type="button" class="page-link" onclick="switch_page(<?=getPrevPage($list->page); ?>);"><?=getPrevPage($list->page); ?></button>
+              </li>
+              <?php } ?>
+              <li class="page-item active" aria-current="page">
+                <button type="button" class="page-link" onclick="switch_page(<?=$list->page; ?>);"><?=$list->page; ?></button>
+              </li>
+              <?php if((getNextPage($list->page, $list->pages)) <= $list->pages){ ?>
+              <li class="page-item">
+                <button type="button" class="page-link" onclick="switch_page(<?=getNextPage($list->page, $list->pages); ?>);"><?=getNextPage($list->page, $list->pages); ?></button>
+              </li>
+              <?php } ?>
+              <?php if((getNextPage($list->page, $list->pages)+1) <= $list->pages){ ?>
+              <li class="page-item">
+              <button type="button" class="page-link" onclick="switch_page(<?=(getNextPage($list->page, $list->pages)+1); ?>);"><?=(getNextPage($list->page, $list->pages)+1); ?></button>
+              </li>
+              <?php } ?>
+              <?php if((getNextPage($list->page, $list->pages)) <= $list->pages){ ?>
+              <li class="page-item">
+                <button type="button" class="page-link" onclick="switch_page(<?=getNextPage($list->page, $list->pages); ?>);"> ></button>
+              </li>
+              <?php } ?>
+          </ul>
+        </nav>
+      <?php } ?>
+    </div>
+  </div>
+
+<script>
+
+	function switch_page(page){
+		document.getElementById("page_number").value = page;
+		document.getElementById("form_search_offers").submit();
+	}
+
+</script>

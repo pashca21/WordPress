@@ -34,6 +34,9 @@ class EWestateViewCore extends API{
 	public function get_estate_details($schemaId, $id) {
 		if (empty($id) || empty($schemaId)) { return false; }
 
+		// syncronize database if needed
+		$this->sync_db();
+
 		$offer = $this->get_entity_cache('offer_'.$id);
 		$offerdetails = $this->get_entity_cache('offerdetails_'.$id);
 
