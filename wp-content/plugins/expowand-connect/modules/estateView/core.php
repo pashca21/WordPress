@@ -6,8 +6,8 @@ class EWestateViewCore extends API{
 		$data["mapping"] = json_decode(FF_ESTATEVIEW_SALESAUTOMATE_MAPPING, true);
 		$data["search"]["path"] = get_bloginfo('wpurl') . '/' . EW_PLUGIN_ROUTE . '/' . FF_ESTATEVIEW_ROUTE;
 
-		$result['title'] = "Immobilien Suche";
-		$result['content'] = $this->get_html("widget", EW_ESTATEVIEW_THEME, $data);
+		$result['title'] = "Immobilien";
+		$result['content'] = $this->render_html("widget", EW_ESTATEVIEW_THEME, $data);
 		return $result;
 	}
 
@@ -37,16 +37,27 @@ class EWestateViewCore extends API{
 		// syncronize database if needed
 		$this->sync_db();
 
-		$offer = $this->get_entity_cache('offer_'.$id);
-		$offerdetails = $this->get_entity_cache('offerdetails_'.$id);
+		$offerdetails	= $this->get_entity_cache('offerdetails_'.$id);
+		$offer 			= $this->get_entity_cache('offer_'.$id);
 
-		if (!empty($offer->name)) {
-			$result['title'] = $offer->name;
-		} else {
-			$result['title'] = "Immobilie";
+		$agent			= $this->get_entity_cache('agent_'.$offer->agent_id);
+		
+		if(empty($agent)){
+			$agent = $this->sync_agent($offer->agent_id);
+		}else{
+			$agentLastChangeEW = $this->get_agent_last_change($offer->agent_id);
+			if($agentLastChangeEW > $agent->modified){
+				$agent = $this->sync_agent($offer->agent_id);
+			}
 		}
 
-		$meta_title = $offer->name;
+		if (empty($offer->name)) {
+			$result['title'] = "Immobilie";
+			$meta_title = "Immobilie";
+		} else {
+			$result['title'] = $offer->name;
+			$meta_title = $offer->name;
+		}
 
 		if($meta_title) {
 			define('EW_META_TITLE', $meta_title);
@@ -69,27 +80,20 @@ class EWestateViewCore extends API{
 		}
 
 		$data = new stdClass();
-		$data->offer = $offer;
+		$data->offer 		= $offer;
 		$data->offerdetails = $offerdetails;
+		$data->agent		= $agent;
 
-		$result['content'] = $this->get_html("page-details", EW_ESTATEVIEW_THEME, $data);
-		// print_r($result);exit;
-
+		$result['content'] = $this->render_html("page-details", EW_ESTATEVIEW_THEME, $data);
 		return $result;
-
 	}
 
     // return template
-    public function get_html($page = NULL, $template = "default", $data = NULL, $path = NULL) {
-		// print_r($data);exit;
-        if (empty($data) && empty($page)) {
-			return false;
-		}
-
+    public function render_html($page = NULL, $template = "default", $data = NULL, $path = NULL) {
+        if (empty($data) && empty($page)) { return false; }
 		if (empty($path)) {	
 			$path = plugin_dir_path(__FILE__) . "templates/view/" . $template; 
 		}
-
 		if (!file_exists($path . '/' . $page . '.php')) {
 			return false;
 		}				
@@ -193,5 +197,28 @@ class EWestateViewCore extends API{
  		// wp_register_script('leaflet','https://unpkg.com/leaflet@1.7.1/dist/leaflet.js', array('jquery'), '3.3.5', true );
  		// wp_enqueue_script( 'leaflet' );
     }
+
+	protected function sync_agent($agent_id){
+		$upload_dir = wp_upload_dir();
+		$upload_path = $upload_dir['basedir'];
+		$agent = API::get_agent_data($agent_id);
+		$this->set_entity_cache('agent_'.$agent->id, 'agent', $agent);
+		if(is_dir($upload_path . '/agents/' . $agent->id)){
+			$files = glob($upload_path . '/agents/' . $agent->id . '/*'); // get all file names
+			foreach($files as $file){ // iterate files
+				if(is_file($file))
+					unlink($file); // delete file
+			}
+		}else{
+			mkdir($upload_path . '/agents/' . $agent->id, 0777, true);
+		}
+		$perphoto_url = EW_BASE_URL.'/expose/persphoto/'.$agent->id;
+		$perphoto_path = $upload_path . '/agents/' . $agent->id . '/' . $agent->persphoto;
+		file_put_contents($perphoto_path, file_get_contents($perphoto_url));
+		$logo_url = EW_BASE_URL.'/expose/logo/'.$agent->id;
+		$logo_path = $upload_path . '/agents/' . $agent->id . '/' . $agent->logo;
+		file_put_contents($logo_path, file_get_contents($logo_url));
+		return $agent;
+	}
 
 }

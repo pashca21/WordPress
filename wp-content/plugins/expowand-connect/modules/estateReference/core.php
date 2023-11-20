@@ -33,94 +33,91 @@ class EWestateReferenceCore extends API {
 	
     protected function get_search_result($data = NULL, $page = 1, $max_results = EW_ESTATEREFERENCE_MAX_RESULT) {
 		// print("<pre>".print_r($data,true)."</pre>");exit;
-		if (!empty($data["search"])){
-			if(!empty($data["search"]["page_number"])){
-				$page = $data["search"]["page_number"];
-			}
-			global $wpdb;
-			$query = "SELECT json FROM {$wpdb->prefix}ew_entity_cache WHERE schemaId='offer' ";
-			if($data["search"]["type"] != -1){
-				$query .= "AND json LIKE '%\"type\":\"".$data["search"]["type"]."\"%' ";
-			}
-			if($data["search"]["category"] != ''){
-				$query .= "AND json LIKE '%\"category\":\"".$data["search"]["category"]."\"%' ";
-			}
-			// print_r($query);exit;
-			$results_offers = $wpdb->get_results($query); //AND json LIKE '%\"type\":1%'
-			$estates = [];
-			$sort = $data["search"]["sort"];
-			foreach($results_offers as $key => $value){
-				$estate = new stdClass();
-				$estate->offer = json_decode($value->json);
-				$offerdetails = $wpdb->get_var("SELECT json FROM {$wpdb->prefix}ew_entity_cache WHERE schemaId='offerdetails' AND entityId='offerdetails_".$estate->offer->id."'");
-				$offerdetails = str_replace("\r\n", '\r\n', $offerdetails);
-				$offerdetails = str_replace("\n", '\n', $offerdetails);
-				$offerdetails = str_replace("\r", '\r', $offerdetails);
-				$offerdetails = preg_replace('/[[:cntrl:]]/', '', $offerdetails);
-				$estate->offerdetails = json_decode($offerdetails, false, 512, JSON_UNESCAPED_UNICODE);
+		if (empty($data["search"])){ return false; }
+		if(!empty($data["search"]["page_number"])){
+			$page = $data["search"]["page_number"];
+		}
+		global $wpdb;
+		$query = "SELECT json FROM {$wpdb->prefix}ew_entity_cache WHERE schemaId='offer' ";
+		if($data["search"]["type"] != -1){
+			$query .= "AND json LIKE '%\"type\":\"".$data["search"]["type"]."\"%' ";
+		}
+		if($data["search"]["category"] != ''){
+			$query .= "AND json LIKE '%\"category\":\"".$data["search"]["category"]."\"%' ";
+		}
+		// print_r($query);exit;
+		$results_offers = $wpdb->get_results($query);
+		$estates = [];
+		$sort = $data["search"]["sort"];
+		foreach($results_offers as $key => $value){
+			$estate = new stdClass();
+			$estate->offer = json_decode($value->json);
+			$offerdetails = $wpdb->get_var("SELECT json FROM {$wpdb->prefix}ew_entity_cache WHERE schemaId='offerdetails' AND entityId='offerdetails_".$estate->offer->id."'");
+			$offerdetails = str_replace("\r\n", '\r\n', $offerdetails);
+			$offerdetails = str_replace("\n", '\n', $offerdetails);
+			$offerdetails = str_replace("\r", '\r', $offerdetails);
+			$offerdetails = preg_replace('/[[:cntrl:]]/', '', $offerdetails);
+			$estate->offerdetails = json_decode($offerdetails);
 
-				if($sort == 'PRICE_ASC' || $sort == 'PRICE_DESC'){
-					if($estate->offer->type == 1){
-						$estate->sort_field = $estate->offerdetails->baseRent;
-					}else{
-						$estate->sort_field = $estate->offer->immoprice;
-					}
-				}elseif($sort == 'AREA_ASC' || $sort == 'AREA_DESC'){
-					if($estate->offer->category=='APARTMENT' || $estate->offer->category=='HOUSE' || $estate->offer->category=='APARTMENT_INT' || $estate->offer->category=='HOUSE_INT'){
-						$estate->sort_field = $estate->offerdetails->livingSpace;
-					}elseif($estate->offer->category=='LIVING_SITE' || $estate->offer->category=='LIVING_SITE_INT'){
-						$estate->sort_field = $estate->offerdetails->plotArea;
-					}elseif($estate->offer->category=='OFFICE'){
-						$estate->sort_field = $estate->offerdetails->netFloorSpace;
-					}else{ // all other Business Categories
-						$estate->sort_field = $estate->offerdetails->totalFloorSpace;
-					}
+			if($sort == 'PRICE_ASC' || $sort == 'PRICE_DESC'){
+				if($estate->offer->type == 1){
+					$estate->sort_field = $estate->offerdetails->baseRent;
+				}else{
+					$estate->sort_field = $estate->offer->immoprice;
 				}
-
-				// if($estate->offer->id == 1388) {
-				// 	print("<pre>".print_r($estate->offerdetails,true)."</pre>");exit;
-				// }
-				// if(empty($estate->offerdetails)) {
-				// 	echo $estate->offer->id;
-				// 	print_r($offerdetails);
-				// 	exit;
-				// }
-				$estates[] = $estate;
+			}elseif($sort == 'AREA_ASC' || $sort == 'AREA_DESC'){
+				if($estate->offer->category=='APARTMENT' || $estate->offer->category=='HOUSE' || $estate->offer->category=='APARTMENT_INT' || $estate->offer->category=='HOUSE_INT'){
+					$estate->sort_field = $estate->offerdetails->livingSpace;
+				}elseif($estate->offer->category=='LIVING_SITE' || $estate->offer->category=='LIVING_SITE_INT'){
+					$estate->sort_field = $estate->offerdetails->plotArea;
+				}elseif($estate->offer->category=='OFFICE'){
+					$estate->sort_field = $estate->offerdetails->netFloorSpace;
+				}else{ // all other Business Categories
+					$estate->sort_field = $estate->offerdetails->totalFloorSpace;
+				}
 			}
-			if($sort == 'PRICE_ASC' || $sort == 'AREA_ASC'){
-				usort($estates, function($a, $b) {
-					return $a->sort_field <=> $b->sort_field;
-				});
-			}elseif($sort == 'PRICE_DESC' || $sort == 'AREA_DESC'){
-				usort($estates, function($a, $b) {
-					return $b->sort_field <=> $a->sort_field;
-				});
-			}elseif($sort == 'ID_DESC'){
-				usort($estates, function($a, $b) {
-					return $b->offer->id <=> $a->offer->id;
-				});
-			}else{					
-				usort($estates, function($a, $b) {
-					return $a->offer->id <=> $b->offer->id;
-				});
-			}
-			// print("<pre>".print_r($estates,true)."</pre>");exit;
 
-			$data["search"]["estates"]		= $estates;
-			$data["search"]["total_count"]	= count((array) $estates);
-			$data["search"]["page_max"] 	= ceil(count((array) $estates)/$max_results);
-			$data["search"]["page"] 		= $page;
-			$data["search"]["path"]		    = get_bloginfo('wpurl') . '/' . EW_PLUGIN_ROUTE . '/' . EW_ESTATEREFERENCE_ROUTE;
-			$data["color"]["primary"]		= EW_PRIMARY_COLOR;
-			$data["color"]["secondary"]		= EW_SECONDARY_COLOR;
-			// print("<pre>".print_r($data,true)."</pre>");exit;
-			return $data; 
-      	}
+			// if($estate->offer->id == 1388) {
+			// 	print("<pre>".print_r($estate->offerdetails,true)."</pre>");exit;
+			// }
+			// if(empty($estate->offerdetails)) {
+			// 	echo $estate->offer->id;
+			// 	print_r($offerdetails);
+			// 	exit;
+			// }
+			$estates[] = $estate;
+		}
+		if($sort == 'PRICE_ASC' || $sort == 'AREA_ASC'){
+			usort($estates, function($a, $b) {
+				return $a->sort_field <=> $b->sort_field;
+			});
+		}elseif($sort == 'PRICE_DESC' || $sort == 'AREA_DESC'){
+			usort($estates, function($a, $b) {
+				return $b->sort_field <=> $a->sort_field;
+			});
+		}elseif($sort == 'ID_DESC'){
+			usort($estates, function($a, $b) {
+				return $b->offer->id <=> $a->offer->id;
+			});
+		}else{					
+			usort($estates, function($a, $b) {
+				return $a->offer->id <=> $b->offer->id;
+			});
+		}
+		// print("<pre>".print_r($estates,true)."</pre>");exit;
+
+		$data["search"]["estates"]		= $estates;
+		$data["search"]["total_count"]	= count((array) $estates);
+		$data["search"]["page_max"] 	= ceil(count((array) $estates)/$max_results);
+		$data["search"]["page"] 		= $page;
+		$data["search"]["path"]		    = get_bloginfo('wpurl') . '/' . EW_PLUGIN_ROUTE . '/' . EW_ESTATEREFERENCE_ROUTE;
+		$data["color"]["primary"]		= EW_PRIMARY_COLOR;
+		$data["color"]["secondary"]		= EW_SECONDARY_COLOR;
+		// print("<pre>".print_r($data,true)."</pre>");exit;
+		return $data; 
     }
 	
     protected function render_html($page = NULL, $template = "default", $data = NULL) {
-		// print("<pre>".print_r($data,true)."</pre>");exit;
-
         if (empty($data) || empty($page)) { return false; }
 
 		$this->loadCss($template);

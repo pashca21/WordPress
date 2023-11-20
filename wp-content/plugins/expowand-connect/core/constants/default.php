@@ -9,9 +9,6 @@
 	*    Defaults
 	*********************/
 
-	(!empty(get_option('ew-token')))? define('EW_TOKEN', get_option('ew-token') ) : define('EW_TOKEN', '' ) ;
-	define('EW_CACHE', 20 );
-	define('FF_PATH', WP_PLUGIN_DIR . '/flowfact-saleautomat-connector' );
 	(!empty(get_option('ff-post-type')))? define('FF_POST_TYPE', get_option('ff-post-type') ) : define('FF_POST_TYPE', 'page' ) ;
 	
 

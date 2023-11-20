@@ -90,7 +90,8 @@ $list->action = $searchPath;
 		$offer = $estate->offer;
 		$offerdetails = $estate->offerdetails;
 		if(empty($offerdetails->mainPic)){
-			$mainImgUrl = 'http://work-expowand-dev.local/www/static/noimage.jpg';
+			$plugin_dir_url = plugin_dir_url( __FILE__ );
+			$mainImgUrl = $plugin_dir_url.'noimage.jpg';
 		}else{
 			$mainImgUrl = $pics_url.$offer->id.'/'.$offerdetails->mainPic;
 		}
