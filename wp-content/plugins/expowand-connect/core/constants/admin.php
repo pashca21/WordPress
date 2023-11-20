@@ -50,30 +50,6 @@
 					"faq": {},
 					"requiert":["ew-token"]
 						
-				},
-				"ci": {
-					"point":"2",
-					"title":"Farben",
-					"description":"Folgende Einstellungen definieren das Farbschema der einzelnen Module.",
-					"fields":{
-						"ff-primary-color": {
-							"title":"Primärfarbe",
-							"type":"color",
-							"description":"Die Primärfarbe wird verwendet, um das Layout der einzelnen Module an Ihren Internetauftritt und Ihre Firmenfarben anzupassen.",
-							"requiert":"requiert",
-							"default":"#666666"
-						},
-						"ff-secoundary-color":{
-							"title":"Sekundärfarbe",
-							"type":"color",
-							"description":"Die Sekundärfarbe wird verwendet, um das Layout der einzelnen Module an Ihren Internetauftritt und Ihre Firmenfarben anzupassen.",
-							"requiert":"requiert",
-							"default":"#ffffff"
-						}
-					},
-					"faq": {},
-					"requiert":["ff-primary-color"]
-						
 				}
 			}
 		},
@@ -82,14 +58,15 @@
 			"title":"Modul Einrichtung",
 			"fields": {
 				"estatereference": {
-					"point":"3",
+					"point":"2",
 					"title":"Immobilien Referenzen",
 					"description":"Immobilienreferenzen schaffen Vertrauen. Hinter jedem Immobilienangebot steht ein Auftraggeber, der sich für den Immobilienmakler entschieden hat. Sobald eine Immobilie erfolgreich vermarktet ist, macht das Modul Immobilienreferenzen den nächsten Schritt ganz einfach: Per Mausklick wird das Objekt zur Referenz-Immobilie und steht umgehend online in Ihrem Immobilien-Referenzen-Bereich.<br /><br />Vom Service ausgenommen, bei Bedarf an Ihren Webdesigner wenden: <br />Änderungen an Layout und Design sowie Beeinträchtigungen durch andere Plugins, beziehungsweise Inkompatibilität und Beeinträchtigungen Ihrer Wordpressumgebung.<br />",
 					"faq": {},
 					"fields":{
-						"ff-estatereference-max-result": {
+						"ew-estatereference-max-result": {
 							"type":"text",
 							"title":"Maximale Immobilienreferenzen pro Seite",
+							"default":"10",
 							"description":"Die folgende Einstellung definiert, wieviele Immobilienreferenzen pro Seite angezeigt werden. Bitte bedenken Sie, dass eine hohe Anzahl zu längeren Ladezeiten führen kann.",
 							"requiert":""
 						}
