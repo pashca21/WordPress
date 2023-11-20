@@ -5,11 +5,11 @@
 	 **********************/
 	 
 	add_action('admin_menu', function() {
-		add_menu_page( 'EXPOWAND Connect settings', 'EXPOWAND', 'manage_options', 'ff-plugin', 'plugin_page'  );
+		add_menu_page( 'EXPOWAND Connect settings', 'EXPOWAND', 'manage_options', 'ew-plugin', 'plugin_page'  );
 		
-		if ( empty ( $GLOBALS['admin_page_hooks']['ff-plugin'] ) ) 
+		if ( empty ( $GLOBALS['admin_page_hooks']['ew-plugin'] ) ) 
 		{
-			add_menu_page( 'EXPOWAND Connect settings', 'Einstellungen', 'manage_options', 'ff-plugin', 'plugin_page'  );
+			add_menu_page( 'EXPOWAND Connect settings', 'Einstellungen', 'manage_options', 'ew-plugin', 'plugin_page'  );
 		}
 
 		wp_register_style('FF-admin-styles', plugins_url('/ff-admin-styles.css', __FILE__), '', '1.0.0', false);
@@ -30,7 +30,7 @@
 	add_action( 'admin_init', function() {
 
 		//params
-		$data = json_decode(FF_ADMIN_SETTINGS,true);
+		$data = json_decode(EW_ADMIN_SETTINGS,true);
 		if (!empty($data)) {
 
 			foreach($data["modules"] as $cat) {
@@ -62,15 +62,15 @@
 				do_settings_sections( 'plugin-settings' );
 			?>
 		
-			<?php if (!empty(FF_ADMIN_SETTINGS)): ?>
+			<?php if (!empty(EW_ADMIN_SETTINGS)): ?>
 				<h1>EXPOWAND Connect</h1>
 
-				<?php $data = json_decode(FF_ADMIN_SETTINGS,true); ?>
+				<?php $data = json_decode(EW_ADMIN_SETTINGS,true); ?>
 
 				<?php
 					// Check for plugins which block the loading of this plugin.
 
-					$blocked_by_plugin = json_decode(FF_ADMIN_SETTINGS,true);
+					$blocked_by_plugin = json_decode(EW_ADMIN_SETTINGS,true);
 					if(!empty($blocked_by_plugin["blocked_by_plugin"])){
 						foreach($blocked_by_plugin["blocked_by_plugin"] as $check_key => $check)
 						{
@@ -166,12 +166,6 @@
 									foreach($module["requiert"] as $requiert)
 									{
 										$result = false;
-										if ($requiert === 'ff-valuationMaster-token') {
-											if (class_exists('API')) {
-												$API = new API();
-												$result = $API->get_entitlement('LEAD_MASTER');
-											}
-										}
 										if (!empty(get_option($requiert)) || !empty($result))
 										{
 											$status = "<span style=\"color:#b7ce5b\">Vollständig eingerichtet</span>";
@@ -262,12 +256,12 @@
 
 									<?php if (!empty($module["integration"]["possibleIntegrations"])): ?>
 										<?php
-											if(!empty(get_option('ff-'.$key.'-route') or !empty(defined('FF_'.strtoupper($key).'_ROUTE'))))
+											if(!empty(get_option('ew-'.$key.'-route') or !empty(defined('EW_'.strtoupper($key).'_ROUTE'))))
 											{
-												$ffmodule_url = get_home_url()."/";
-												$ffmodule_url .= (!empty(get_option('ff-plugin-route')))? get_option('ff-plugin-route'): constant('EW_PLUGIN_ROUTE');
-												$ffmodule_url .="/";
-												$ffmodule_url .= (!empty(get_option('ff-'.$key.'-route')))? get_option('ff-'.$key.'-route'):constant('FF_'.strtoupper($key).'_ROUTE');
+												$ewmodule_url = get_home_url()."/";
+												$ewmodule_url .= (!empty(get_option('ew-plugin-route')))? get_option('ew-plugin-route'): constant('EW_PLUGIN_ROUTE');
+												$ewmodule_url .="/";
+												$ewmodule_url .= (!empty(get_option('ew-'.$key.'-route')))? get_option('ew-'.$key.'-route'):constant('EW_'.strtoupper($key).'_ROUTE');
 											}
 										?>
 
@@ -275,19 +269,19 @@
 										<div class="ff-Integration <?= $class ?>">
 											<div class="ff-possibleIntegration">
 
-												<?php if (!empty($module["integration"]["possibleIntegrations"]["url"]) && !empty($ffmodule_url)): ?>
+												<?php if (!empty($module["integration"]["possibleIntegrations"]["url"]) && !empty($ewmodule_url)): ?>
 													<div>
 														<h3><?= $module["integration"]["possibleIntegrations"]["url"]["title"] ?></h3>
 														<p><?= $module["integration"]["possibleIntegrations"]["url"]["description"] ?></p>
-														<a target="_blank" href="<?= $ffmodule_url ?>"><?= $ffmodule_url ?></a>
+														<a target="_blank" href="<?= $ewmodule_url ?>"><?= $ewmodule_url ?></a>
 													</div>
 												<?php endif; ?>
 
-												<?php if (!empty($module["integration"]["possibleIntegrations"]["iframe"]) && !empty($ffmodule_url)): ?>
+												<?php if (!empty($module["integration"]["possibleIntegrations"]["iframe"]) && !empty($ewmodule_url)): ?>
 													<div>
 														<h3><?= $module["integration"]["possibleIntegrations"]["iframe"]["title"] ?></h3>
 														<p><?= $module["integration"]["possibleIntegrations"]["iframe"]["description"] ?></p>
-														<code>&lt;iframe src="<?= $ffmodule_url."?iframe=1" ?>" width="100%" height="2000px" style="border:0;" scrolling="auto" &gt;&lt;/iframe&gt;</code>
+														<code>&lt;iframe src="<?= $ewmodule_url."?iframe=1" ?>" width="100%" height="2000px" style="border:0;" scrolling="auto" &gt;&lt;/iframe&gt;</code>
 													</div>
 												<?php endif; ?>
 
@@ -303,8 +297,8 @@
 													<div>
 														<h3><?= $module["integration"]["possibleIntegrations"]["sitemap"]["title"] ?></h3>
 														<p><?= $module["integration"]["possibleIntegrations"]["sitemap"]["description"] ?></p>
-														<a target="_blank" href="<?= $ffmodule_url ?><?= $module["integration"]["possibleIntegrations"]["sitemap"]["value"] ?>.xml"><?= $ffmodule_url ?><?= $module["integration"]["possibleIntegrations"]["sitemap"]["value"] ?>.xml</a><br/>
-														<a target="_blank" href="<?= $ffmodule_url ?><?= $module["integration"]["possibleIntegrations"]["sitemap"]["value"] ?>.txt"><?= $ffmodule_url ?><?= $module["integration"]["possibleIntegrations"]["sitemap"]["value"] ?>.txt</a>
+														<a target="_blank" href="<?= $ewmodule_url ?><?= $module["integration"]["possibleIntegrations"]["sitemap"]["value"] ?>.xml"><?= $ewmodule_url ?><?= $module["integration"]["possibleIntegrations"]["sitemap"]["value"] ?>.xml</a><br/>
+														<a target="_blank" href="<?= $ewmodule_url ?><?= $module["integration"]["possibleIntegrations"]["sitemap"]["value"] ?>.txt"><?= $ewmodule_url ?><?= $module["integration"]["possibleIntegrations"]["sitemap"]["value"] ?>.txt</a>
 													</div>
 												<?php endif; ?>
 											</div>
@@ -325,11 +319,6 @@
 
 }
 
-add_action('wp_ajax_nopriv_fftestphpmail', 'ff_test_phpmail');
-add_action('wp_ajax_fftestphpmail', 'ff_test_phpmail');
-
-
-
 function getFieldType($type = NULL, $field = NULL, $default = NULL, $options = null)
 {
 	if(!empty($type))
@@ -343,10 +332,6 @@ function getFieldType($type = NULL, $field = NULL, $default = NULL, $options = n
 				return field_textarea($field, $default);
 		  break;
 
-		  case ("portal"):
-				return field_portal($field);
-		  break;
-
 		  case ("number"):
 				return field_number($field);
 		  break;
@@ -355,26 +340,14 @@ function getFieldType($type = NULL, $field = NULL, $default = NULL, $options = n
 				return field_password($field);
 		  break;
 
-		  case ("nylas"):
-				return field_nylas($field);
-		  break;
-
 		  case ("checkbox"):
 				return field_checkbox($field);
 		  break;
-
-		  case ("entitlement"):
-				return field_entitlement($field, $default);
-		  break; 
 		  
 		  case ("color"):
 				return field_color($field, $default);
 		  break; 
-		  
-		  case ("user"):
-				return user_list($field);
-		  break;
-		  
+			  
 		  case ("possible_options"):
 				return possible_options($field, $options);
 		  break;
@@ -384,297 +357,6 @@ function getFieldType($type = NULL, $field = NULL, $default = NULL, $options = n
 			break;
 		}
 	}
-}
-
-
-// get possible portlas
-function field_portal($field = null)
-{
-	if(!empty($field))
-	{
-		// get API
-		if (class_exists('API')) {
-			$API = new API();
-		}
-
-		// get entries
-		$result = $API->get_portals();
-		if(!empty($result) && count($result) > 0)
-		{
-			$view = '<select name="'.$field.'" id="ff-estateView-publish" onload="setPortalId(this);" onchange="setPortalId(this);">';
-				$view .= '<option value="">Bitte wählen</option>';
-				foreach($result as $row){
-
-					if(get_option("ff-estateView-publish") == $row['id']){
-						$view .= '<option data-portal="'.$row['id'].'" selected value="'.$row['id'].'">'.$row['name'].'</option>';
-						$Portalkey = $row['id'];
-					}
-					else
-					{
-						$view .= '<option data-portal="'.$row['id'].'" value="'.$row['id'].'">'.$row['name'].'</option>';
-					}
-				}
-			$view .= '</select>';
-
-			// retrun field
-			return $view;
-		}
-	}
-}
-
-
-// get possible nylas accounts
-function field_nylas($field = NULL)
-{
-
-	if(!empty($field))
-	{
-		if (class_exists('API')) {
-			$API = new API();
-		}
-
-		$result = $API->get_all_nylas_accounts();
-		$view = '<select name="'.$field.'">';
-			$view .= '<option value="">Bitte wählen</option>';
-			if(!empty($result["emails"]))
-			{
-				foreach($result["emails"] as $account) {
-					if(!empty($account["billingStatus"]) && $account["billingStatus"] == "paid")
-					{
-						if(get_option($field) == $account["email"]){
-							$view .= '<option selected value="'.$account["email"].'">'.$account["email"].'</option>';
-						}
-						else
-						{
-							$view .= '<option value="'.$account["email"].'">'.$account["email"].'</option>';
-						}
-					}
-				}
-			}
-
-		$view .= '</select>';
-		return $view;
-	}
-
-}
-
-// get ENTITLEMENT feedback
-function field_entitlement($field = NULL, $default = NULL)
-{
-
-	if(!empty($field) && !empty($default))
-	{
-		if (class_exists('API')) {
-			$API = new API();
-		}
-		
-		add_option( $field, false);
-		$result = $API->get_entitlement($default);
-		
-			if(!empty($result))
-			{
-				update_option( $field, true);
-				return '<div class="ff-entitlement-registration-active"><span>Produkt aktiviert</span></div>';
-			}
-			else
-			{
-				update_option( $field, false);
-				
-				$view = '<p>Um den Lead-Hunter nutzen zu können, muss das Produkt aktiviert werden. Weitere Informationen zur Aktivierung finden Sie <a href="https://www.flowfact.de/leadhunter" target="_blank">hier</a>.</p>';
-				$view .= '<br/>';
-				$view .= '<div class="ff-entitlement-registration-open"><span>Produkt nicht gebucht</span></div>';
-				
-				return $view;
-				
-			}
-		
-	}
-	return;
-}
-
-// get possible nylas accounts
-function user_list($field = NULL)
-{
-
-	if(!empty($field))
-	{
-		if (class_exists('API')) {
-			$API = new API();
-		}
-
-		$result = $API->get_users_no_cache();
-
-		if(!empty($result))
-		{
-			$view ="";
-			$view .= "<ul id='user-list'>";
-
-				if(get_option("ff-teamoverview-blocked") && is_array(json_decode(get_option("ff-teamoverview-blocked")))){
-
-					$jsonArray = json_decode(get_option("ff-teamoverview-blocked"), true);
-
-					$newArrayForSorting = [];
-					foreach($jsonArray as $jsonkey => $jsonsingle) {
-
-							foreach($result as $userkey => $user) {
-									if($user['id'] == $jsonsingle['id']) {
-											$newArrayForSorting[$jsonkey] = $user;
-									}
-							}
-					}
-
-					$result = $newArrayForSorting;
-
-					$blockedIds = array();
-					foreach($jsonArray as $item){
-							if($item['class'] == 'ff-false'){
-									$blockedIds[] = $item['id'];
-							}
-					}
-
-					$blockedIdsString = implode(", ", $blockedIds);
-
-					$view .="";
-				
-					foreach($result as $row)
-					{
-						if (strpos($blockedIdsString, $row["id"]) !== false) 
-						{
-							$view .="<li class='user-item'><div class='ff-teamoverview-user ff-false' data-id='".$row["id"]."'>";
-						}
-						else
-						{
-							$view .="<li draggable='true' class='user-item'><div class='ff-teamoverview-user ff-true' data-id='".$row["id"]."'>";
-						}
-							$view .="<div>";
-								if($row["firstname"]){
-									$view .= "<span>".$row["firstname"]."</span>";
-								}
-								
-								if($row["lastname"]){
-									$view .= "<span>".$row["lastname"]."</span>";
-								}
-							
-							$view .="</div>";
-							$view .="
-								<div class='ff-teamoverview-user-hide' style='margin-left:auto; margin-top: -2px; margin-right: 5px;'>
-									<div>ausblenden</div> 
-									<div>anzeigen</div>
-								</div>";
-
-							$view .="
-								<svg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
-									<rect x='4' y='6' width='16' height='2' fill='#333333'/>
-									<rect x='4' y='11' width='16' height='2' fill='#333333'/>
-									<rect x='4' y='16' width='16' height='2' fill='#333333'/>
-								</svg>
-							";
-						$view .="</li>";
-					}
-				} else {
-					// work around to do not display inactive user as active from the old version
-					foreach($result as $row)
-					{
-						if($row["active"] == 1) {
-							// checking if team member was blocked in the previous version
-							if(strpos(get_option($field), $row["id"]) === false) {
-								//get_option("ff-teamoverview-blocked")
-								$view .="<li draggable='true' class='user-item'><div class='ff-teamoverview-user ff-true' data-id='".$row["id"]."'>";
-
-								$view .="<div>";
-								if($row["firstname"]){
-									$view .= "<span>".$row["firstname"]."</span>";
-								}
-								
-								if($row["lastname"]){
-									$view .= "<span>".$row["lastname"]."</span>";
-								}
-							
-								$view .="</div>";
-								$view .="
-									<div class='ff-teamoverview-user-hide' style='margin-left:auto; margin-top: -2px; margin-right: 5px;'>
-										<div>ausblenden</div> 
-										<div>anzeigen</div>
-									</div>";
-
-								$view .="
-									<svg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
-										<rect x='4' y='6' width='16' height='2' fill='#333333'/>
-										<rect x='4' y='11' width='16' height='2' fill='#333333'/>
-										<rect x='4' y='16' width='16' height='2' fill='#333333'/>
-									</svg>
-								";
-								$view .="</li>";
-							} else {
-								$view .="<li class='user-item'><div class='ff-teamoverview-user ff-false' data-id='".$row["id"]."'>";
-
-								$view .="<div>";
-								if($row["firstname"]){
-									$view .= "<span>".$row["firstname"]."</span>";
-								}
-								
-								if($row["lastname"]){
-									$view .= "<span>".$row["lastname"]."</span>";
-								}
-							
-								$view .="</div>";
-								$view .="
-									<div class='ff-teamoverview-user-hide' style='margin-left:auto; margin-top: -2px; margin-right: 5px;'>
-										<div>ausblenden</div> 
-										<div>anzeigen</div>
-									</div>";
-
-								$view .="
-									<svg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
-										<rect x='4' y='6' width='16' height='2' fill='#333333'/>
-										<rect x='4' y='11' width='16' height='2' fill='#333333'/>
-										<rect x='4' y='16' width='16' height='2' fill='#333333'/>
-									</svg>
-								";
-								$view .="</li>";
-							}
-						}
-					}
-
-					foreach($result as $row)
-					{	
-						if($row["active"] != 1) {
-							$view .="<li class='user-item'><div class='ff-teamoverview-user ff-false' data-id='".$row["id"]."'>";
-
-							$view .="<div>";
-							if($row["firstname"]){
-								$view .= "<span>".$row["firstname"]."</span>";
-							}
-							
-							if($row["lastname"]){
-								$view .= "<span>".$row["lastname"]."</span>";
-							}
-						
-							$view .="</div>";
-							$view .="
-								<div class='ff-teamoverview-user-hide' style='margin-left:auto; margin-top: -2px; margin-right: 5px;'>
-									<div>ausblenden</div> 
-									<div>anzeigen</div>
-								</div>";
-
-							$view .="
-								<svg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
-									<rect x='4' y='6' width='16' height='2' fill='#333333'/>
-									<rect x='4' y='11' width='16' height='2' fill='#333333'/>
-									<rect x='4' y='16' width='16' height='2' fill='#333333'/>
-								</svg>
-							";
-							$view .="</li>";
-						}
-					}
-				}
-
-			$view .= "</ul>";
-			$view .="<input type='hidden' id='ff-teamoverview-user' name='".$field."' value='".get_option($field)."' />";
-		}
-		return $view;
-	}
-
 }
 
 // get formated select field
@@ -688,8 +370,6 @@ function field_checkbox($field = NULL)
 		$view .= '</select>';
 		return $view;
 	}
-	
-	
 }
 
 // get formated possible_options field

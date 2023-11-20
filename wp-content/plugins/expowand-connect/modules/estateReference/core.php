@@ -4,10 +4,6 @@ include_once __DIR__."/../../core/dict.php";
 
 class EWestateReferenceCore extends API {
 
-	public function widget(){
-		return FF_ESTATEREFERENCE_SALESAUTOMATE_MAPPING;
-	}
-	
 	public function get_estate_reference_overview(){
 		// syncronize database if needed
 		$this->sync_db();
@@ -18,9 +14,9 @@ class EWestateReferenceCore extends API {
 	}
 	
 	protected function get_search($data = NULL, $page = 1, $max_results = EW_ESTATEREFERENCE_MAX_RESULT) {
-		$data["search"]['type'] 	= -1;
-		$data["search"]['category'] = '';
-		$data["search"]['sort'] 	= 'ID_DESC';
+		$data["search"]['type'] 		= -1;
+		$data["search"]['category'] 	= '';
+		$data["search"]['sort'] 		= 'ID_DESC';
 		$data["search"]['page_number'] 	= 1;
 		if(!empty($_GET)){	
 			foreach($_GET as $key => $value){
@@ -71,7 +67,7 @@ class EWestateReferenceCore extends API {
 					$estate->sort_field = $estate->offerdetails->totalFloorSpace;
 				}
 			}
-			
+
 			$estates[] = $estate;
 		}
 		if($sort == 'PRICE_ASC' || $sort == 'AREA_ASC'){
@@ -148,14 +144,14 @@ class EWestateReferenceCore extends API {
 		wp_enqueue_style('BS');
 
 		// load default css	
-		wp_register_style('FF-EstateReference-Styles-' . $theme, plugins_url('/assets/css/' . $theme . '/ff-estatereference-styles.css', __FILE__),'','1.0.0', false);
-		wp_enqueue_style('FF-EstateReference-Styles-' . $theme);
+		wp_register_style('EW-EstateReference-Styles-' . $theme, plugins_url('/assets/css/' . $theme . '/ew-estatereference-styles.css', __FILE__),'','1.0.0', false);
+		wp_enqueue_style('EW-EstateReference-Styles-' . $theme);
 
 		// force load Jquery
 		wp_enqueue_script( 'jquery');    
 			
 		// load default js
-		wp_register_script('FF-EstateReference-Script-' . $theme, plugins_url('/assets/js/' . $theme . '/ff-estatereference-script.js', __FILE__),'','1.0.0', true);
-		wp_enqueue_script( 'FF-EstateReference-Script-' . $theme );
+		wp_register_script('EW-EstateReference-Script-' . $theme, plugins_url('/assets/js/' . $theme . '/ew-estatereference-script.js', __FILE__),'','1.0.0', true);
+		wp_enqueue_script( 'EW-EstateReference-Script-' . $theme );
     }
 }

@@ -14,7 +14,7 @@ ff(document).ready(function() {
 ff(".ffgoto" ).click(function() {
   var page = ff(this ).attr("data-page");
   ff("input[name='ffpage']").val(page);
-  ff( "#FFestateReference-default-overview-search-form" ).submit();
+  ff( "#EWestateReference-default-overview-search-form" ).submit();
 });
 
 

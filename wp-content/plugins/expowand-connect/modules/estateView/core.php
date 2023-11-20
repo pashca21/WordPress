@@ -3,15 +3,14 @@ include_once __DIR__."/../../core/dict.php";
 class EWestateViewCore extends API{
 
 	public function widget() {
-		$data["mapping"] = json_decode(FF_ESTATEVIEW_SALESAUTOMATE_MAPPING, true);
-		$data["search"]["path"] = get_bloginfo('wpurl') . '/' . EW_PLUGIN_ROUTE . '/' . FF_ESTATEVIEW_ROUTE;
+		$data["search"]["path"] = get_bloginfo('wpurl') . '/' . EW_PLUGIN_ROUTE . '/' . EW_ESTATEVIEW_ROUTE;
 
 		$result['title'] = "Immobilien";
 		$result['content'] = $this->render_html("widget", EW_ESTATEVIEW_THEME, $data);
 		return $result;
 	}
 
-	public function ff_add_meta_to_header() {
+	public function ew_add_meta_to_header() {
 		if(defined('EW_META_TITLE')) {
 			echo '<meta property="og:title" content="'.EW_META_TITLE.'">';
 			echo '<meta property="og:image:alt" content="'.EW_META_TITLE.'">';
@@ -76,7 +75,7 @@ class EWestateViewCore extends API{
 		}
 
 		if(defined('EW_META_TITLE') or defined('EW_META_DESCRIPTION') or defined('EW_META_IMAGE')) {
-			add_action('wp_head', array($this, 'ff_add_meta_to_header'), -1);
+			add_action('wp_head', array($this, 'ew_add_meta_to_header'), -1);
 		}
 
 		$data = new stdClass();
@@ -148,20 +147,6 @@ class EWestateViewCore extends API{
         // // load default css
         // wp_register_style('FF-EstateView-Styles-' . $theme, plugins_url('/assets/css/' . $theme . '/ff-estateview-styles.css', __FILE__) , '', '1.0.2', false);
         // wp_enqueue_style('FF-EstateView-Styles-' . $theme);
-
-        // // load google maps js
-        // if (!empty(FF_GG_API_MAPS))
-        // {
-        //     // load google maps cluster js
-        //     wp_register_script('FF-EstateView-mapscluster-' . $theme, plugins_url('/assets/js/' . $theme . '/markerclusterer.js', __FILE__) , '', '1.0.0', true);
-        //     wp_enqueue_script('FF-EstateView-mapscluster-' . $theme);
-
-        //     wp_register_script('FF-EstateView-maps-' . $theme, 'https://maps.googleapis.com/maps/api/js?key=' . FF_GG_API_MAPS . '&libraries=places&callback=initMap', '', '1.0.0', true);
-        //     wp_enqueue_script('FF-EstateView-maps-' . $theme);
-
-        //     wp_register_script('FF-EstateView-maps-script' . $theme, plugins_url('/assets/js/' . $theme . '/map-scripts.js', __FILE__) , '', '1.0.0', true);
-        //     wp_enqueue_script('FF-EstateView-maps-script' . $theme);
-        // }
 
         // // load slick js
         // wp_register_script('FF-EstateView-slick-' . $theme, plugins_url('/assets/js/' . $theme . '/slick.js', __FILE__) , '', '1.0.0', true);

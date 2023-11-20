@@ -79,7 +79,7 @@ class API {
             'timeout' => 60,
             'redirection' => 60,
             'httpversion' => '1.0',
-            'user-agent' => 'FF SA WEBMODULE -' . home_url(),
+            'user-agent' => 'EW WEBMODULE -' . home_url(),
             'blocking' => true,
             'headers' => array("cognitoToken" => $token, "Content-Type" => "application/json"),
             'cookies' => array(),
@@ -105,7 +105,7 @@ class API {
             'timeout' => 60,
             'redirection' => 60,
             'httpversion' => '1.0',
-            'user-agent' => 'FF SA WEBMODULE -' . home_url(),
+            'user-agent' => 'EW WEBMODULE -' . home_url(),
             'blocking' => true,
             'headers' => array("cognitoToken" => $token, "Content-Type" => "application/json"),
             'cookies' => array(),
@@ -123,7 +123,8 @@ class API {
     }
 
     protected function get_token(){
-        $token = $this->get_general_cache('EW_TOKEN');
+        // $token = $this->get_general_cache('EW_TOKEN');
+        $token = EW_TOKEN;
         if (empty($token)) {
 			// set demo token
             $token = '2e876f580652a210a4a7c2e5ca7406ac';
@@ -137,7 +138,7 @@ class API {
             'timeout' => 60,
             'redirection' => 60,
             'httpversion' => '1.0',
-            'user-agent' => 'FF SA WEBMODULE -' . home_url(),
+            'user-agent' => 'EW WEBMODULE -' . home_url(),
             'blocking' => true,
             'headers' => array($type => $token),
             'cookies' => array(),
@@ -162,7 +163,7 @@ class API {
             'timeout' => 60,
             'redirection' => 60,
             'httpversion' => '1.0',
-            'user-agent' => 'FF SA WEBMODULE -' . home_url(),
+            'user-agent' => 'EW WEBMODULE -' . home_url(),
             'blocking' => true,
             'headers' => array($type => $token, 'Content-Type' => 'application/json', 'charset' => 'utf-8'),
             'cookies' => array(),

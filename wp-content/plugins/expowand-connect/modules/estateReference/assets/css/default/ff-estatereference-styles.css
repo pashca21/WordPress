@@ -1,6 +1,6 @@
 
 /* Search*/
-.FFestateReference-default-overview-search-hidden {
+.EWestateReference-default-overview-search-hidden {
 	display:none !important;
 	height:0px !important;
 	width:0px !important;
@@ -8,7 +8,7 @@
 }
 
 /* sorting */
-.FFestateReference-default-overview-search-sort {
+.EWestateReference-default-overview-search-sort {
 	display: flex;
     justify-content: space-between;
     align-items: center;
@@ -22,8 +22,8 @@
     border-radius: 5px;
 }
 
-.FFestateReference-default-overview-search-sort div,
-.FFestateReference-default-overview-search-sort select {
+.EWestateReference-default-overview-search-sort div,
+.EWestateReference-default-overview-search-sort select {
 	background:none !important;
 	border:0 !important;
 	font-size: 14px !important;
@@ -32,17 +32,17 @@
 }
 
 /* paging */
-.FFestateReference-default-overview-estate-paging {
+.EWestateReference-default-overview-estate-paging {
 	margin:0; 
 	display:flex;
 	justify-content:space-between;	
 	width:100%;
 }
-.FFestateReference-default-overview-estate-paging .ff-before{
+.EWestateReference-default-overview-estate-paging .ff-before{
 	text-align:left;
 	
 }
-.FFestateReference-default-overview-estate-paging .ff-next{
+.EWestateReference-default-overview-estate-paging .ff-next{
 	text-align:right;
 	
 }
@@ -50,7 +50,7 @@
 
 /* counter*/
 
-.FFestateReference-default-overview-counts div
+.EWestateReference-default-overview-counts div
 {
     margin: 2% 0 1% 0;
     border-bottom: 1px solid #e0e0e0;
@@ -58,7 +58,7 @@
 }
 
 /* Sales type */
-.FFestateReference-default-overview-estate-salestype {
+.EWestateReference-default-overview-estate-salestype {
 	position: absolute;
     top: 20px;
     left: 0px;
@@ -99,7 +99,7 @@
 
 
 
-.FFestateReference-default-overview-list {
+.EWestateReference-default-overview-list {
 	display:flex;
 	flex-wrap:wrap;	
 	margin: 0 -1%;
@@ -107,7 +107,7 @@
 }
 
 
-.FFestateReference-default-overview-estate {
+.EWestateReference-default-overview-estate {
 	width:100%;
 	min-width:200px;
     box-sizing: border-box;
@@ -120,28 +120,28 @@
 }
 
 
-div[data-column="1"] .FFestateReference-default-overview-estate {max-width: 100%;}
-div[data-column="2"] .FFestateReference-default-overview-estate {max-width: 48%;}
-div[data-column="3"] .FFestateReference-default-overview-estate {max-width: 31.3%;}
-div[data-column="4"] .FFestateReference-default-overview-estate {max-width: 23%;}
-div[data-column="5"] .FFestateReference-default-overview-estate {max-width: 18%;}
-div[data-column="6"] .FFestateReference-default-overview-estate {max-width: 14.6%;}
+div[data-column="1"] .EWestateReference-default-overview-estate {max-width: 100%;}
+div[data-column="2"] .EWestateReference-default-overview-estate {max-width: 48%;}
+div[data-column="3"] .EWestateReference-default-overview-estate {max-width: 31.3%;}
+div[data-column="4"] .EWestateReference-default-overview-estate {max-width: 23%;}
+div[data-column="5"] .EWestateReference-default-overview-estate {max-width: 18%;}
+div[data-column="6"] .EWestateReference-default-overview-estate {max-width: 14.6%;}
 
 
 
-.FFestateReference-default-overview-estate > div:last-child {
+.EWestateReference-default-overview-estate > div:last-child {
 	width: 100%;
     flex-shrink: 1;
     flex-grow: 1;
 }
 
-.FFestateReference-default-overview-estate-image {
+.EWestateReference-default-overview-estate-image {
 	overflow: hidden; 
 	position:relative;
 	width: 100%;
 }
 
-.FFestateReference-default-overview-estate-image > div{
+.EWestateReference-default-overview-estate-image > div{
     width: 100%;
     flex-shrink: 0;
     flex-grow: 0;
@@ -156,12 +156,12 @@ div[data-column="6"] .FFestateReference-default-overview-estate {max-width: 14.6
 
 
 
-teReference-default-overview-estate:hover .FFestateReference-default-overview-estate-image > div
+teReference-default-overview-estate:hover .EWestateReference-default-overview-estate-image > div
 {
 	transform: scale(1.2);
 }
 
-.FFestateReference-default-overview-estate-type {
+.EWestateReference-default-overview-estate-type {
 	padding: 10px 10px 0 10px;
 	font-weight:600;
 	min-height: 37px;
@@ -171,7 +171,7 @@ teReference-default-overview-estate:hover .FFestateReference-default-overview-es
 
 }
 
-.FFestateReference-default-overview-estate-type span{
+.EWestateReference-default-overview-estate-type span{
 	display: inline;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -179,12 +179,12 @@ teReference-default-overview-estate:hover .FFestateReference-default-overview-es
     width: calc(100% - 60px);
 }
 
-.FFestateReference-default-overview-estate-type strong {
+.EWestateReference-default-overview-estate-type strong {
     display: flex !important;
     width: 100% !important;
 }
 
-.FFestateReference-default-overview-estate-type-sold {
+.EWestateReference-default-overview-estate-type-sold {
     padding: 0px 9px 0 9px;
 	margin-left:10px;
 	border-radius:2px;
@@ -194,7 +194,7 @@ teReference-default-overview-estate:hover .FFestateReference-default-overview-es
 
 
 
-.FFestateReference-default-overview-estate-addresses {
+.EWestateReference-default-overview-estate-addresses {
 	padding: 0 10px 10px;
     font-size: 0.8em;
 	min-height: 37px;
@@ -202,7 +202,7 @@ teReference-default-overview-estate:hover .FFestateReference-default-overview-es
 	background:#fff;
 }
 
-.FFestateReference-default-overview-estate-price {
+.EWestateReference-default-overview-estate-price {
 	padding: 10px;
 	font-weight:600;
 	color:#549df5;
@@ -213,13 +213,13 @@ teReference-default-overview-estate:hover .FFestateReference-default-overview-es
 	box-sizing: border-box;
 }
 
-.FFestateReference-default-overview-estate-price > div{
+.EWestateReference-default-overview-estate-price > div{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
 
-.FFestateReference-default-overview-estate-price > div > div > span{
+.EWestateReference-default-overview-estate-price > div > div > span{
 	font-weight: 400;
     font-size: 0.7em;
     border-radius: 2px;
@@ -230,7 +230,7 @@ teReference-default-overview-estate:hover .FFestateReference-default-overview-es
 }
 
 
-.FFestateReference-default-overview-estate-price > div > span{
+.EWestateReference-default-overview-estate-price > div > span{
 	flex-grow: 1;
     display: block;
     width: 100%;
@@ -240,14 +240,14 @@ teReference-default-overview-estate:hover .FFestateReference-default-overview-es
 }
 
 
-.FFestateReference-default-overview-estate-details {
+.EWestateReference-default-overview-estate-details {
 	display:flex;
 	flex-wrap:wrap;
 	justify-content:space-between;
 	padding:10px 10px  0 10px;
 }
 
-.FFestateReference-default-overview-estate-details > div{
+.EWestateReference-default-overview-estate-details > div{
     box-sizing: border-box;
 	display:flex;
 	max-width:50%;
@@ -256,13 +256,13 @@ teReference-default-overview-estate:hover .FFestateReference-default-overview-es
 }
 
 
-.FFestateReference-default-overview-estate-details div span{
+.EWestateReference-default-overview-estate-details div span{
     text-align:center;
 }
 
 
 
-.FFestateReference-default-overview-estate-details-values{ 
+.EWestateReference-default-overview-estate-details-values{ 
     display: flex;
     flex-direction:column;
 	font-weight:600;
@@ -270,7 +270,7 @@ teReference-default-overview-estate:hover .FFestateReference-default-overview-es
 	flex-shrink:1;
 }
 
-.FFestateReference-default-overview-estate-details-values span:first-child{ 
+.EWestateReference-default-overview-estate-details-values span:first-child{ 
     text-transform:uppercase;
 	font-size:0.7em;
 	font-weight:400;
@@ -281,7 +281,7 @@ teReference-default-overview-estate:hover .FFestateReference-default-overview-es
     display: block;
 }
 
-.FFestateReference-default-overview-estate-details-values span:last-child{ 
+.EWestateReference-default-overview-estate-details-values span:last-child{ 
 	white-space: nowrap; 
     overflow: hidden;
     text-overflow: ellipsis;
@@ -289,19 +289,19 @@ teReference-default-overview-estate:hover .FFestateReference-default-overview-es
     display: block;
 }
 
-.FFestateReference-default-overview-estate-details-values span:last-child i{ 
+.EWestateReference-default-overview-estate-details-values span:last-child i{ 
 	font-style: normal;
     font-size: 0.7em;
     font-weight: 600;
 	padding-left:5px;
 }
 
-.FFestateReference-default-overview-estate-details-icon {
+.EWestateReference-default-overview-estate-details-icon {
 	width:30px;
 	flex-shrink:0;
 }
 
-.FFestateReference-default-overview-estate-details-icon:before {
+.EWestateReference-default-overview-estate-details-icon:before {
 	font-size:20px;
 }
 
@@ -313,20 +313,20 @@ teReference-default-overview-estate:hover .FFestateReference-default-overview-es
 		
 
 
-	.FFestateReference-default-overview-estate {
+	.EWestateReference-default-overview-estate {
 		width:100%;
 		flex-direction:column;
 	}
 
 	
-	.FFestateReference-default-overview-estate > div:last-child
+	.EWestateReference-default-overview-estate > div:last-child
 	{
 		max-width:100%;
 	}
 	
 
-	.FFestateReference-default-overview-estate-image > div,
-	.FFestateReference-default-overview-estate > div{
+	.EWestateReference-default-overview-estate-image > div,
+	.EWestateReference-default-overview-estate > div{
 		width:100% !important;
 	}
 

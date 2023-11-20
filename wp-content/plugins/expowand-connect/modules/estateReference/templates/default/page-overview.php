@@ -88,7 +88,7 @@ $list->action = $searchPath;
 			$mainImgUrl = $pics_url.$offer->id.'/'.$offerdetails->mainPic;
 		}
 
-		$url = get_bloginfo('wpurl') . '/' . EW_PLUGIN_ROUTE . '/' . FF_ESTATEVIEW_ROUTE . '/' . '/estates/' . $offer->id;
+		$url = get_bloginfo('wpurl') . '/' . EW_PLUGIN_ROUTE . '/' . EW_ESTATEVIEW_ROUTE . '/' . '/estates/' . $offer->id;
 		?>
 
 		<div class="col-md-6 mb-3">

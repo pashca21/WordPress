@@ -1,6 +1,5 @@
 <?php 
 
-
 	// load module core
 	require_once( plugin_dir_path(__FILE__) .'/core.php');
 
@@ -10,10 +9,10 @@
 		// class constructor
 		public function __construct() {
 			$widgetOps = array(
-				'classname' 	=> 'FFestateView',
+				'classname' 	=> 'EWestateView',
 				'description' 	=> 'Zur Einbindung von Immobilien aus dem Expowand',
 			);
-			parent::__construct('FFestateView', 'Expowand - Immobiliensuche', $widgetOps );
+			parent::__construct('EWestateView', 'Expowand - Immobiliensuche', $widgetOps );
 		}
 
 		// output the widget content on the front-end

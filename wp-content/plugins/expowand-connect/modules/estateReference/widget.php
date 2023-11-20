@@ -9,10 +9,10 @@
 		// class constructor
 		public function __construct() {
 			$widgetOps = array(
-				'classname' 	=> 'FFestateReference',
+				'classname' 	=> 'EWestateReference',
 				'description' 	=> 'Zur Einbindung von Immobilien Referencen aus dem Expowand',
 			);
-			parent::__construct('FFestateReference', 'Expowand - Immobilien Referenzen', $widgetOps );
+			parent::__construct('EWestateReference', 'Expowand - Immobilien Referenzen', $widgetOps );
 		}
 
 		// output the widget content on the front-end

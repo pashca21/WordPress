@@ -44,25 +44,22 @@ class ExpowandConnect {
 		// load admin panel
 		require_once plugin_dir_path(__FILE__).'core/admin/settings.php';
 
-		// load composer packs.
-		// require_once plugin_dir_path(__FILE__).'vendor/autoload.php';
-
 		// add plugins routing to the ruleset
-		add_action('init', [$this, 'ff_rewrite_rule'], 1);
+		add_action('init', [$this, 'ew_rewrite_rule'], 1);
 
 		// add query vars
-		add_action('query_vars', [$this, 'ff_add_query_vars_filter'], 1);
+		add_action('query_vars', [$this, 'ew_add_query_vars_filter'], 1);
 
 		// virtual page init
 		add_action('init', [$this, 'ew_init'], 9);
 
 		add_option('plugin_status');
 
-		add_action('admin_notices', [$this, 'ff_activation_msg']);
+		add_action('admin_notices', [$this, 'ew_activation_msg']);
 
 	}
  
-	public function ff_activation_msg() {
+	public function ew_activation_msg() {
 		// get plugin version
 		$plugin_data = get_file_data(__FILE__, array('Version' => 'Version'), false);
 
@@ -80,30 +77,30 @@ class ExpowandConnect {
 		}
 	}
  
-	public function ff_rewrite_rule() {
+	public function ew_rewrite_rule() {
 		add_rewrite_rule(
-			'^ff/([^/]*)/([^/]*)/([^/]*)/([^/]*)?',
-			'index.php?plugin=ff&module=$matches[1]&slug=$matches[2]&schema=$matches[3]&identifier=$matches[4]',
+			'^ew/([^/]*)/([^/]*)/([^/]*)/([^/]*)?',
+			'index.php?plugin=ew&module=$matches[1]&slug=$matches[2]&schema=$matches[3]&identifier=$matches[4]',
 			'top'
 		);
 		add_rewrite_rule(
-			'^ff/([^/]*)/([^/]*)/([^/]*)?',
-			'index.php?plugin=ff&module=$matches[1]&schema=$matches[2]&identifier=$matches[3]',
+			'^ew/([^/]*)/([^/]*)/([^/]*)?',
+			'index.php?plugin=ew&module=$matches[1]&schema=$matches[2]&identifier=$matches[3]',
 			'top'
 		);
 		add_rewrite_rule(
-			'^ff/([^/]*)/([^/]*)/?',
-			'index.php?plugin=ff&module=$matches[1]&schema=$matches[2]',
+			'^ew/([^/]*)/([^/]*)/?',
+			'index.php?plugin=ew&module=$matches[1]&schema=$matches[2]',
 			'top'
 		);
 		add_rewrite_rule(
-			'^ff/([^/]*)?',
-			'index.php?plugin=ff&module=$matches[1]',
+			'^ew/([^/]*)?',
+			'index.php?plugin=ew&module=$matches[1]',
 			'top'
 		);
 	}
  
-	public function ff_add_query_vars_filter($vars) {
+	public function ew_add_query_vars_filter($vars) {
 		$vars[] = 'plugin';
 		$vars[] = 'module';
 		$vars[] = 'slug';
@@ -147,7 +144,7 @@ class ExpowandConnect {
 		dbDelta($sql);
 
 		// set rewrite
-		set_transient('ff_flush', 1, 60);
+		set_transient('ew_flush', 1, 60);
 	}
  
 	public function plugin_deactivate() {
@@ -219,7 +216,7 @@ class ExpowandConnect {
 			$post->guid = get_bloginfo('wpurl').'/'.$get_vitual_page_url;
 
 			if (!empty($plugin) && EW_PLUGIN_ROUTE == $plugin) {
-				if (FF_ESTATEVIEW_ROUTE == $module) {
+				if (EW_ESTATEVIEW_ROUTE == $module) {
 					if (!empty($identifier)) {
 						$EWestateViewCore = new EWestateViewCore();
 						$data = $EWestateViewCore->get_estate_details($schema, $identifier);
@@ -248,7 +245,7 @@ class ExpowandConnect {
 				}
 			}
 
-			$post->post_type = FF_POST_TYPE;
+			$post->post_type = EW_POST_TYPE;
 			$post->post_status = 'static';
 			$post->comment_status = 'closed';
 			$post->ping_status = 'open';
@@ -259,7 +256,7 @@ class ExpowandConnect {
 			$posts[] = $post;
 
 			// make wpQuery believe this is a real page too
-			if (FF_POST_TYPE == 'page') {
+			if (EW_POST_TYPE == 'page') {
 				$wp_query->is_page = true;
 				$wp_query->is_single = false;
 			} else {
