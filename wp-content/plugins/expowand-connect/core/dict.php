@@ -1,6 +1,14 @@
 <?php
 class ExpowandDictionary{
 
+	public static function getPrevPage($page = 1){
+		if($page>1){return ($page - 1);}else{return 1;}
+	}	
+	
+	public static function getNextPage($page = 1, $pages =1){
+		if($page<=$pages){return ($page+1);}else{return $pages;}
+	}	
+
 	public static $sort_options = 
 		[ 'ID_DESC'  => 'Datum absteigend'
 		, 'ID_ASC'   => 'Datum aufsteigend'

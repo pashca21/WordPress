@@ -3,14 +3,6 @@ $searchPath = get_bloginfo('wpurl') . '/' . EW_PLUGIN_ROUTE . '/' . EW_ESTATEREF
 $upload_dir = wp_upload_dir();
 $pics_url = $upload_dir['baseurl'] . '/estates/';
 
-function getPrevPage($page = 1){
-	if($page>1){return ($page - 1);}else{return 1;}
-}	
-
-function getNextPage($page = 1, $pages =1){
-	if($page<=$pages){return ($page+1);}else{return $pages;}
-}	
-
 $list->action = $searchPath;
 // echo $pics_url;
 ?>
@@ -225,37 +217,37 @@ $list->action = $searchPath;
       <?php if($list->pages > 1){ ?>
         <nav aria-label="Pagination">
           <ul class="pagination ">
-              <?php if((getPrevPage($list->page)) >= 1){ ?>
+              <?php if((ExpowandDictionary::getPrevPage($list->page)) >= 1){ ?>
               <li class="page-item">
-                <button type="button" class="page-link" onclick="switch_page(<?=getPrevPage($list->page); ?>);"> <</button>
+                <button type="button" class="page-link" onclick="switch_page(<?=ExpowandDictionary::getPrevPage($list->page); ?>);"> <</button>
               </li>
               <?php } ?>
-              <?php if((getPrevPage($list->page)-1) >= 1){ ?>
+              <?php if((ExpowandDictionary::getPrevPage($list->page)-1) >= 1){ ?>
               <li class="page-item">
-                <button type="button" class="page-link" onclick="switch_page(<?=(getPrevPage($list->page)-1); ?>);"><?=(getPrevPage($list->page)-1); ?></button>
+                <button type="button" class="page-link" onclick="switch_page(<?=(ExpowandDictionary::getPrevPage($list->page)-1); ?>);"><?=(ExpowandDictionary::getPrevPage($list->page)-1); ?></button>
               </li>
               <?php } ?>
-              <?php if(((getPrevPage($list->page)) >= 1) && ($list->page != 1)){ ?>
+              <?php if(((ExpowandDictionary::getPrevPage($list->page)) >= 1) && ($list->page != 1)){ ?>
               <li class="page-item">
-                <button type="button" class="page-link" onclick="switch_page(<?=getPrevPage($list->page); ?>);"><?=getPrevPage($list->page); ?></button>
+                <button type="button" class="page-link" onclick="switch_page(<?=ExpowandDictionary::getPrevPage($list->page); ?>);"><?=ExpowandDictionary::getPrevPage($list->page); ?></button>
               </li>
               <?php } ?>
               <li class="page-item active" aria-current="page">
                 <button type="button" class="page-link" onclick="switch_page(<?=$list->page; ?>);"><?=$list->page; ?></button>
               </li>
-              <?php if((getNextPage($list->page, $list->pages)) <= $list->pages){ ?>
+              <?php if((ExpowandDictionary::getNextPage($list->page, $list->pages)) <= $list->pages){ ?>
               <li class="page-item">
-                <button type="button" class="page-link" onclick="switch_page(<?=getNextPage($list->page, $list->pages); ?>);"><?=getNextPage($list->page, $list->pages); ?></button>
+                <button type="button" class="page-link" onclick="switch_page(<?=ExpowandDictionary::getNextPage($list->page, $list->pages); ?>);"><?=ExpowandDictionary::getNextPage($list->page, $list->pages); ?></button>
               </li>
               <?php } ?>
-              <?php if((getNextPage($list->page, $list->pages)+1) <= $list->pages){ ?>
+              <?php if((ExpowandDictionary::getNextPage($list->page, $list->pages)+1) <= $list->pages){ ?>
               <li class="page-item">
-              <button type="button" class="page-link" onclick="switch_page(<?=(getNextPage($list->page, $list->pages)+1); ?>);"><?=(getNextPage($list->page, $list->pages)+1); ?></button>
+              <button type="button" class="page-link" onclick="switch_page(<?=(ExpowandDictionary::getNextPage($list->page, $list->pages)+1); ?>);"><?=(ExpowandDictionary::getNextPage($list->page, $list->pages)+1); ?></button>
               </li>
               <?php } ?>
-              <?php if((getNextPage($list->page, $list->pages)) <= $list->pages){ ?>
+              <?php if((ExpowandDictionary::getNextPage($list->page, $list->pages)) <= $list->pages){ ?>
               <li class="page-item">
-                <button type="button" class="page-link" onclick="switch_page(<?=getNextPage($list->page, $list->pages); ?>);"> ></button>
+                <button type="button" class="page-link" onclick="switch_page(<?=ExpowandDictionary::getNextPage($list->page, $list->pages); ?>);"> ></button>
               </li>
               <?php } ?>
           </ul>
