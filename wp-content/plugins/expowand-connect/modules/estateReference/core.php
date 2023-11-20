@@ -52,12 +52,7 @@ class EWestateReferenceCore extends API {
 		foreach($results_offers as $key => $value){
 			$estate = new stdClass();
 			$estate->offer = json_decode($value->json);
-			$offerdetails = $wpdb->get_var("SELECT json FROM {$wpdb->prefix}ew_entity_cache WHERE schemaId='offerdetails' AND entityId='offerdetails_".$estate->offer->id."'");
-			$offerdetails = str_replace("\r\n", '\r\n', $offerdetails);
-			$offerdetails = str_replace("\n", '\n', $offerdetails);
-			$offerdetails = str_replace("\r", '\r', $offerdetails);
-			$offerdetails = preg_replace('/[[:cntrl:]]/', '', $offerdetails);
-			$estate->offerdetails = json_decode($offerdetails);
+			$estate->offerdetails =  $this->get_entity_cache('offerdetails_'.$estate->offer->id);
 
 			if($sort == 'PRICE_ASC' || $sort == 'PRICE_DESC'){
 				if($estate->offer->type == 1){
@@ -76,15 +71,7 @@ class EWestateReferenceCore extends API {
 					$estate->sort_field = $estate->offerdetails->totalFloorSpace;
 				}
 			}
-
-			// if($estate->offer->id == 1388) {
-			// 	print("<pre>".print_r($estate->offerdetails,true)."</pre>");exit;
-			// }
-			// if(empty($estate->offerdetails)) {
-			// 	echo $estate->offer->id;
-			// 	print_r($offerdetails);
-			// 	exit;
-			// }
+			
 			$estates[] = $estate;
 		}
 		if($sort == 'PRICE_ASC' || $sort == 'AREA_ASC'){
@@ -109,7 +96,7 @@ class EWestateReferenceCore extends API {
 		$data["search"]["estates"]		= $estates;
 		$data["search"]["total_count"]	= count((array) $estates);
 		$data["search"]["page_max"] 	= ceil(count((array) $estates)/$max_results);
-		$data["search"]["page"] 		= $page;
+		$data["search"]["page"] 		= ($page>$data["search"]["page_max"])?$data["search"]["page_max"]:$page;
 		$data["search"]["path"]		    = get_bloginfo('wpurl') . '/' . EW_PLUGIN_ROUTE . '/' . EW_ESTATEREFERENCE_ROUTE;
 		$data["color"]["primary"]		= EW_PRIMARY_COLOR;
 		$data["color"]["secondary"]		= EW_SECONDARY_COLOR;
