@@ -1,3 +1,4 @@
-*.jpg
+wp-content/uploads/estates/
+wp-content/uploads/agents/
 wp-content/plugins/expowand-connect/modules/estateReference/json.json
 wp-content/plugins/expowand-connect/modules/estateReference/j.json
