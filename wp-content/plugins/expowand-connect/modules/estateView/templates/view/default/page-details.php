@@ -2,6 +2,9 @@
 $offer = $results->offer;
 $offerdetails = $results->offerdetails;
 $agent = $results->agent;
+$inquiry_success = $results->inquiry_success;
+
+$pagePath = get_bloginfo('wpurl') . '/' . EW_PLUGIN_ROUTE . '/' . EW_ESTATEVIEW_ROUTE . '/estates/' . $offer->id . '/';
 
 function removeLastTwoZero($number){
 	$number_int = intval($number);
@@ -36,6 +39,7 @@ $gmaplink_agent = 'https://www.google.com/maps/place/'
 
 $upload_dir = wp_upload_dir();
 $pics_url = $upload_dir['baseurl'] . '/estates/';
+$agents_img_url = $upload_dir['baseurl'] . '/agents/';
 ?>
 
 <?php if(count((array) $offerdetails->pictures) > 0){ ?>
@@ -571,7 +575,7 @@ if($typestr != ''){
 			</tr>
 		<?php } ?>
 
-		<?php if($offerdetails->energyCertificateValidTill != '' && $offerdetails->energyCertificateValidTill != '0000-00-00'){ ?>
+		<?php if($offerdetails->energyCertificateValidTill != '' && $offerdetails->energyCertificateValidTill != '0000-00-00'  && $offerdetails->energyCertificateValidTill != '1970-01-01'){ ?>
 			<tr>
 				<th scope="row" style="text-align: left;">Gültig bis</th>
 				<td><?=date('d.m.Y', strtotime($offerdetails->energyCertificateValidTill)); ?></td>
@@ -702,9 +706,9 @@ if(lat != '' && lon != ''){
 <div class="row mt-5 text-center">
 	<div class="col-md-6">
 		<?php if($agent->persphoto != ''){ ?>
-			<img class="img-fluid" src="<?=EW_BASE_URL; ?>/expose/persphoto/<?=$agent->id; ?>" style="max-height: 400px; width: 100%; object-fit: contain;" />
+			<img class="img-fluid" src="<?=$agents_img_url; ?><?=$agent->id; ?>/<?=$agent->persphoto; ?>" style="max-height: 400px; width: 100%; object-fit: contain;" />
 		<?php }else if($agent->logo != ''){ ?>
-			<img class="img-fluid" src="<?=EW_BASE_URL; ?>/expose/logo/<?=$agent->id; ?>" style="max-height: 200px; width: 100%; object-fit: contain;" />
+			<img class="img-fluid" src="<?=$agents_img_url; ?><?=$agent->id; ?>/<?=$agent->logo; ?>" style="max-height: 200px; width: 100%; object-fit: contain;" />
 		<?php } ?>
 		<h4 class="mb-1 mt-2"><?=$agent->gender==1?'Herr':''; ?><?=$agent->gender==2?'Frau':''; ?> <?=$agent->firstname; ?> <?=$agent->lastname; ?></h4>
 	</div>
@@ -758,4 +762,72 @@ if(lat != '' && lon != ''){
 		</table>
 		
 	</div>
+</div>
+
+
+
+<div class="card">
+<div class="card-body">
+	<h4 class="mt-6">Kontaktanfrage</h4>
+
+	<?php if($inquiry_success){ ?>
+		<div class="alert alert-success" role="alert">
+			<strong>Vielen Dank!</strong> Ihre Anfrage wurde erfolgreich versendet.
+		</div>
+	<?php }else{ ?>
+
+	<form class="" action="<?=$pagePath; ?>" method="post" id="ew_inquiry_form" >
+		<input type="hidden" id="ew_inquiry_offer_id" name="ew_inquiry_offer_id" value="<?=$offer->id; ?>" />
+	
+		<div class="row">
+			<div class="col-md-2">
+				<label class="form-label" for="ew_inquiry_gender">Anrede <span class="text-danger">*</span></label>
+				<select class="form-select" id="ew_inquiry_gender" name="ew_inquiry_gender" required >
+					<option value="" selected="" disabled="" >wählen</option>
+					<option value="1" >Herr</option>
+					<option value="2" >Frau </option>
+				</select>
+			</div>
+
+			<div class="col-md-5">
+				<label class="form-label" for="ew_inquiry_firstname">Vorname <span class="text-danger">*</span></label>
+				<input class="form-control" id="ew_inquiry_firstname" name="ew_inquiry_firstname" type="text" placeholder="Vorname" value="" pattern="[a-zA-Z0-9 ]+" required />
+			</div>
+
+			<div class="col-md-5">
+				<label class="form-label" for="ew_inquiry_lastname">Nachname <span class="text-danger">*</span></label>
+				<input class="form-control" id="ew_inquiry_lastname" name="ew_inquiry_lastname" type="text" placeholder="Nachname" value="" pattern="[a-zA-Z0-9 ]+" required />
+			</div>
+
+			<div class="col-md-6 mt-3">
+				<label class="form-label" for="ew_inquiry_email">E-Mail <span class="text-danger">*</span></label>
+				<input class="form-control" id="ew_inquiry_email" name="ew_inquiry_email" type="text" placeholder="E-Mail" value="" required />
+			</div>
+
+			<div class="col-md-6 mt-3">
+				<label class="form-label" for="ew_inquiry_tel">Telefonnummer <span class="text-danger">*</span></label>
+				<input class="form-control" id="ew_inquiry_tel" name="ew_inquiry_tel" type="tel" placeholder="Telefonnummer" value="" required />
+			</div>
+
+			<div class="col-md-12 mt-3">
+				<label class="form-label" for="ew_inquiry_message">Nachricht</label>
+				<textarea class="form-control" id="ew_inquiry_message" name="ew_inquiry_message" rows="3" placeholder="" > </textarea>
+			</div>
+
+			<div class="col-md-10 mt-3">
+				<div class="form-check">
+					<input class="form-check-input" id="ew_inquiry_chk" name="ew_inquiry_chk" type="checkbox" value="1" required/>
+					<label class="form-check-label" for="ew_inquiry_chk">Ich bestätige, dass ich Expose anfordern möchte <span class="text-danger">*</span></label>
+				</div>
+			</div>
+
+			<div class="col-md-2 text-end mt-3">
+				<button class="btn btn-primary" type="submit" form="ew_inquiry_form" >Speichern</button>
+			</div>
+		</div>
+	</form>
+
+	<?php } ?>
+
+</div>
 </div>

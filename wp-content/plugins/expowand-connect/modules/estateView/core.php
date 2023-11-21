@@ -33,6 +33,21 @@ class EWestateViewCore extends API{
 	public function get_estate_details($schemaId, $id) {
 		if (empty($id) || empty($schemaId)) { return false; }
 
+		// inquiry form
+		$inquiry = [];
+		if(!empty($_POST)){	
+			foreach($_POST as $key => $value){
+				$inquiry[sanitize_text_field($key)] = esc_html(sanitize_text_field($value));
+			}
+		}
+		// print_r($inquiry);exit;
+		$inquiry_success = false;
+		if(!empty($inquiry)){
+			if($this->post_inquiry($inquiry)){
+				$inquiry_success = true;
+			}
+		}
+
 		// syncronize database if needed
 		$this->sync_db();
 
@@ -82,6 +97,7 @@ class EWestateViewCore extends API{
 		$data->offer 		= $offer;
 		$data->offerdetails = $offerdetails;
 		$data->agent		= $agent;
+		$data->inquiry_success = $inquiry_success;
 
 		$result['content'] = $this->render_html("page-details", EW_ESTATEVIEW_THEME, $data);
 		return $result;

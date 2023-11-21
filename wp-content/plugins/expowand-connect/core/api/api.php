@@ -132,6 +132,14 @@ class API {
         return $token;
     }
 
+    protected function post_inquiry($data){
+        $token  = API::get_token();
+        $url    = EW_API_INQUIRY;
+        if (empty($token) || empty($url)) { return false; }
+        $result = API::post_content($token, $url, $data);
+        return $result;
+    }
+
 	// Get content via rest
     protected function get_content($token, $url, $type = "cognitoToken") {
         $args = array(
@@ -158,7 +166,6 @@ class API {
 	
 	// Post content via rest
     protected function post_content($token, $url, $data, $type = "cognitoToken") {
-
         $args = array(
             'timeout' => 60,
             'redirection' => 60,
@@ -174,14 +181,10 @@ class API {
             'stream' => false,
             'filename' => null
         );
-	
         $response = wp_remote_post($url, $args);
-		
-        if (is_array($response)) {
-            return $response;
-        } else {
-            return false;
-        }
+        if($response instanceof WP_Error) { return false; }
+        if ($response['response']['code'] != 200) { return false; }
+        return true;
     }
 	
     protected function set_general_cache($name = NULL, $data = NULL) {

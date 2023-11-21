@@ -14,3 +14,4 @@ define('EW_API_OFFERS_LIST_SYNC', EW_API_BASE_URL . '/getOffersListChangedFromDa
 define('EW_API_OFFERS_LIST', EW_API_BASE_URL . '/offers');
 define('EW_API_AGENT', EW_API_BASE_URL . '/agent');
 define('EW_API_AGENT_LAST_CHANGE', EW_API_BASE_URL . '/getAgentLastChange');
+define('EW_API_INQUIRY', EW_API_BASE_URL . '/postInquiry');

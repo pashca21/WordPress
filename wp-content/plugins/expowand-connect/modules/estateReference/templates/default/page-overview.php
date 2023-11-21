@@ -14,8 +14,8 @@ $list->action = $searchPath;
 	<input type="hidden" name="page_number" id="page_number" value="<?=$list->page; ?>" />
 
 	<div class="row w-100 g-3 mb-5">
-		<div class="col-6">
-			<label class="fw-bold mb-2 text-1000" for="type">Angebotsart</label>
+		<div class="col">
+			<label class="form-label" for="type">Angebotsart</label>
 			<select class="form-select" id="type" name="type">
 				<option value="-1" <?=( $list->type==-1)?"selected='selected'":""; ?>>
 					alle
@@ -29,8 +29,8 @@ $list->action = $searchPath;
 			</select>
 		</div>
 		
-		<div class="col-6">
-			<label class="fw-bold mb-2 text-1000" for="category">Kategorie</label>
+		<div class="col">
+			<label class="form-label" for="category">Kategorie</label>
 			<select class="form-select" id="category" name="category">
 				<option value="" <?=( $list->category=='')?"selected='selected'":""; ?>>
 					alle
@@ -48,8 +48,8 @@ $list->action = $searchPath;
 			</select>
 		</div>
 
-		<div class="col-6">
-			<label class="fw-bold mb-2 text-1000" for="sort">Sortierung</label>
+		<div class="col">
+			<label class="form-label" for="sort">Sortierung</label>
 			<select class="form-select" id="sort" name="sort">
 				<?php foreach(ExpowandDictionary::$sort_options as $key => $val){ ?>
 					<option value="<?=$key; ?>" <?=( $list->sort==$key)?"selected='selected'":""; ?>>
@@ -59,9 +59,11 @@ $list->action = $searchPath;
 			</select>
 		</div>
 
-		<div class="col-6 text-end">
-			<a class="btn btn-phoenix-primary px-4 my-0" type="button" href="<?=$searchPath; ?>">Alle</a><br />
-			<button class="btn btn-primary px-9 my-0" type="submit">Suchen</button>
+		<div class="col text-end align-text-bottom position-relative">
+			<div class="position-absolute bottom-0 end-0">
+				<a class="btn btn-phoenix-primary px-3" type="button" href="<?=$searchPath; ?>">Alle</a>
+				<button class="btn btn-primary px-3" type="submit">Suchen</button>
+			</div>
 		</div>
 	
 	</div>
@@ -91,7 +93,7 @@ $list->action = $searchPath;
 		$url = get_bloginfo('wpurl') . '/' . EW_PLUGIN_ROUTE . '/' . EW_ESTATEVIEW_ROUTE . '/' . '/estates/' . $offer->id;
 		?>
 
-		<div class="col-md-6 mb-3">
+		<div class="col-auto mx-auto mb-3">
 			<article class="h-100">
 				<div class="card h-100" style="width: 18rem;">
 					<a style="color:inherit; text-decoration:none;" href="<?=$url; ?>">
