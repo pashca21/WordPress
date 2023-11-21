@@ -3,10 +3,10 @@
 
 <div class="card mt-5">
 <div class="card-body">
-	<h4 class="mt-6">Kontaktanfrage</h4>
+	<h4 class="EWestateView-default-section-label">Kontaktanfrage</h4>
 
 	<?php if($inquiry_success){ ?>
-		<div class="alert alert-success" role="alert">
+		<div class="alert alert-success EWestateView-default-inquiry-form-success-alert" role="alert">
 			<strong>Vielen Dank!</strong> Ihre Anfrage wurde erfolgreich versendet.
 		</div>
 	<?php }else{ ?>
@@ -16,8 +16,8 @@
 	
 		<div class="row">
 			<div class="col-md-2">
-				<label class="form-label" for="ew_inquiry_gender">Anrede <span class="text-danger">*</span></label>
-				<select class="form-select" id="ew_inquiry_gender" name="ew_inquiry_gender" required >
+				<label class="form-label EWestateView-default-inquiry-form-label" for="ew_inquiry_gender">Anrede <span class="text-danger">*</span></label>
+				<select class="form-select EWestateView-default-inquiry-form-select" id="ew_inquiry_gender" name="ew_inquiry_gender" required >
 					<option value="" selected="" disabled="" >wählen</option>
 					<option value="1" >Herr</option>
 					<option value="2" >Frau </option>
@@ -25,39 +25,39 @@
 			</div>
 
 			<div class="col-md-5">
-				<label class="form-label" for="ew_inquiry_firstname">Vorname <span class="text-danger">*</span></label>
-				<input class="form-control" id="ew_inquiry_firstname" name="ew_inquiry_firstname" type="text" placeholder="Vorname" value="" pattern="[a-zA-Z0-9 äöüÄÖÜ]+" required />
+				<label class="form-label EWestateView-default-inquiry-form-label" for="ew_inquiry_firstname">Vorname <span class="text-danger">*</span></label>
+				<input class="form-control EWestateView-default-inquiry-form-input" id="ew_inquiry_firstname" name="ew_inquiry_firstname" type="text" placeholder="Vorname" value="" pattern="[a-zA-Z0-9 äöüÄÖÜ]+" required />
 			</div>
 
 			<div class="col-md-5">
-				<label class="form-label" for="ew_inquiry_lastname">Nachname <span class="text-danger">*</span></label>
-				<input class="form-control" id="ew_inquiry_lastname" name="ew_inquiry_lastname" type="text" placeholder="Nachname" value="" pattern="[a-zA-Z0-9 äöüÄÖÜ]+" required />
+				<label class="form-label EWestateView-default-inquiry-form-label" for="ew_inquiry_lastname">Nachname <span class="text-danger">*</span></label>
+				<input class="form-control EWestateView-default-inquiry-form-input" id="ew_inquiry_lastname" name="ew_inquiry_lastname" type="text" placeholder="Nachname" value="" pattern="[a-zA-Z0-9 äöüÄÖÜ]+" required />
 			</div>
 
 			<div class="col-md-6 mt-3">
-				<label class="form-label" for="ew_inquiry_email">E-Mail <span class="text-danger">*</span></label>
-				<input class="form-control" id="ew_inquiry_email" name="ew_inquiry_email" type="text" placeholder="E-Mail" value="" required />
+				<label class="form-label EWestateView-default-inquiry-form-label" for="ew_inquiry_email">E-Mail <span class="text-danger">*</span></label>
+				<input class="form-control EWestateView-default-inquiry-form-input" id="ew_inquiry_email" name="ew_inquiry_email" type="text" placeholder="E-Mail" value="" required />
 			</div>
 
 			<div class="col-md-6 mt-3">
-				<label class="form-label" for="ew_inquiry_tel">Telefonnummer <span class="text-danger">*</span></label>
-				<input class="form-control" id="ew_inquiry_tel" name="ew_inquiry_tel" type="tel" placeholder="Telefonnummer" value="" required />
+				<label class="form-label EWestateView-default-inquiry-form-label" for="ew_inquiry_tel">Telefonnummer <span class="text-danger">*</span></label>
+				<input class="form-control EWestateView-default-inquiry-form-input" id="ew_inquiry_tel" name="ew_inquiry_tel" type="tel" placeholder="Telefonnummer" value="" required />
 			</div>
 
 			<div class="col-md-12 mt-3">
-				<label class="form-label" for="ew_inquiry_message">Nachricht</label>
-				<textarea class="form-control" id="ew_inquiry_message" name="ew_inquiry_message" rows="3" placeholder="" > </textarea>
+				<label class="form-label EWestateView-default-inquiry-form-label" for="ew_inquiry_message">Nachricht</label>
+				<textarea class="form-control EWestateView-default-inquiry-form-textarea" id="ew_inquiry_message" name="ew_inquiry_message" rows="3" placeholder="" > </textarea>
 			</div>
 
 			<div class="col-md-10 mt-3">
 				<div class="form-check">
-					<input class="form-check-input" id="ew_inquiry_chk" name="ew_inquiry_chk" type="checkbox" value="1" required/>
-					<label class="form-check-label" for="ew_inquiry_chk">Ich bestätige, dass ich Expose anfordern möchte <span class="text-danger">*</span></label>
+					<input class="form-check-input EWestateView-default-inquiry-form-checkbox-input" id="ew_inquiry_chk" name="ew_inquiry_chk" type="checkbox" value="1" required/>
+					<label class="form-check-label EWestateView-default-inquiry-form-checkbox-label" for="ew_inquiry_chk">Ich bestätige, dass ich Expose anfordern möchte <span class="text-danger">*</span></label>
 				</div>
 			</div>
 
 			<div class="col-md-2 text-end mt-3">
-				<button class="btn btn-primary" type="submit" form="ew_inquiry_form" >Speichern</button>
+				<button class="btn btn-primary EWestateView-default-inquiry-form-submit-btn" type="submit" form="ew_inquiry_form" >Speichern</button>
 			</div>
 		</div>
 	</form>

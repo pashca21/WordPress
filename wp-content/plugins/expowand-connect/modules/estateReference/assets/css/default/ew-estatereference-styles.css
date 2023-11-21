@@ -2,305 +2,110 @@
 You just need to add some styles to existing classes and override options by !important if necessary. */
 
 /* Search-bar */
-.EWestateReference-default-search-btn {
+.EWestateReference-default-search-row {
+	font-size: 1em;
+}
+
+.EWestateReference-default-search-col {
+	font-size: 1em;
+}
+
+.EWestateReference-default-search-col-btns {
+	font-size: 1em;
+}
+
+.EWestateReference-default-search-submit-btn {
     /* background: #fff !important; */
-}
-
-.EWestateReference-default-overview-search-hidden {
-	display:none !important;
-	height:0px !important;
-	width:0px !important;
-	overflow:hidden !important;
-}
-
-/* sorting */
-.EWestateReference-default-overview-search-sort {
-	display: flex;
-    justify-content: space-between;
-    align-items: center;
     font-size: 1em;
-    text-align: center;
-    margin: 20px 0;
-    font-weight: 600;
-    border-bottom: 1px solid #e0e0e0;
-    background: #fff;
-    padding: 20px;
-    border-radius: 5px;
 }
 
-.EWestateReference-default-overview-search-sort div,
-.EWestateReference-default-overview-search-sort select {
-	background:none !important;
-	border:0 !important;
-	font-size: 14px !important;
-    font-weight: 400 !important;
-	
+.EWestateReference-default-search-all-btn {
+    font-size: 1em;
 }
 
-/* paging */
-.EWestateReference-default-overview-estate-paging {
-	margin:0; 
-	display:flex;
-	justify-content:space-between;	
-	width:100%;
-}
-.EWestateReference-default-overview-estate-paging .ew-before{
-	text-align:left;
-	
-}
-.EWestateReference-default-overview-estate-paging .ew-next{
-	text-align:right;
-	
+.EWestateReference-default-search-label {
+    font-size: 1em;
 }
 
-
-/* counter*/
-
-.EWestateReference-default-overview-counts div
-{
-    margin: 2% 0 1% 0;
-    border-bottom: 1px solid #e0e0e0;
-    padding-bottom: 10px;
+.EWestateReference-default-search-select {
+    font-size: 1em;
 }
 
-/* Sales type */
-.EWestateReference-default-overview-estate-salestype {
-	position: absolute;
-    top: 20px;
-    left: 0px;
-    padding: 3px 10px;
-    font-size: 13px;
+/* Paging */
+.EWestateReference-default-paging-row {
+	font-size: 1em;
 }
 
-
-/* Estate list*/
-
-.EWestateReference-default-overview-list {
-	display:flex;
-	flex-wrap:wrap;	
-	margin: 0 -1%;
-	justify-content: space-between;
+.EWestateReference-default-paging-col {
+	font-size: 1em;
 }
 
-
-.EWestateReference-default-overview-estate {
-	width:100%;
-	min-width:200px;
-    box-sizing: border-box;
-    border: 2px solid #eee;
-    margin: 1%;
-    background: #f6f6f6;
-    position: relative;
-	display:flex;
-	flex-direction:column;
+.EWestateReference-default-paging-descr {
+	font-size: 1em;
 }
 
+.EWestateReference-default-paging-arrow-left {
+	font-size: 1em;
+}
 
-div[data-column="1"] .EWestateReference-default-overview-estate {max-width: 100%;}
-div[data-column="2"] .EWestateReference-default-overview-estate {max-width: 48%;}
-div[data-column="3"] .EWestateReference-default-overview-estate {max-width: 31.3%;}
-div[data-column="4"] .EWestateReference-default-overview-estate {max-width: 23%;}
-div[data-column="5"] .EWestateReference-default-overview-estate {max-width: 18%;}
-div[data-column="6"] .EWestateReference-default-overview-estate {max-width: 14.6%;}
+.EWestateReference-default-paging-page-number {
+	font-size: 1em;
+}
 
+.EWestateReference-default-paging-arrow-right {
+	font-size: 1em;
+}
 
-
-.EWestateReference-default-overview-estate > div:last-child {
+/* List */
+.EWestateReference-default-list-row {
 	width: 100%;
-    flex-shrink: 1;
-    flex-grow: 1;
+	font-size: 1em;
 }
 
-.EWestateReference-default-overview-estate-image {
-	overflow: hidden; 
-	position:relative;
-	width: 100%;
+.EWestateReference-default-list-col {
+	font-size: 1em;
 }
 
-.EWestateReference-default-overview-estate-image > div{
-    width: 100%;
-    flex-shrink: 0;
-    flex-grow: 0;
-    background-size: cover;
-    padding-top: 200px;
-    transition: all 0.5s ease;
-    background-position: center center;
-    position: relative;
+.EWestateReference-default-list-card {
+	width: 18rem;
 }
 
-
-.EWestateReference-default-overview-estate:hover .EWestateReference-default-overview-estate-image > div
-{
-	transform: scale(1.2);
+.EWestateReference-default-list-img {
+	height: 15rem;
+	object-fit: cover;
 }
 
-.EWestateReference-default-overview-estate-type {
-	padding: 10px 10px 0 10px;
-	font-weight:600;
-	min-height: 37px;
-    box-sizing: border-box;
-	background:#fff;
-	display:flex;
-
+.EWestateReference-default-list-badge-buy {
+	font-size: 0.75em;
+	/* background: darkolivegreen !important; */
 }
 
-.EWestateReference-default-overview-estate-type span{
-	display: inline;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    width: calc(100% - 60px);
+.EWestateReference-default-list-badge-rent {
+	font-size: 0.75em;
+	/* background: darkcyan !important; */
 }
 
-.EWestateReference-default-overview-estate-type strong {
-    display: flex !important;
-    width: 100% !important;
+.EWestateReference-default-list-badge-category {
+	font-size: 0.75em;
+	/* background: darkgoldenrod !important; */
 }
 
-.EWestateReference-default-overview-estate-type-sold {
-    padding: 0px 9px 0 9px;
-	margin-left:10px;
-	border-radius:2px;
-	font-size:0.7em;
-	font-weight: 400;
+.EWestateReference-default-list-title {
+	font-size: 1.2em;
 }
 
-
-
-.EWestateReference-default-overview-estate-addresses {
-	padding: 0 10px 10px;
-    font-size: 0.8em;
-	min-height: 37px;
-    box-sizing: border-box;
-	background:#fff;
+.EWestateReference-default-list-label {
+	font-size: 0.85em;
 }
 
-.EWestateReference-default-overview-estate-price {
-	padding: 10px;
-	font-weight:600;
-	color:#549df5;
-	border-top:1px solid #f6f6f6;
-	width: 100%;
-	background:#fff;
-	min-height: 40px;
-	box-sizing: border-box;
+.EWestateReference-default-list-value {
+	margin-bottom: 5px;
+	/* color: #000 !important; */
+	font-weight: bold;
+	font-size: 1em;
 }
 
-.EWestateReference-default-overview-estate-price > div{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.EWestateReference-default-overview-estate-price > div > div > span{
-	font-weight: 400;
-    font-size: 0.7em;
-    border-radius: 2px;
-    display: inline-block;
-    padding: 1px 9px;
-	border-style:solid;
-	border-width:1px;
-}
-
-
-.EWestateReference-default-overview-estate-price > div > span{
-	flex-grow: 1;
-    display: block;
-    width: 100%;
-    max-width: 50%;
-    text-align: left;
-
-}
-
-
-.EWestateReference-default-overview-estate-details {
-	display:flex;
-	flex-wrap:wrap;
-	justify-content:space-between;
-	padding:10px 10px  0 10px;
-}
-
-.EWestateReference-default-overview-estate-details > div{
-    box-sizing: border-box;
-	display:flex;
-	max-width:50%;
-	width:100%;
-	padding-bottom:10px;
-}
-
-
-.EWestateReference-default-overview-estate-details div span{
-    text-align:center;
-}
-
-
-
-.EWestateReference-default-overview-estate-details-values{ 
-    display: flex;
-    flex-direction:column;
-	font-weight:600;
-	flex-grow:1;
-	flex-shrink:1;
-}
-
-.EWestateReference-default-overview-estate-details-values span:first-child{ 
-    text-transform:uppercase;
-	font-size:0.7em;
-	font-weight:400;
-	line-height: 1;
-	overflow: hidden;
-    text-overflow: ellipsis;
-	float: inherit;
-    display: block;
-}
-
-.EWestateReference-default-overview-estate-details-values span:last-child{ 
-	white-space: nowrap; 
-    overflow: hidden;
-    text-overflow: ellipsis;
-	float: inherit;
-    display: block;
-}
-
-.EWestateReference-default-overview-estate-details-values span:last-child i{ 
-	font-style: normal;
-    font-size: 0.7em;
-    font-weight: 600;
-	padding-left:5px;
-}
-
-.EWestateReference-default-overview-estate-details-icon {
-	width:30px;
-	flex-shrink:0;
-}
-
-.EWestateReference-default-overview-estate-details-icon:before {
-	font-size:20px;
-}
-
-
-
-
-@media (max-width: 400px) { 
-
-		
-
-
-	.EWestateReference-default-overview-estate {
-		width:100%;
-		flex-direction:column;
-	}
-
-	
-	.EWestateReference-default-overview-estate > div:last-child
-	{
-		max-width:100%;
-	}
-	
-
-	.EWestateReference-default-overview-estate-image > div,
-	.EWestateReference-default-overview-estate > div{
-		width:100% !important;
-	}
-
+.EWestateReference-default-list-noresults {
+	font-size: 1em;
+	/* background: lightcoral !important; */
 }
