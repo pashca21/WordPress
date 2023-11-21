@@ -40,7 +40,6 @@ class EWestateViewCore extends API{
 				$inquiry[sanitize_text_field($key)] = esc_html(sanitize_text_field($value));
 			}
 		}
-		// print_r($inquiry);exit;
 		$inquiry_success = false;
 		if(!empty($inquiry)){
 			if($this->post_inquiry($inquiry)){
@@ -115,14 +114,13 @@ class EWestateViewCore extends API{
 
         $this->loadCss(EW_ESTATEVIEW_THEME);		
 
-		// print("<pre>".print_r($data,true)."</pre>");exit;
 		$html = '';
 		ob_start();
 		$results = $data;
 		include($path . '/' . $page . '.php');
 		$html = ob_get_contents();
 		ob_end_clean();
-		// print("<pre>".print_r($html,true)."</pre>");exit;
+		
 		return $html;
     }
 

@@ -291,92 +291,6 @@
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
 }
 
-/* select*/
-
-.chosen-select {
-	width:100%;
-}
-
-.chosen-single {
-    box-shadow: inherit;
-    border: 2px solid #eee !important;	
-	background: #fff !important;
-	height: 40px !important;
-	border-radius: 2px !important;
-	font-size: 16px;
-    display: block;
-    width: 100%;
-    max-width: 100%;
-    outline: 0 !important;
-    background: none !important;
-    box-sizing: border-box;
-    padding: 0 10px !important;
-    font-size: 1em !important;
-    font-weight: 400 !important;
-	color:auto !important;
-	webkit-box-shadow: none !important;
-    box-shadow: none !important;
-}
-
-
-.chosen-container-single .chosen-search input[type=text] {
-    padding: 5px 20px 5px 10px !important;
-    border: 0 !important;
-    border-bottom: 1px solid #eee !important;
-	border-radius:0 !important;
-}
-
-
-.chosen-results .result-selected{
-	background:#eee !important;
-}
-
-.chosen-results .highlighted {
-	background:#aaa !important;
-}
-.chosen-results {
-	text-align:left;
-}
-
-
-.chosen-container{
-	font-size:inherit !important;
-	width:100% !important;
-	background:#fff;
-	width: calc(100% - 40px) ;
-}
-
-.chosen-container-single .chosen-single div b {
-	background:none !important; 
-}
-
-
-.chosen-single span {
-	height: 36px !important;
-    padding-top: 6px;
-}
-
-.chosen-search {
-	font-size:1em;
-	padding:0;
-	margin-bottom:10px;
-}
-
-
-
-.chosen-drop {
-    position: absolute !important;
-    top: 0 !important;
-    z-index: 1010  !important;
-    border: 2px solid #eee !important;
-    border-radius: 2px !important;
-    font-size: 0.8em !important;
-    background: #fff !important;
-    -webkit-box-shadow:  0!important;
-    box-shadow: 0 !important;
-	webkit-box-shadow: none !important;
-    box-shadow: none !important;
-}
 
 /* Number */
 
@@ -479,55 +393,6 @@ input[type=number]
     font-family: arial;
 }
 
-
-.chosen-container-single .chosen-search input[type=text] {
-    padding: 4px 20px 4px 5px !important;
-    border: 1px solid #ccc !important;
-}
-
-
-.chosen-results .result-selected{
-	background:#eee !important;
-}
-
-.chosen-results .highlighted {
-	background:#aaa !important;
-}
-.chosen-results {
-	text-align:left;
-}
-
-.chosen-container-single .chosen-single div b {
-	background:none !important; 
-}
-
-.chosen-container-single .chosen-single div b:before {
-	font-family: Flaticon;
-	content: '\f115';
-	font-size: 12px;
-	display: block;
-	position: absolute;
-	margin-top: 5px;
-	right: 10px;
-}
-
-
-.chosen-search {
-	font-size:1em;
-}
-
-.chosen-drop {
-    position: absolute !important;
-    top: 0 !important;
-    z-index: 1010  !important;
-    border: 0 !important;
-    border-top: 0 !important;
-    background: #fff !important;
-    -webkit-box-shadow:  0 10px 10px rgba(0,0,0,.15) !important;
-    box-shadow: 0 10px 10px rgba(0,0,0,.15) !important;
-}
-
-
 .EWestateview-default-overview-search select,
 .EWestateview-default-overview-search input {
     border: 0 !important;
@@ -555,7 +420,7 @@ input[type=number]
 	position: relative;
 }
 
-.EWestateview-default-overview-search-primary .chosen-container{
+.EWestateview-default-overview-search-primary {
     margin-left: 40px;
 	margin-top: 5px;
 }
@@ -612,7 +477,7 @@ input[type=number]
 	max-height: 55px;
 }
 
-.EWestateview-default-overview-search-primary .chosen-container{
+.EWestateview-default-overview-search-primary {
 	font-size:inherit !important;
 	width:100% !important;
 	background:#fff;
@@ -670,7 +535,7 @@ input[type=number]
     top: 17px;
 }
 
-.EWestateview-default-overview-search-primary .chosen-single {
+.EWestateview-default-overview-search-primary {
 	border:0 !important;
 }
 
@@ -770,7 +635,7 @@ input[type=number]
     display: flex;
 }
 
-.EWestateview-default-overview-search-sort .chosen-single {
+.EWestateview-default-overview-search-sort {
 	border:0 !important;
 	height: 25px !important;
 	width: 100% !important;
@@ -790,7 +655,7 @@ input[type=number]
 }
 
 
-.EWestateview-default-overview-search-sort .chosen-single span{
+.EWestateview-default-overview-search-sort span{
 	padding: 2px;
 }
 

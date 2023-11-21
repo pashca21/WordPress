@@ -28,7 +28,6 @@ class EWestateReferenceCore extends API {
 	}
 	
     protected function get_search_result($data = NULL, $page = 1, $max_results = EW_ESTATEREFERENCE_MAX_RESULT) {
-		// print("<pre>".print_r($data,true)."</pre>");exit;
 		if (empty($data["search"])){ return false; }
 		if(!empty($data["search"]["page_number"])){
 			$page = $data["search"]["page_number"];
@@ -41,7 +40,6 @@ class EWestateReferenceCore extends API {
 		if($data["search"]["category"] != ''){
 			$query .= "AND json LIKE '%\"category\":\"".$data["search"]["category"]."\"%' ";
 		}
-		// print_r($query);exit;
 		$results_offers = $wpdb->get_results($query);
 		$estates = [];
 		$sort = $data["search"]["sort"];
@@ -87,7 +85,6 @@ class EWestateReferenceCore extends API {
 				return $a->offer->id <=> $b->offer->id;
 			});
 		}
-		// print("<pre>".print_r($estates,true)."</pre>");exit;
 
 		$data["search"]["estates"]		= $estates;
 		$data["search"]["total_count"]	= count((array) $estates);
@@ -96,7 +93,6 @@ class EWestateReferenceCore extends API {
 		$data["search"]["path"]		    = get_bloginfo('wpurl') . '/' . EW_PLUGIN_ROUTE . '/' . EW_ESTATEREFERENCE_ROUTE;
 		$data["color"]["primary"]		= EW_PRIMARY_COLOR;
 		$data["color"]["secondary"]		= EW_SECONDARY_COLOR;
-		// print("<pre>".print_r($data,true)."</pre>");exit;
 		return $data; 
     }
 	

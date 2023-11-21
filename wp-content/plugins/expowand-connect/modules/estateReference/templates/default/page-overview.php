@@ -4,7 +4,6 @@ $upload_dir = wp_upload_dir();
 $pics_url = $upload_dir['baseurl'] . '/estates/';
 
 $list->action = $searchPath;
-// echo $pics_url;
 ?>
 
 <h1 class="mb-3">Immobilien</h1>
@@ -12,7 +11,6 @@ $list->action = $searchPath;
 <?php include_once 'search-form.php'; ?>
 
 <div class="row w-100">
-	<?php // print("<pre>".print_r($estates)."</pre>"); ?>
 	<?php if(empty($estates)){ ?>
 		<div class="col-12">
 			<div class="alert alert-info" role="alert">
@@ -21,7 +19,6 @@ $list->action = $searchPath;
 		</div>
 	<?php } ?>
 	<?php foreach($estates as $estate){ 
-		// print("<pre>".print_r($estate,true)."</pre>");continue;
 		$offer = $estate->offer;
 		$offerdetails = $estate->offerdetails;
 		if(empty($offerdetails->mainPic)){

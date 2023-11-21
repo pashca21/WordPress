@@ -7,11 +7,9 @@ class API {
         // check if need to sync database
 		$lastChangeDateEW = API::get_last_change_date();
 		$lastChangeDateWP = $this->get_general_cache('lastChangeDateWP');
-		// print("<pre>".print_r($lastChangeDateEW,true)."</pre>");exit;
 
 		if($lastChangeDateWP == false || $lastChangeDateWP == '0000-00-00 00:00:00' || $lastChangeDateWP < $lastChangeDateEW){
 			$response = API::get_offers_list_sync($lastChangeDateWP);
-			// print("<pre>".print_r($response,true)."</pre>");exit;
 			if(isset($response->estates)){
 				foreach($response->estates as $key => $estate){
 					$offer = $estate->offer;
@@ -147,7 +145,6 @@ class API {
     }
 
     protected function get_token(){
-        // $token = $this->get_general_cache('EW_TOKEN');
         $token = EW_TOKEN;
         if (empty($token)) {
 			// set demo token
@@ -182,7 +179,6 @@ class API {
             'filename' => null
         );
         $response = wp_remote_get($url, $args);
-        // print_r($response);exit;
         if($response instanceof WP_Error) { return false; }
         if (empty($response) || $response['response']['code'] != 200) { return false; }
         return json_decode($response['body']);
@@ -247,7 +243,6 @@ class API {
         if (empty($entityId)) { return false; }
 		global $wpdb;
 		$result = $wpdb->get_results("SELECT json FROM {$wpdb->prefix}ew_entity_cache WHERE entityId = '".$entityId."' ");
-        // print_r($result);exit;
         if (empty($result)) { return false; }
         $json = ($result[0]->json);
         $json = str_replace("\r\n", '\r\n', $json);

@@ -404,9 +404,9 @@ if($typestr != ''){
 	</p>
 <?php } ?>
 
-<?php //if(!empty($offerdetails->furnishingNote)){ ?>
+<?php if(!empty($offerdetails->furnishingNote)){ ?>
 	<h3 class="mt-5">Ausstattung</h3>
-<?php //} ?>
+<?php } ?>
 <div class="row mt-1 mb-3 g-3">
 
 	<?php if($offerdetails->balcony != 0){ ?>
