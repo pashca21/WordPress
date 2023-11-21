@@ -12,15 +12,15 @@
 			add_menu_page( 'EXPOWAND Connect settings', 'Einstellungen', 'manage_options', 'ew-plugin', 'plugin_page'  );
 		}
 
-		wp_register_style('FF-admin-styles', plugins_url('/ff-admin-styles.css', __FILE__), '', '1.0.0', false);
-    	wp_enqueue_style('FF-admin-styles');
-		wp_register_script('FF-admin-scripts', plugins_url('/ff-admin-scripts.js', __FILE__), '', '1.0.0', true);
-		wp_enqueue_script('FF-admin-scripts');
+		wp_register_style('EW-admin-styles', plugins_url('/ew-admin-styles.css', __FILE__), '', '1.0.0', false);
+    	wp_enqueue_style('EW-admin-styles');
+		wp_register_script('EW-admin-scripts', plugins_url('/ew-admin-scripts.js', __FILE__), '', '1.0.0', true);
+		wp_enqueue_script('EW-admin-scripts');
 
 		// force load Jquery
 		wp_enqueue_script( 'jquery');    
 
-		wp_localize_script('FF-admin-scripts', 'ffdata', array(
+		wp_localize_script('EW-admin-scripts', 'ewdata', array(
                 'ajaxurl' => admin_url('admin-ajax.php')
             )
         );
@@ -53,7 +53,7 @@
 	?>
 	
 		<?php // Load Plugin configuration assistent. ?>
-		<div class="wrap ff-module">
+		<div class="wrap ew-module">
 			<form action="options.php" method="post" enctype="multipart/form-data">
 
 			<?php
@@ -105,10 +105,10 @@
 									if($plugin_setting == $check["check"]["value"])
 									{
 										?>
-											<div class="ff-setting-modules">
-												<div class="ff-setting-blocked-by">
-													<div class="ff-setting-module-title ff-setting-done">
-														<div class="ff-setting-error-point ">!</div>
+											<div class="ew-setting-modules">
+												<div class="ew-setting-blocked-by">
+													<div class="ew-setting-module-title ew-setting-done">
+														<div class="ew-setting-error-point ">!</div>
 														<?= $check["name"] ?>
 													</div>
 													<p>
@@ -139,7 +139,7 @@
 									if(empty(get_option($requiert)))
 									{
 
-										$class_disabled = "ff-setting-disabled";
+										$class_disabled = "ew-setting-disabled";
 										break;
 									}
 								}
@@ -150,9 +150,9 @@
 							}
 						?>
 
-						<div class="ff-setting-modules <?= $class_disabled ?>">
+						<div class="ew-setting-modules <?= $class_disabled ?>">
 							<?php if($catKey !== $catLast): ?>
-								<div class="ff-setting-category">
+								<div class="ew-setting-category">
 									<?= $cat["title"] ?>
 								</div>
 								<?php $catLast = $catKey ?>
@@ -169,7 +169,7 @@
 										if (!empty(get_option($requiert)) || !empty($result))
 										{
 											$status = "<span style=\"color:#b7ce5b\">Vollständig eingerichtet</span>";
-											$class = "ff-setting-done";
+											$class = "ew-setting-done";
 											$id = "";
 										}
 										else
@@ -181,37 +181,37 @@
 										}
 									}
 								?>
-								<div  id="<?= $id ?>" class="ff-setting-module">
-									<div  class="ff-setting-module-box <?= (empty($class_disabled))?"ff-settings-opener":""?> ">
-										<div class="ff-setting-module-title <?= $class ?>">
-											<div class="ff-setting-module-point ">
+								<div  id="<?= $id ?>" class="ew-setting-module">
+									<div  class="ew-setting-module-box <?= (empty($class_disabled))?"ew-settings-opener":""?> ">
+										<div class="ew-setting-module-title <?= $class ?>">
+											<div class="ew-setting-module-point ">
 												<?= $module["point"] ?>
 											</div>
 											<?= $module["title"] ?>
 										</div>
-										<div class="ff-setting-module-status">
+										<div class="ew-setting-module-status">
 											<?= $status ?>
 										</div>
 									</div>
-									<div class="ff-setting-module-box-content ff-setting-close">
+									<div class="ew-setting-module-box-content ew-setting-close">
 										<div>
-											<div class="ff-setting-module-content">
+											<div class="ew-setting-module-content">
 													<div>
 														<?= $module["description"] ?>
 													</div>
 
 													<?php if(!empty($module["fields"])): ?>
 														<div>
-															<div class="ff-settings-form">
+															<div class="ew-settings-form">
 																<?php foreach($module["fields"] as $fieldkey => $field): ?>
-																	<div class="ff-settings-field">
+																	<div class="ew-settings-field">
 																		<div>
 																			<b><?= $field["title"] ?></b>
 																			<?php if(!empty($field["requiert"])):?>
-																				<span class="ff-setting-requiert"> Pflichtfeld </span>
+																				<span class="ew-setting-requiert"> Pflichtfeld </span>
 																			<?php endif; ?>
 																		</div>
-																		<div class="ff-setting-field-type-<?= $field["type"] ?>">
+																		<div class="ew-setting-field-type-<?= $field["type"] ?>">
 																			<?php if(!empty($field["default"])): ?>
 																				<?= getFieldType($field["type"], $fieldkey, $field["default"]) ?>
 																			<?php elseif(!empty($field["options"])): ?>
@@ -230,14 +230,14 @@
 															</div>
 														</div>
 														<?php if(!empty($module["save_label"])): ?>
-															<input type="submit" class="ff-setting-submit" value="<?= $module["save_label"] ?>" />
+															<input type="submit" class="ew-setting-submit" value="<?= $module["save_label"] ?>" />
 														<?php else: ?>
-															<input type="submit" class="ff-setting-submit" value="Speichern" />
+															<input type="submit" class="ew-setting-submit" value="Speichern" />
 														<?php endif ?>
 													<?php endif ?>
 
 											</div>
-											<div class="ff-setting-module-faq">
+											<div class="ew-setting-module-faq">
 												<?php if (!empty($module["faq"]["title"])): ?>
 													<h3><?= $module["faq"]["title"] ?></h3>
 												<?php endif; ?>
@@ -266,8 +266,8 @@
 										?>
 
 
-										<div class="ff-Integration <?= $class ?>">
-											<div class="ff-possibleIntegration">
+										<div class="ew-Integration <?= $class ?>">
+											<div class="ew-possibleIntegration">
 
 												<?php if (!empty($module["integration"]["possibleIntegrations"]["url"]) && !empty($ewmodule_url)): ?>
 													<div>
@@ -343,10 +343,6 @@ function getFieldType($type = NULL, $field = NULL, $default = NULL, $options = n
 		  case ("checkbox"):
 				return field_checkbox($field);
 		  break;
-		  
-		  case ("color"):
-				return field_color($field, $default);
-		  break; 
 			  
 		  case ("possible_options"):
 				return possible_options($field, $options);
@@ -446,28 +442,6 @@ function field_password($field = NULL)
 	if(!empty($field))
 	{
 		return '<input autocomplete="new-password"  name="'.$field.'" type="password"  value="'.get_option($field).'" />';
-	}
-}
-
-// get formated text field
-function field_color($field = NULL, $default = Null)
-{
-	if(!empty($field))
-	{
-		if(!empty(get_option($field)))
-		{
-			$view = '<input class="ff-colorpicker" style="padding: 0px; height: 34px;" name="'.$field.'" type="text"  value="'.get_option($field).'" />';
-		}
-		else
-		{
-			$view = '<input class="ff-colorpicker" style="padding: 0px; height: 34px;" name="'.$field.'" type="text"  value="" />';
-		}
-
-		$view .= '<script type="text/javascript">';
-			$view .= 'jQuery(".ff-colorpicker").colorPicker(/* optinal options */);';
-		$view .= '</script>';
-
-		return $view;
 	}
 }
 

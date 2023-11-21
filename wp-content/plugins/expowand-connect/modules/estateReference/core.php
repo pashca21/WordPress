@@ -1,6 +1,6 @@
 <?php
 
-include_once __DIR__."/../../core/dict.php";
+include_once __DIR__."/../../core/constants/dict.php";
 
 class EWestateReferenceCore extends API {
 
@@ -135,20 +135,21 @@ class EWestateReferenceCore extends API {
     }
 		
     protected function loadCss($theme = 'default') {
+		// Boostrap
 		// JS
-		wp_register_script('BS', 'https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js');
+		wp_register_script('BS', plugins_url('/assets/js/bootstrap.bundle.min.js', __FILE__),'','1.0.0', false);
 		wp_enqueue_script('BS');
-
+		
 		// CSS
-		wp_register_style('BS', 'https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css');
+		wp_register_style('BS', plugins_url('/assets/css/bootstrap.min.css', __FILE__),'','1.0.0', false);
 		wp_enqueue_style('BS');
+
+		// force load Jquery
+		wp_enqueue_script( 'jquery');
 
 		// load default css	
 		wp_register_style('EW-EstateReference-Styles-' . $theme, plugins_url('/assets/css/' . $theme . '/ew-estatereference-styles.css', __FILE__),'','1.0.0', false);
 		wp_enqueue_style('EW-EstateReference-Styles-' . $theme);
-
-		// force load Jquery
-		wp_enqueue_script( 'jquery');    
 			
 		// load default js
 		wp_register_script('EW-EstateReference-Script-' . $theme, plugins_url('/assets/js/' . $theme . '/ew-estatereference-script.js', __FILE__),'','1.0.0', true);

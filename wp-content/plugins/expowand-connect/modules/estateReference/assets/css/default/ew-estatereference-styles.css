@@ -38,11 +38,11 @@
 	justify-content:space-between;	
 	width:100%;
 }
-.EWestateReference-default-overview-estate-paging .ff-before{
+.EWestateReference-default-overview-estate-paging .ew-before{
 	text-align:left;
 	
 }
-.EWestateReference-default-overview-estate-paging .ff-next{
+.EWestateReference-default-overview-estate-paging .ew-next{
 	text-align:right;
 	
 }
@@ -67,7 +67,7 @@
 }
 
 /* Estate map*/
-#ffmap-details {
+#ewmap-details {
 	height:500px;
 	width:100%;
 	position:relative;
@@ -75,7 +75,7 @@
 }
 
 
-.ffmap-opener:after {
+.ewmap-opener:after {
 	display:block;
 	position:absolute;
 	height:100%;
@@ -89,7 +89,7 @@
 }
 
 
-.ffmap-full {
+.ewmap-full {
     height: 100vh;
     position: relative;
     display: block;
@@ -153,10 +153,7 @@ div[data-column="6"] .EWestateReference-default-overview-estate {max-width: 14.6
 }
 
 
-
-
-
-teReference-default-overview-estate:hover .EWestateReference-default-overview-estate-image > div
+.EWestateReference-default-overview-estate:hover .EWestateReference-default-overview-estate-image > div
 {
 	transform: scale(1.2);
 }

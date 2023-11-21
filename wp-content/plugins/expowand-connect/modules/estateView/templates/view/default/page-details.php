@@ -42,7 +42,22 @@ $pics_url = $upload_dir['baseurl'] . '/estates/';
 $agents_img_url = $upload_dir['baseurl'] . '/agents/';
 ?>
 
-<?php if(count((array) $offerdetails->pictures) > 0){ ?>
+<?php 
+if(empty($offerdetails->mainPic)){
+	$mainImgUrl = '';
+}else{
+	$mainImgUrl = $pics_url.$offer->id.'/'.$offerdetails->mainPic;
+}
+?>
+
+<?php if(!empty($mainImgUrl)){ ?>
+	<div class="text-center">
+		<img src="<?=$mainImgUrl; ?>" class="img-fluid" alt="<?=$offer->name; ?>">
+	</div>
+<?php } ?>
+
+<?php // OLD Gallery
+/* if(count((array) $offerdetails->pictures) > 0){ ?>
 	<div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
 		<div class="carousel-indicators">
 			<button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -75,17 +90,10 @@ $agents_img_url = $upload_dir['baseurl'] . '/agents/';
 			<span class="visually-hidden">Nächste</span>
 		</button>
 	</div>
-<?php } ?>
+<?php } */ ?>
 
-<h3 class="mt-2">Eckdaten</h3>
+<h3 class="mt-5">Eckdaten</h3>
 <table class="table mt-1 w-100" style="width: 100%!important;">
-    <thead>
-        <tr>
-            <th class="w-50" style="width: 50%;"></th>
-            <th class="w-50" style="width: 50%"></th>
-        </tr>
-    </thead>
-
     <tbody>
 
 <?php
@@ -126,103 +134,103 @@ if($offer->category=='APARTMENT'){
 if($typestr != ''){
 ?>
 	<tr>
-		<th scope="row" style="text-align: left;">Immobilientyp</th>
-		<td><?=$typestr; ?></td>
+		<th scope="row" style="text-align: left; width: 50%;">Immobilientyp</th>
+		<td style="width: 50%;"><?=$typestr; ?></td>
 	</tr>
 <?php } ?>
 
 <?php if($offerdetails->shortTermConstructible == 'YES'){ ?>
 	<tr>
-		<th scope="row" style="text-align: left;">Kurzfristig bebaubar</th>
-		<td>Erlaubt</td>
+		<th scope="row" style="text-align: left; width: 50%;">Kurzfristig bebaubar</th>
+		<td style="width: 50%;">Erlaubt</td>
 	</tr>
 <?php } ?>
 
 <?php if($offerdetails->buildingPermission == 'YES'){ ?>
 	<tr>
-		<th scope="row" style="text-align: left;">Baugenehmigung</th>
-		<td>Verfügbar</td>
+		<th scope="row" style="text-align: left; width: 50%;">Baugenehmigung</th>
+		<td style="width: 50%;">Verfügbar</td>
 	</tr>
 <?php } ?>
 
 <?php if($offerdetails->demolition == 'YES'){ ?>
 	<tr>
-		<th scope="row" style="text-align: left;">Abriss</th>
-		<td>Erlaubt</td>
+		<th scope="row" style="text-align: left; width: 50%;">Abriss</th>
+		<td style="width: 50%;">Erlaubt</td>
 	</tr>
 <?php } ?>
 
 <?php if(!empty($offerdetails->constructionYear)){ ?>
 	<tr>
-		<th scope="row" style="text-align: left;">Baujahr</th>
-		<td><?=$offerdetails->constructionYear; ?></td>
+		<th scope="row" style="text-align: left; width: 50%;">Baujahr</th>
+		<td style="width: 50%;"><?=$offerdetails->constructionYear; ?></td>
 	</tr>
 <?php } ?>
 
 <?php if($offerdetails->additionalCosts>0){ ?>
 	<tr>
-		<th scope="row" style="text-align: left;">Nebenkosten</th>
-		<td><?=number_format($offerdetails->additionalCosts,0,",","."); ?> &euro;</td>
+		<th scope="row" style="text-align: left; width: 50%;">Nebenkosten</th>
+		<td style="width: 50%;"><?=number_format($offerdetails->additionalCosts,0,",","."); ?> &euro;</td>
 	</tr>
 <?php } ?>
 
 <?php if($offerdetails->deposit!=''){ ?>
 	<tr>
-		<th scope="row" style="text-align: left;">Kaution</th>
-		<td><?=$offerdetails->deposit; ?></td>
+		<th scope="row" style="text-align: left; width: 50%;">Kaution</th>
+		<td style="width: 50%;"><?=$offerdetails->deposit; ?></td>
 	</tr>
 <?php } ?>
 
 <?php if(($offer->type == 1)&&($offerdetails->baseRent!=0)){ ?>
 	<tr>
-		<th scope="row" style="text-align: left;">Kaltmiete</th>
-		<td><?=number_format($offerdetails->baseRent,0,",","."); ?> &euro;</td>
+		<th scope="row" style="text-align: left; width: 50%;">Kaltmiete</th>
+		<td style="width: 50%;"><?=number_format($offerdetails->baseRent,0,",","."); ?> &euro;</td>
 	</tr>
 <?php } ?>
 <?php if(($offer->type == 1)&&($offerdetails->serviceCharge!=0)){ ?>
 	<tr>
-		<th scope="row" style="text-align: left;">Nebenkosten</th>
-		<td><?=number_format($offerdetails->serviceCharge ,0,",","."); ?> &euro;</td>
+		<th scope="row" style="text-align: left; width: 50%;">Nebenkosten</th>
+		<td style="width: 50%;"><?=number_format($offerdetails->serviceCharge ,0,",","."); ?> &euro;</td>
 	</tr>
 <?php } ?>
 <?php if(($offer->type == 1)&&($offerdetails->heatingCosts!=0)){ ?>
 	<tr>
-		<th scope="row" style="text-align: left;">Heizkosten</th>
-		<td><?=number_format($offerdetails->heatingCosts,0,",","."); ?> &euro;</td>
+		<th scope="row" style="text-align: left; width: 50%;">Heizkosten</th>
+		<td style="width: 50%;"><?=number_format($offerdetails->heatingCosts,0,",","."); ?> &euro;</td>
 	</tr>
 <?php } ?>
 <?php if(($offer->type == 1)&&($offerdetails->totalRent!=0)){ ?>
 	<tr>
-		<th scope="row" style="text-align: left;">Gesamtmiete</th>
-		<td><?=number_format($offerdetails->totalRent,0,",","."); ?> &euro;</td>
+		<th scope="row" style="text-align: left; width: 50%;">Gesamtmiete</th>
+		<td style="width: 50%;"><?=number_format($offerdetails->totalRent,0,",","."); ?> &euro;</td>
 	</tr>
 <?php } ?>
 
 <?php if($offerdetails->freeFrom != ''){ ?>
 	<tr>
-		<th scope="row" style="text-align: left;">Verfügbar ab</th>
-		<td><?=$offerdetails->freeFrom; ?></td>
+		<th scope="row" style="text-align: left; width: 50%;">Verfügbar ab</th>
+		<td style="width: 50%;"><?=$offerdetails->freeFrom; ?></td>
 	</tr>
 <?php } ?>
 
 <?php if($offerdetails->condition != 'NO_INFORMATION'){ ?>
 	<tr>
-		<th scope="row" style="text-align: left;">Objektzustand</th>
-		<td><?=ExpowandDictionary::$condition_options[$offerdetails->condition]; ?></td>
+		<th scope="row" style="text-align: left; width: 50%;">Objektzustand</th>
+		<td style="width: 50%;"><?=ExpowandDictionary::$condition_options[$offerdetails->condition]; ?></td>
 	</tr>
 <?php } ?>
 
 <?php if($offerdetails->interiorQuality != 'NO_INFORMATION'){ ?>
 	<tr>
-		<th scope="row" style="text-align: left;">Qualität der Ausstattung</th>
-		<td><?=ExpowandDictionary::$interiorQuality_options[$offerdetails->interiorQuality]; ?></td>
+		<th scope="row" style="text-align: left; width: 50%;">Qualität der Ausstattung</th>
+		<td style="width: 50%;"><?=ExpowandDictionary::$interiorQuality_options[$offerdetails->interiorQuality]; ?></td>
 	</tr>
 <?php } ?>
 
 <?php if($offerdetails->numberOfParkingSpaces > 0){ ?>
 	<tr>
-		<th scope="row" style="text-align: left;">Anzahl Stellplätze</th>
-		<td><?=$offerdetails->numberOfParkingSpaces; ?></td>
+		<th scope="row" style="text-align: left; width: 50%;">Anzahl Stellplätze</th>
+		<td style="width: 50%;"><?=$offerdetails->numberOfParkingSpaces; ?></td>
 	</tr>
 <?php } ?>
 
@@ -230,91 +238,84 @@ if($typestr != ''){
 </table>
 
 <?php if(!empty($offerdetails->descriptionNote)){ ?>
-	<h3 class="">Beschreibung</h3>
+	<h3 class="mt-5">Beschreibung</h3>
 	<p class="text-justify" style="text-align: justify!important;"><?=str_ireplace(PHP_EOL, '<br />', $offerdetails->descriptionNote); ?></p>
 <?php } ?>
 
-<h3 class="">Fläche</h3>
+<h3 class="mt-5">Fläche</h3>
 <table class="table mt-1 w-100" style="width: 100%!important;">
-    <thead>
-        <tr>
-            <th class="w-50" style="width: 50%;"></th>
-            <th class="w-50" style="width: 50%"></th>
-        </tr>
-    </thead>
-
     <tbody>
 			
 	<?php if($offerdetails->livingSpace > 0){ ?>
 		<tr>
 			<?php if($offer->category == 'OFFICE'){ // TODO: check if correct ?>
-				<th scope="row" style="text-align: left;">Bürofläche</th>
+				<th scope="row" style="text-align: left; width: 50%;">Bürofläche</th>
 			<?php }else{ ?>
-				<th scope="row" style="text-align: left;">Wohnfläche</th>
+				<th scope="row" style="text-align: left; width: 50%;">Wohnfläche</th>
 			<?php } ?>
-			<td>ca. <?=intval($offerdetails->livingSpace); ?> m²</td>
+			<td style="width: 50%;">ca. <?=intval($offerdetails->livingSpace); ?> m²</td>
 		</tr>
 	<?php } ?>
 
 	<?php if($offerdetails->totalFloorSpace > 0){ ?>
 		<tr>
-			<th scope="row" style="text-align: left;">Gesamtfläche</th>
-			<td>ca. <?=intval($offerdetails->totalFloorSpace); ?> m²</td>
+			<th scope="row" style="text-align: left; width: 50%;">Gesamtfläche</th>
+			<td style="width: 50%;">ca. <?=intval($offerdetails->totalFloorSpace); ?> m²</td>
 		</tr>
 	<?php } ?>
 
 	<?php if(($offer->category == 'OFFICE' || $offer->category == 'INDUSTRY' || $offer->category == 'STORE') && $offerdetails->netFloorSpace > 0){ ?>
 		<tr>
 			<?php if($offer->category == 'OFFICE'){ ?>
-				<th scope="row" style="text-align: left;">Büro-/ Praxisfläche</th>
+				<th scope="row" style="text-align: left; width: 50%;">Büro-/ Praxisfläche</th>
 			<?php }else if($offer->category == 'INDUSTRY'){ ?>
-				<th scope="row" style="text-align: left;">Lager-/ Produktionsfläche</th>
+				<th scope="row" style="text-align: left; width: 50%;">Lager-/ Produktionsfläche</th>
 			<?php }else if($offer->category == 'STORE'){ ?>
-				<th scope="row" style="text-align: left;">Verkaufsfläche</th>
+				<th scope="row" style="text-align: left; width: 50%;">Verkaufsfläche</th>
 			<?php } ?>
-			<td>ca. <?=intval($offerdetails->netFloorSpace); ?> m²</td>
+			<td style="width: 50%;">ca. <?=intval($offerdetails->netFloorSpace); ?> m²</td>
 		</tr>
 	<?php } ?>
 
 	<?php if(($offer->category=='HOUSE' || $offer->category=='LIVING_SITE') && $offerdetails->plotArea > 0){ ?>
 		<tr>
-			<th scope="row" style="text-align: left;">Grundstücksfläche</th>
-			<td>ca. <?=intval($offerdetails->plotArea); ?> m²</td>
+			<th scope="row" style="text-align: left; width: 50%;">Grundstücksfläche</th>
+			<td style="width: 50%;">ca. <?=intval($offerdetails->plotArea); ?> m²</td>
 		</tr>
 	<?php } ?>
 
 	<?php if($offerdetails->additionalArea > 0){ ?>
 		<tr>
-			<th scope="row" style="text-align: left;">Nebenfläche</th>
-			<td>ca. <?=intval($offerdetails->additionalArea); ?> m²</td>
+			<th scope="row" style="text-align: left; width: 50%;">Nebenfläche</th>
+			<td style="width: 50%;">ca. <?=intval($offerdetails->additionalArea); ?> m²</td>
 		</tr>
 	<?php } ?>
 
 	<?php if($offer->category=='LIVING_SITE' && $offerdetails->minDivisible > 0){ ?>
 		<tr>
-			<th scope="row" style="text-align: left;">Fläche teilbar ab</th>
-			<td>ca. <?=intval($offerdetails->minDivisible); ?> m²</td>
+			<th scope="row" style="text-align: left; width: 50%;">Fläche teilbar ab</th>
+			<td style="width: 50%;">ca. <?=intval($offerdetails->minDivisible); ?> m²</td>
 		</tr>
 	<?php } ?>
 
 	<?php if($offerdetails->shopWindowLength > 0){ ?>
 		<tr>
-			<th scope="row" style="text-align: left;">Schaufensterfront</th>
-			<td><?=removeLastTwoZero($offerdetails->shopWindowLength); ?> m</td>
+			<th scope="row" style="text-align: left; width: 50%;">Schaufensterfront</th>
+			<td style="width: 50%;"><?=removeLastTwoZero($offerdetails->shopWindowLength); ?> m</td>
 		</tr>
 	<?php } ?>
 
 	<?php if($offerdetails->hallHeight > 0){ ?>
 		<tr>
-			<th scope="row" style="text-align: left;">Hallen-/ Geschosshöhe</th>
-			<td><?=removeLastTwoZero($offerdetails->hallHeight); ?> m</td>
+			<th scope="row" style="text-align: left; width: 50%;">Hallen-/ Geschosshöhe</th>
+			<td style="width: 50%;"><?=removeLastTwoZero($offerdetails->hallHeight); ?> m</td>
 		</tr>
 	<?php } ?>
 
 	<?php if($offerdetails->numberOfRooms > 0){ ?>
 		<tr>
-			<th scope="row" style="text-align: left;">Zimmer</th>
-			<td><?=removeLastTwoZero($offerdetails->numberOfRooms); ?></td>
+			<th scope="row" style="text-align: left; width: 50%;">Zimmer</th>
+			<td style="width: 50%;"><?=removeLastTwoZero($offerdetails->numberOfRooms); ?></td>
 		</tr>
 	<?php } ?>
 
@@ -322,15 +323,15 @@ if($typestr != ''){
 
 		<?php if($offerdetails->numberOfBedRooms > 0){ ?>
 			<tr>
-				<th scope="row" style="text-align: left;">Anzahl Schlafzimmer</th>
-				<td><?=removeLastTwoZero($offerdetails->numberOfBedRooms); ?></td>
+				<th scope="row" style="text-align: left; width: 50%;">Anzahl Schlafzimmer</th>
+				<td style="width: 50%;"><?=removeLastTwoZero($offerdetails->numberOfBedRooms); ?></td>
 			</tr>
 		<?php } ?>
 
 		<?php if($offerdetails->numberOfBathRooms > 0){ ?>
 			<tr>
-				<th scope="row" style="text-align: left;">Anzahl Badezimmer</th>
-				<td><?=removeLastTwoZero($offerdetails->numberOfBathRooms); ?></td>
+				<th scope="row" style="text-align: left; width: 50%;">Anzahl Badezimmer</th>
+				<td style="width: 50%;"><?=removeLastTwoZero($offerdetails->numberOfBathRooms); ?></td>
 			</tr>
 		<?php } ?>
 
@@ -338,8 +339,8 @@ if($typestr != ''){
 
 	<?php if(($offerdetails->numberOfFloors > 1)&&($offer->category=='APARTMENT')&&($offerdetails->floor!='')){ ?>
 		<tr>
-			<th scope="row" style="text-align: left;">Etage</th>
-			<td>
+			<th scope="row" style="text-align: left; width: 50%;">Etage</th>
+			<td style="width: 50%;">
 				<?php if($offerdetails->floor == 0){ ?>
 					EG
 				<?php }else{ ?>
@@ -351,8 +352,8 @@ if($typestr != ''){
 
 	<?php if($offerdetails->numberOfFloors > 0){ ?>
 		<tr>
-			<th scope="row" style="text-align: left;">Etagenzahl insgesamt</th>
-			<td><?=removeLastTwoZero($offerdetails->numberOfFloors); ?></td>
+			<th scope="row" style="text-align: left; width: 50%;">Etagenzahl insgesamt</th>
+			<td style="width: 50%;"><?=removeLastTwoZero($offerdetails->numberOfFloors); ?></td>
 		</tr>
 	<?php } ?>	
 
@@ -360,35 +361,28 @@ if($typestr != ''){
 </table>
 
 <?php if(!empty($offer->type == 0)){ ?> 
-	<h3 class="">Preis</h3>
+	<h3 class="mt-5">Preis</h3>
 	<table class="table mt-1 w-100" style="width: 100%!important;">
-		<thead>
-			<tr>
-				<th class="w-50" style="width: 50%;"></th>
-				<th class="w-50" style="width: 50%"></th>
-			</tr>
-		</thead>
-
 		<tbody>
 			<tr>
-				<th scope="row" style="text-align: left;">Kaufpreis</th>
-				<td><?=number_format($offer->immoprice,0,",","."); ?> €</td>
+				<th scope="row" style="text-align: left; width: 50%;">Kaufpreis</th>
+				<td style="width: 50%;"><?=number_format($offer->immoprice,0,",","."); ?> €</td>
 			</tr>
 			<tr>
-				<th scope="row" style="text-align: left;">Grunderwerbsteuer</th>
-				<td><?=number_format($offer->grunderwerbsteuer,1,",","."); ?> %</td>
+				<th scope="row" style="text-align: left; width: 50%;">Grunderwerbsteuer</th>
+				<td style="width: 50%;"><?=number_format($offer->grunderwerbsteuer,1,",","."); ?> %</td>
 			</tr>
 			<tr>
-				<th scope="row" style="text-align: left;">Maklerprovision</th>
-				<td><?=number_format($offer->maklerprovision,2,",","."); ?> %</td>
+				<th scope="row" style="text-align: left; width: 50%;">Maklerprovision</th>
+				<td style="width: 50%;"><?=number_format($offer->maklerprovision,2,",","."); ?> %</td>
 			</tr>
 			<tr>
-				<th scope="row" style="text-align: left;">Notarkosten/ Grundbucheintrag</th>
-				<td><?=number_format($offer->notargebuhren,1,",","."); ?> %</td>
+				<th scope="row" style="text-align: left; width: 50%;">Notarkosten/ Grundbucheintrag</th>
+				<td style="width: 50%;"><?=number_format($offer->notargebuhren,1,",","."); ?> %</td>
 			</tr>	
 			<tr>
-				<th scope="row" style="text-align: left;">Käuferprovision</th>
-				<td><?=str_replace('.',',',$offer->maklerprovision+0) ?> % (inkl. MwSt.) vom Kaufpreis</td>
+				<th scope="row" style="text-align: left; width: 50%;">Käuferprovision</th>
+				<td style="width: 50%;"><?=str_replace('.',',',$offer->maklerprovision+0) ?> % (inkl. MwSt.) vom Kaufpreis</td>
 			</tr>
 		</tbody>
 	</table>
@@ -411,7 +405,7 @@ if($typestr != ''){
 <?php } ?>
 
 <?php //if(!empty($offerdetails->furnishingNote)){ ?>
-	<h3 class="">Ausstattung</h3>
+	<h3 class="mt-5">Ausstattung</h3>
 <?php //} ?>
 <div class="row mt-1 mb-3 g-3">
 
@@ -552,86 +546,79 @@ if($typestr != ''){
 </div>
 <p class="text-justify" style="text-align: justify!important;"><?=str_ireplace(PHP_EOL, '<br />', $offerdetails->furnishingNote); ?></p>
 
-<h3 class="">Energie</h3>
+<h3 class="mt-5">Energie</h3>
 <table class="table mt-1 w-100" style="width: 100%!important;">
-    <thead>
-        <tr>
-            <th style="width: 40%;"></th>
-            <th style="width: 60%;"></th>
-        </tr>
-    </thead>
-
     <tbody>
 
 		<tr>
-			<th scope="row" style="text-align: left;">Energieausweis</th>
-			<td><?=ExpowandDictionary::$energyCertificateAvailability_options[$offerdetails->energyCertificateAvailability]; ?></td>
+			<th scope="row" style="text-align: left; width: 50%;">Energieausweis</th>
+			<td style="width: 50%;"><?=ExpowandDictionary::$energyCertificateAvailability_options[$offerdetails->energyCertificateAvailability]; ?></td>
 		</tr>
 
 		<?php if($offerdetails->energyCertificateCreationDate != 'NO_INFORMATION'){ ?>
 			<tr>
-				<th scope="row" style="text-align: left;">Erstellungsdatum</th>
-				<td><?=ExpowandDictionary::$energyCertificateCreationDate_options[$offerdetails->energyCertificateCreationDate]; ?></td>
+				<th scope="row" style="text-align: left; width: 50%;">Erstellungsdatum</th>
+				<td style="width: 50%;"><?=ExpowandDictionary::$energyCertificateCreationDate_options[$offerdetails->energyCertificateCreationDate]; ?></td>
 			</tr>
 		<?php } ?>
 
 		<?php if($offerdetails->energyCertificateValidTill != '' && $offerdetails->energyCertificateValidTill != '0000-00-00'  && $offerdetails->energyCertificateValidTill != '1970-01-01'){ ?>
 			<tr>
-				<th scope="row" style="text-align: left;">Gültig bis</th>
-				<td><?=date('d.m.Y', strtotime($offerdetails->energyCertificateValidTill)); ?></td>
+				<th scope="row" style="text-align: left; width: 50%;">Gültig bis</th>
+				<td style="width: 50%;"><?=date('d.m.Y', strtotime($offerdetails->energyCertificateValidTill)); ?></td>
 			</tr>
 		<?php } ?>
 
 		<?php if($offerdetails->energyCertificateAvailability == 'AVAILABLE' && $offerdetails->buildingEnergyRatingType != 'NO_INFORMATION'){ ?>
 			<tr>
-				<th scope="row" style="text-align: left;">Energieausweistyp</th>
-				<td><?=ExpowandDictionary::$buildingEnergyRatingType_options[$offerdetails->buildingEnergyRatingType]; ?></td>
+				<th scope="row" style="text-align: left; width: 50%;">Energieausweistyp</th>
+				<td style="width: 50%;"><?=ExpowandDictionary::$buildingEnergyRatingType_options[$offerdetails->buildingEnergyRatingType]; ?></td>
 			</tr>
 		<?php } ?>
 
 		<?php if($offerdetails->energyCertificateAvailability == 'AVAILABLE' && !empty($offerdetails->thermalCharacteristic)){ ?>
 			<tr>
 				<?php if($offerdetails->buildingEnergyRatingType == 'ENERGY_REQUIRED'){ ?>
-					<th scope="row" style="text-align: left;">Endenergiebedarf</th>
+					<th scope="row" style="text-align: left; width: 50%;">Endenergiebedarf</th>
 				<?php }else if($offerdetails->buildingEnergyRatingType == 'ENERGY_CONSUMPTION'){ ?>
-					<th scope="row" style="text-align: left;">Endenergieverbrauch</th>
+					<th scope="row" style="text-align: left; width: 50%;">Endenergieverbrauch</th>
 				<?php } ?>
-				<td><?=number_format($offerdetails->thermalCharacteristic, 2, ',', '.'); ?> kWh/(m²*a)</td>
+				<td style="width: 50%;"><?=number_format($offerdetails->thermalCharacteristic, 2, ',', '.'); ?> kWh/(m²*a)</td>
 			</tr>
 		<?php } ?>
 
 		<?php if($offerdetails->energyCertificateCreationDate == 'FROM_01_MAY_2014' && $offerdetails->energyEfficiencyClass != 'NOT_APPLICABLE'){ ?>
 			<tr>
-				<th scope="row" style="text-align: left;">Energieeffizienzklasse</th>
-				<td><?=ExpowandDictionary::$energyEfficiencyClass_options[$offerdetails->energyEfficiencyClass]; ?></td>
+				<th scope="row" style="text-align: left; width: 50%;">Energieeffizienzklasse</th>
+				<td style="width: 50%;"><?=ExpowandDictionary::$energyEfficiencyClass_options[$offerdetails->energyEfficiencyClass]; ?></td>
 			</tr>
 		<?php } ?>
 
 		<?php if($offerdetails->buildingEnergyRatingType == 'ENERGY_CONSUMPTION' && $offerdetails->energyCertificateCreationDate == 'BEFORE_01_MAY_2014' && $offerdetails->energyConsumptionContainsWarmWater != 'NOT_APPLICABLE'){ ?>
 			<tr>
-				<th scope="row" style="text-align: left;">Energieverbrauch für Warmwasser enthalten</th>
-				<td><?=ExpowandDictionary::YN_ARR[$offerdetails->energyConsumptionContainsWarmWater]; ?></td>
+				<th scope="row" style="text-align: left; width: 50%;">Energieverbrauch für Warmwasser enthalten</th>
+				<td style="width: 50%;"><?=ExpowandDictionary::YN_ARR[$offerdetails->energyConsumptionContainsWarmWater]; ?></td>
 			</tr>
 		<?php } ?>
 
 		<?php if($offerdetails->firingTypes != 'NO_INFORMATION'){ ?>
 			<tr>
-				<th scope="row" style="text-align: left;">Wesentlicher Energieträger</th>
-				<td><?=ExpowandDictionary::$firingTypes_options[$offerdetails->firingTypes]; ?></td>
+				<th scope="row" style="text-align: left; width: 50%;">Wesentlicher Energieträger</th>
+				<td style="width: 50%;"><?=ExpowandDictionary::$firingTypes_options[$offerdetails->firingTypes]; ?></td>
 			</tr>
 		<?php } ?>
 
 		<?php if(!empty($offerdetails->legalConstructionYear)){ ?>
 			<tr>
-				<th scope="row" style="text-align: left;">Baujahr laut Energieausweis</th>
-				<td><?=$offerdetails->legalConstructionYear; ?></td>
+				<th scope="row" style="text-align: left; width: 50%;">Baujahr laut Energieausweis</th>
+				<td style="width: 50%;"><?=$offerdetails->legalConstructionYear; ?></td>
 			</tr>
 		<?php } ?>
 
 		<?php if($offerdetails->heatingType != 'NO_INFORMATION'){ ?>
 			<tr>
-				<th scope="row" style="text-align: left;">Heizungsart</th>
-				<td><?=ExpowandDictionary::$heatingType_options[$offerdetails->heatingType]; ?></td>
+				<th scope="row" style="text-align: left; width: 50%;">Heizungsart</th>
+				<td style="width: 50%;"><?=ExpowandDictionary::$heatingType_options[$offerdetails->heatingType]; ?></td>
 			</tr>
 		<?php } ?>
 
@@ -639,12 +626,25 @@ if($typestr != ''){
 </table>
 
 <?php if(!empty($offerdetails->otherNote)){ ?>
-	<h3 class="">Sonstiges</h3>
+	<h3 class="mt-5">Sonstiges</h3>
 	<p class="text-justify" style="text-align: justify!important;"><?=str_ireplace(PHP_EOL, '<br />', $offerdetails->otherNote); ?></p>
 <?php } ?>
 
+<?php if(count((array) $offerdetails->pictures) > 1){ ?>
+	<h3 class="mt-5">Bilder</h3>
+	<div class="row g-3">
+		<?php foreach($offerdetails->pictures as $pic){ 
+			$pic_url = $pics_url.$offer->id.'/'.$pic->filename; ?>
+			<a href="<?=$pic_url; ?>" data-toggle="lightbox" data-gallery="example-gallery" class="col-sm-4" data-caption="<?=$pic->caption; ?>">
+				<img src="<?=$pic_url; ?>" class="img-fluid mx-auto d-block rounded-3" alt="<?=$pic->caption; ?>" title="<?=$pic->caption; ?>" 
+					style="width: 15rem; height: 15rem; object-fit: cover;" >
+			</a>
+		<?php } ?>
+	</div>
+<?php } ?>
+
 <?php if(!empty($offerdetails->locationNote)){ ?>
-	<h3 class="">Lage</h3>
+	<h3 class="mt-5">Lage</h3>
 	<div class="row mt-1 mb-3 g-3">
 		<?php if($offerdetails->distanceToPT != 0){ ?>
 			<div class="col-auto text-center">
@@ -673,161 +673,10 @@ if($typestr != ''){
 	<p class="text-justify" style="text-align: justify!important;"><?=str_ireplace(PHP_EOL, '<br />', $offerdetails->locationNote); ?></p>
 <?php } ?>
 
-<h3>Karte</h3>
-<h4 class="mb-3">
-	<i class="fa fa-map text-primary fs-0" aria-hidden="true"></i> 
-	<a href="<?=$gmaplink; ?>" target="_blank" >
-		<?=$offerdetails->street; ?> <?=$offerdetails->houseNumber; ?>, <?=$offerdetails->postcode; ?> <?=$offerdetails->city; ?> 
-		<i class="fa fa-external-link  fs-0" aria-hidden="true"></i>
-	</a>
-</h4>
-<div id="osfmapdiv" style ="width:100%!important; height: 50vh!important; border-radius:1.0rem;"></div>
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<?php include_once 'openstreet-map.php'; ?>
 
-<script>
-	
-var lat = '<?=$offerdetails->lat; ?>';
-var lon = '<?=$offerdetails->lon; ?>';
+<?php include_once 'agent-details.php'; ?>
 
-if(lat != '' && lon != ''){
-	var mapOptions = {
-		center: [lat, lon],
-		zoom: 17
-	}
-	var map = new L.map('osfmapdiv', mapOptions);
-	var marker = L.marker([lat, lon]).addTo(map);
-	var layer = new L.TileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
-	map.addLayer(layer);
-}
+<?php include_once 'inquiry-form.php'; ?>
 
-</script>
-
-<div class="row mt-5 text-center">
-	<div class="col-md-6">
-		<?php if($agent->persphoto != ''){ ?>
-			<img class="img-fluid" src="<?=$agents_img_url; ?><?=$agent->id; ?>/<?=$agent->persphoto; ?>" style="max-height: 400px; width: 100%; object-fit: contain;" />
-		<?php }else if($agent->logo != ''){ ?>
-			<img class="img-fluid" src="<?=$agents_img_url; ?><?=$agent->id; ?>/<?=$agent->logo; ?>" style="max-height: 200px; width: 100%; object-fit: contain;" />
-		<?php } ?>
-		<h4 class="mb-1 mt-2"><?=$agent->gender==1?'Herr':''; ?><?=$agent->gender==2?'Frau':''; ?> <?=$agent->firstname; ?> <?=$agent->lastname; ?></h4>
-	</div>
-
-	<div class="col-md-6">
-
-		<h3 class="fw-bold mb-3"><?=$agent->firma; ?></h3>
-
-		<table class="table mt-1 w-100" style="width: 100%!important;">
-		
-			<thead>
-				<tr>
-					<th class="w-50" style="width: 50%;"></th>
-					<th class="w-50" style="width: 50%"></th>
-				</tr>
-			</thead>
-
-			<tbody>
-				<?php if($agent->web!=''){ ?>
-					<tr>
-						<th scope="row" style="text-align: left;">Webseite</th>
-						<td><a class="" href="<?=$agent->web; ?>" target="_blank"><?=$agent->web; ?></a></td>
-					</tr>
-				<?php } ?>
-
-				<?php if($agent->tel!=''){ ?>
-					<tr>
-						<th scope="row" style="text-align: left;">Telefonnummer</th>
-						<td><a class="" href="tel:<?=$agent->tel; ?>"><?=$agent->tel; ?></a></td>
-					</tr>
-				<?php } ?>
-
-				<?php if($agent->handy!=''){ ?>
-					<tr>
-						<th scope="row" style="text-align: left;">Mobilnummer</th>
-						<td><a class="" href="tel:<?=$agent->handy; ?>"><?=$agent->handy; ?></a></td>
-					</tr>
-				<?php } ?>
-
-				<tr>
-					<th scope="row" style="text-align: left;">E-Mail-Adresse</th>
-					<td><a class="" href="mailto:<?=$agent->email; ?>"><?=$agent->email; ?></a></td>
-				</tr>
-
-				<tr>
-					<th scope="row" style="text-align: left;">Adresse</th>
-					<td><a class="" href="<?=$gmaplink_agent; ?>" target="_blank"><?=$agent->street; ?>, <?=$agent->zip; ?> <?=$agent->city; ?></a></td>
-				</tr>
-			</tbody>
-
-		</table>
-		
-	</div>
-</div>
-
-
-
-<div class="card">
-<div class="card-body">
-	<h4 class="mt-6">Kontaktanfrage</h4>
-
-	<?php if($inquiry_success){ ?>
-		<div class="alert alert-success" role="alert">
-			<strong>Vielen Dank!</strong> Ihre Anfrage wurde erfolgreich versendet.
-		</div>
-	<?php }else{ ?>
-
-	<form class="" action="<?=$pagePath; ?>" method="post" id="ew_inquiry_form" >
-		<input type="hidden" id="ew_inquiry_offer_id" name="ew_inquiry_offer_id" value="<?=$offer->id; ?>" />
-	
-		<div class="row">
-			<div class="col-md-2">
-				<label class="form-label" for="ew_inquiry_gender">Anrede <span class="text-danger">*</span></label>
-				<select class="form-select" id="ew_inquiry_gender" name="ew_inquiry_gender" required >
-					<option value="" selected="" disabled="" >wählen</option>
-					<option value="1" >Herr</option>
-					<option value="2" >Frau </option>
-				</select>
-			</div>
-
-			<div class="col-md-5">
-				<label class="form-label" for="ew_inquiry_firstname">Vorname <span class="text-danger">*</span></label>
-				<input class="form-control" id="ew_inquiry_firstname" name="ew_inquiry_firstname" type="text" placeholder="Vorname" value="" pattern="[a-zA-Z0-9 ]+" required />
-			</div>
-
-			<div class="col-md-5">
-				<label class="form-label" for="ew_inquiry_lastname">Nachname <span class="text-danger">*</span></label>
-				<input class="form-control" id="ew_inquiry_lastname" name="ew_inquiry_lastname" type="text" placeholder="Nachname" value="" pattern="[a-zA-Z0-9 ]+" required />
-			</div>
-
-			<div class="col-md-6 mt-3">
-				<label class="form-label" for="ew_inquiry_email">E-Mail <span class="text-danger">*</span></label>
-				<input class="form-control" id="ew_inquiry_email" name="ew_inquiry_email" type="text" placeholder="E-Mail" value="" required />
-			</div>
-
-			<div class="col-md-6 mt-3">
-				<label class="form-label" for="ew_inquiry_tel">Telefonnummer <span class="text-danger">*</span></label>
-				<input class="form-control" id="ew_inquiry_tel" name="ew_inquiry_tel" type="tel" placeholder="Telefonnummer" value="" required />
-			</div>
-
-			<div class="col-md-12 mt-3">
-				<label class="form-label" for="ew_inquiry_message">Nachricht</label>
-				<textarea class="form-control" id="ew_inquiry_message" name="ew_inquiry_message" rows="3" placeholder="" > </textarea>
-			</div>
-
-			<div class="col-md-10 mt-3">
-				<div class="form-check">
-					<input class="form-check-input" id="ew_inquiry_chk" name="ew_inquiry_chk" type="checkbox" value="1" required/>
-					<label class="form-check-label" for="ew_inquiry_chk">Ich bestätige, dass ich Expose anfordern möchte <span class="text-danger">*</span></label>
-				</div>
-			</div>
-
-			<div class="col-md-2 text-end mt-3">
-				<button class="btn btn-primary" type="submit" form="ew_inquiry_form" >Speichern</button>
-			</div>
-		</div>
-	</form>
-
-	<?php } ?>
-
-</div>
-</div>
+<script src="https://cdn.jsdelivr.net/npm/bs5-lightbox@1.8.3/dist/index.bundle.min.js"></script>

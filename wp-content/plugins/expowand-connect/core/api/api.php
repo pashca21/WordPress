@@ -2,6 +2,7 @@
 
 class API {	 
 
+    // sync all Estates
     protected function sync_db(){
         // check if need to sync database
 		$lastChangeDateEW = API::get_last_change_date();
@@ -52,6 +53,29 @@ class API {
 		}
 		$this->set_general_cache('lastChangeDateWP', date('Y-m-d H:i:s'));
     }
+
+	protected function sync_agent($agent_id){
+		$upload_dir = wp_upload_dir();
+		$upload_path = $upload_dir['basedir'];
+		$agent = API::get_agent_data($agent_id);
+		$this->set_entity_cache('agent_'.$agent->id, 'agent', $agent);
+		if(is_dir($upload_path . '/agents/' . $agent->id)){
+			$files = glob($upload_path . '/agents/' . $agent->id . '/*'); // get all file names
+			foreach($files as $file){ // iterate files
+				if(is_file($file))
+					unlink($file); // delete file
+			}
+		}else{
+			mkdir($upload_path . '/agents/' . $agent->id, 0777, true);
+		}
+		$perphoto_url = EW_BASE_URL.'/expose/persphoto/'.$agent->id;
+		$perphoto_path = $upload_path . '/agents/' . $agent->id . '/' . $agent->persphoto;
+		file_put_contents($perphoto_path, file_get_contents($perphoto_url));
+		$logo_url = EW_BASE_URL.'/expose/logo/'.$agent->id;
+		$logo_path = $upload_path . '/agents/' . $agent->id . '/' . $agent->logo;
+		file_put_contents($logo_path, file_get_contents($logo_url));
+		return $agent;
+	}
 
     protected function get_agent_data($agent_id) {
 		$token  = API::get_token();

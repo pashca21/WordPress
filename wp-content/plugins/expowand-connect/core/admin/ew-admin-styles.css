@@ -5,7 +5,7 @@
 }
 
 
-.ff-setting-module {
+.ew-setting-module {
 	display:block;
 	border:1px solid #eee;
 	background:#fff;
@@ -13,14 +13,14 @@
 }
 
 
-.ff-setting-close > div,
-.ff-setting-module-box{
+.ew-setting-close > div,
+.ew-setting-module-box{
 	display:flex;
 	justify-content:space-between;
 }
 
 
-.ff-setting-modules {
+.ew-setting-modules {
 	border-left:2px solid #e0e0e0;
 	padding: 0 40px;
 	margin-left:40px;
@@ -28,52 +28,52 @@
 	position:relative;
 }
 
-.ff-settings-opener {
+.ew-settings-opener {
 	cursor:pointer;
 	border-bottom: 1px solid #eee;
 }
 
-.ff-setting-module-status {
+.ew-setting-module-status {
 	font-weight: 600;
     font-size: 1.2em;	
 }
 
-.ff-setting-module-box-content > div > div {
+.ew-setting-module-box-content > div > div {
 	position:relative;
 	min-width:300px;
 }
 
-.ff-setting-module-box-content .ff-setting-module-content > div {
+.ew-setting-module-box-content .ew-setting-module-content > div {
 	box-sizing:border-box;
 	padding:20px;
 }
 
 
 
-.ff-setting-module-box-content > div > div:last-child,
-.ff-setting-module-box > div  {
+.ew-setting-module-box-content > div > div:last-child,
+.ew-setting-module-box > div  {
 	padding:20px;
 	position:relative;
 	width:300px;
 }
 
-.ff-setting-close {
+.ew-setting-close {
 	display:none;
 }
 
 
 
-.ff-setting-module-title {
+.ew-setting-module-title {
 	font-size:1.1rem;
 	font-weight:600;
 }
 
-.ff-setting-module-status,
-.ff-setting-module-faq {
+.ew-setting-module-status,
+.ew-setting-module-faq {
 	border-left:1px solid #eee;
 }
 
-.ff-setting-category {
+.ew-setting-category {
 	height: 40px;
     background: #f1f1f1;
     font-size: 1.6rem;
@@ -83,7 +83,7 @@
 
 
 
-.ff-setting-module-point {
+.ew-setting-module-point {
 	width: 62px;
     height: 60px;
     border: 6px solid #e0e0e0 !important;
@@ -98,7 +98,7 @@
     background: #fff;
 }
 
-.ff-setting-error-point {
+.ew-setting-error-point {
     width: 62px;
     height: 60px;
     border: 6px solid #fde5ba !important;
@@ -114,7 +114,7 @@
     background: #fff;
 }
 
-.ff-possibleIntegration {
+.ew-possibleIntegration {
 	padding:20px;
 	display:flex; 
 	background:#fafbf2;
@@ -122,54 +122,54 @@
 	justify-content:space-between;
 }
 
-.ff-possibleIntegration > div{
+.ew-possibleIntegration > div{
 	min-width: 280px;
 	max-width: 31%;
 
 }
 
-.ff-possibleIntegration code{
+.ew-possibleIntegration code{
 	word-break: break-all;
 }
 
-.ff-setting-active .ff-setting-module-point {
+.ew-setting-active .ew-setting-module-point {
     border: 6px solid #ecb97c !important;
 }
 
-.ff-setting-done .ff-setting-module-point {
+.ew-setting-done .ew-setting-module-point {
     border: 6px solid #c7e9a5 !important;
 }
 
-.ff-Integration{
+.ew-Integration{
 	display:none;
 }
 
-.ff-Integration.ff-setting-done{
+.ew-Integration.ew-setting-done{
 	display:block;
 }
 
-.ff-settings-form {
+.ew-settings-form {
 	width:100%;
 	display:flex;
 	justify-content:space-between;
 	flex-wrap:wrap;
 }
 
-.ff-settings-field {
+.ew-settings-field {
 	margin-bottom:30px;
     min-width: 280px;
 	width:48%;
 }
 
-.ff-settings-field div:nth-child(1) b
+.ew-settings-field div:nth-child(1) b
 {
 	color: #23282d;
     font-size: 1.3em;
     margin: 1em 0
 }
 
-.ff-settings-field div:nth-child(2) select,
-.ff-settings-field div:nth-child(2) input{
+.ew-settings-field div:nth-child(2) select,
+.ew-settings-field div:nth-child(2) input{
 	width:100%;
 	border:2px solid #e0e0e0;
 	padding:10px;
@@ -177,11 +177,11 @@
 	margin:10px 0;
 }
 
-.ff-settings-field div:nth-child(3) {
+.ew-settings-field div:nth-child(3) {
 	color:#666;
 }
 
-.ff-setting-submit {
+.ew-setting-submit {
 	margin: 20px;
     width: calc(100% - 40px);
     padding: 20px;
@@ -190,7 +190,7 @@
     box-sizing: border-box;
 }
 
-.ff-setting-requiert {
+.ew-setting-requiert {
 	color: #e67171;
 	border:1px solid #e67171;
 	padding:2px 5px ;
@@ -199,36 +199,36 @@
 	border-radius:2px;
 }
 
-.ff-setting-field-type-color {
+.ew-setting-field-type-color {
 	justify-content:space-between;
 	display:flex;
 }
 
-.ff-setting-field-type-color input {
+.ew-setting-field-type-color input {
 	padding:10px !important;
 }
 
-.ff-setting-module  input:invalid {
+.ew-setting-module  input:invalid {
     border-color: red;
 }
 
-.ff-setting-module  input:valid{
+.ew-setting-module  input:valid{
     border-color: green;
 }
 
-.ff-setting-disabled .ff-setting-module{
+.ew-setting-disabled .ew-setting-module{
 	opacity: .7;
 	color:#888;
 }
 
-.ff-setting-blocked-by {
+.ew-setting-blocked-by {
 	padding: 15px 15px;
     margin-top: 30px;
     background: #fde5ba;
 }
 
 
-.ff-setting-field-type-user {
+.ew-setting-field-type-user {
 	display:flex;
 	flex-wrap: wrap;
 	border:1px solid #eee;
@@ -236,7 +236,7 @@
 	margin:20px 0;
 }
 
-.ff-teamoverview-user {
+.ew-teamoverview-user {
 	display:flex;
 	width: 100%;
 	border-bottom:1px solid #eee;
@@ -244,95 +244,29 @@
     justify-content: space-between;
 }
 
-.ff-teamoverview-user span{
+.ew-teamoverview-user span{
 	margin-right:5px;
 	cursor:pointer;
 }
 
-.ff-teamoverview-user-hide {
+.ew-teamoverview-user-hide {
 	cursor:pointer;
 }
 
-.ff-true .ff-teamoverview-user-hide > div:last-child{
+.ew-true .ew-teamoverview-user-hide > div:last-child{
 	display:none;
 }
 
-.ff-false .ff-teamoverview-user-hide > div:first-child{
+.ew-false .ew-teamoverview-user-hide > div:first-child{
 	display:none;
 }
 
-.ff-false {
+.ew-false {
 	opacity:.5;
 }
 
-/* draggable list  */
-.ff-setting-field-type-user {
-  /* width: 425px;
-  padding: 25px;
-	min-height: 550px;
-  background: #fff;
-	border: 1px solid #fafafa;
-  padding: 30px 25px 20px; */
-}
 
-#user-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-	width: 425px;
-  padding: 25px;
-  background: #fff;
-  padding: 30px 25px 20px;
-}
-
-.user-item {
-  background-color: #f9f9f9;
-  padding: 10px;
-  cursor: move;
-	width: 100%;
-	display: flex;
-	justify-content: space-between;
-	margin-bottom: 0 !important;
-}
-
-#user-list .user-item .ff-teamoverview-user {
-  list-style: none;
-  display: flex;
-  cursor: move;
-  background: #fff;
-  align-items: center;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  justify-content: space-between;
-}
-
-.ff-teamoverview-user .details {
-  display: flex;
-  align-items: center;
-}
-.ff-teamoverview-user .details img {
-  height: 43px;
-  width: 43px;
-  pointer-events: none;
-  margin-right: 12px;
-  object-fit: cover;
-  border-radius: 50%;
-}
-.ff-teamoverview-user .details span {
-  font-size: 1.13rem;
-}
-.ff-teamoverview-user i {
-  color: #474747;
-  font-size: 1.13rem;
-}
-
-
-
-
-
-
-
-.ff-entitlement-registration-open {
+.ew-entitlement-registration-open {
 	border: 2px solid #f4aca7;
     padding: 16px;
     border-radius: 4px;
@@ -341,13 +275,13 @@
 	justify-content:space-around;
 	text-align:center;
 }
-.ff-entitlement-registration-open span{
+.ew-entitlement-registration-open span{
 	color: #f4aca7;
 	font-size:16px;
 
 }
 
-.ff-entitlement-registration-active {
+.ew-entitlement-registration-active {
 	border: 2px solid #c7e9a5;
     padding: 16px;
 	margin: 10px 0;
@@ -356,7 +290,7 @@
 	justify-content:space-around;
 	
 }
-.ff-entitlement-registration-active span{
+.ew-entitlement-registration-active span{
 	font-size:16px;
 }
 
@@ -364,11 +298,11 @@
 
 
 @media screen and (max-width: 900px) {
-	.ff-setting-close > div
+	.ew-setting-close > div
 	{
 		flex-direction:column !important;	
 	}
-	.ff-setting-close .ff-setting-module-faq {
+	.ew-setting-close .ew-setting-module-faq {
 		border-left:0;
 		border-top:1px solid #eee;
 		width:auto !important;
@@ -376,10 +310,10 @@
 
 } 
 
-input[name="ff-gg-api-maps"]:disabled {
+input[name="ew-gg-api-maps"]:disabled {
 	border: 2px solid #f4f4f4 !important;
 }
 
-input[name="ff-gg-api-maps"] {
+input[name="ew-gg-api-maps"] {
 	border: 2px solid #e0e0e0;
 }
